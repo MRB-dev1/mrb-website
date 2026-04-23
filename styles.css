@@ -27,6 +27,7 @@
 }
 
 html {
+  color-scheme: only light;
   scroll-behavior: smooth;
   width: 100%;
   max-width: 100%;
@@ -1054,6 +1055,7 @@ body:not(.home-page) .section {
   border-top: 1px solid var(--line);
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   overflow: hidden;
+  color-scheme: only light;
   background:
     radial-gradient(ellipse at 78% 72%, rgba(255, 255, 255, 0.82), transparent 38%),
     radial-gradient(ellipse at 24% 86%, rgba(255, 255, 255, 0.48), transparent 32%),
@@ -1103,6 +1105,8 @@ body:not(.home-page) .section {
 
 .feature-row.light-row {
   color: #080808;
+  color-scheme: only light;
+  forced-color-adjust: none;
 }
 
 .feature-row.light-row .eyebrow,
@@ -1140,7 +1144,10 @@ body:not(.home-page) .section {
   position: relative;
   padding: 150px 0;
   color: #090909;
+  color-scheme: only light;
+  forced-color-adjust: none;
   overflow: hidden;
+  background-color: #f7f7f2;
   background:
     radial-gradient(ellipse at 76% 14%, rgba(255, 255, 255, 0.95), transparent 34%),
     radial-gradient(ellipse at 14% 82%, rgba(255, 255, 255, 0.64), transparent 30%),
@@ -2642,8 +2649,31 @@ body:not(.home-page) .section {
     max-width: 100%;
   }
 
+  .site-header {
+    flex-wrap: wrap;
+    gap: 12px 18px;
+    padding: 14px 18px;
+  }
+
   .nav {
+    order: 3;
+    display: flex;
+    width: 100%;
+    gap: 18px;
+    padding: 10px 2px 2px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .nav::-webkit-scrollbar {
     display: none;
+  }
+
+  .nav a {
+    flex: 0 0 auto;
   }
 
   h1,
@@ -2679,7 +2709,7 @@ body:not(.home-page) .section {
 
   .hero-stage {
     gap: 44px;
-    padding-top: 96px;
+    padding-top: 148px;
   }
 
   .hero-headline {
@@ -2720,10 +2750,11 @@ body:not(.home-page) .section {
   }
 
   .tone-split-section {
+    background-color: #f7f7f2;
     background:
-      radial-gradient(ellipse at 76% 66%, rgba(255, 255, 255, 0.86), transparent 36%),
-      radial-gradient(ellipse at 24% 86%, rgba(255, 255, 255, 0.5), transparent 30%),
-      linear-gradient(180deg, #000 0%, #050505 28%, #30302e 46%, #f0f0eb 72%, #f7f7f2 100%);
+      radial-gradient(ellipse at 76% 66%, #ffffff 0%, rgba(255, 255, 255, 0.92) 18%, transparent 36%),
+      radial-gradient(ellipse at 24% 86%, rgba(255, 255, 255, 0.82), transparent 30%),
+      linear-gradient(180deg, #000 0%, #050505 24%, #4a4a46 42%, #f5f5ef 68%, #fbfbf6 100%);
   }
 
   .feature-row {
@@ -2822,7 +2853,10 @@ body:not(.home-page) .section {
   }
 
   .site-header {
-    padding: 14px 16px;
+    top: 8px;
+    width: calc(100% - 20px);
+    padding: 12px 12px 10px;
+    border-radius: 18px;
   }
 
   .brand {
@@ -2839,8 +2873,13 @@ body:not(.home-page) .section {
 
   .nav-cta {
     min-height: 46px;
-    padding: 0 17px;
+    padding: 0 16px;
     font-size: 13px;
+  }
+
+  .nav {
+    gap: 14px;
+    font-size: 12px;
   }
 
   .floating-book {
@@ -2854,7 +2893,7 @@ body:not(.home-page) .section {
   .hero-stage {
     grid-template-columns: minmax(0, 1fr);
     gap: 34px;
-    padding: 76px 0 64px;
+    padding: 154px 0 64px;
   }
 
   .hero-headline {
@@ -2925,10 +2964,11 @@ body:not(.home-page) .section {
 
   .white-fade-section {
     padding: 96px 0;
+    background-color: #f7f7f2;
     background:
-      radial-gradient(ellipse at 84% 10%, rgba(255, 255, 255, 0.96), transparent 28%),
-      radial-gradient(ellipse at 12% 76%, rgba(255, 255, 255, 0.62), transparent 30%),
-      linear-gradient(180deg, #efefea 0%, #fbfbf6 46%, #ecece7 100%);
+      radial-gradient(ellipse at 84% 10%, #ffffff 0%, rgba(255, 255, 255, 0.96) 18%, transparent 30%),
+      radial-gradient(ellipse at 12% 76%, rgba(255, 255, 255, 0.9), transparent 32%),
+      linear-gradient(180deg, #f7f7f2 0%, #ffffff 46%, #f3f3ee 100%);
   }
 
   .white-fade-section::before,

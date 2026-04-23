@@ -4,22 +4,59 @@
   if (viewport) {
     viewport.setAttribute(
       "content",
-      "width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+      "width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, viewport-fit=cover"
     );
   }
 
-  ["gesturestart", "gesturechange", "gestureend"].forEach((eventName) => {
-    document.addEventListener(eventName, (event) => event.preventDefault(), { passive: false });
+  document.querySelectorAll(".nav-cta").forEach((link) => {
+    link.textContent = "Get in contact";
+    link.setAttribute("href", "contact.html");
+    link.removeAttribute("target");
+    link.removeAttribute("rel");
   });
 
+  const stopZoom = (event) => {
+    event.preventDefault();
+  };
+
+  ["gesturestart", "gesturechange", "gestureend"].forEach((eventName) => {
+    document.addEventListener(eventName, stopZoom, { passive: false, capture: true });
+    window.addEventListener(eventName, stopZoom, { passive: false, capture: true });
+  });
+
+  ["touchstart", "touchmove"].forEach((eventName) => {
+    document.addEventListener(
+      eventName,
+      (event) => {
+        if (event.touches && event.touches.length > 1) {
+          event.preventDefault();
+        }
+      },
+      { passive: false, capture: true }
+    );
+  });
+
+  let lastTouchEnd = 0;
   document.addEventListener(
+    "touchend",
+    (event) => {
+      const now = Date.now();
+      if (now - lastTouchEnd <= 350) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    },
+    { passive: false, capture: true }
+  );
+
+  window.addEventListener(
     "touchmove",
     (event) => {
       if (event.touches && event.touches.length > 1) {
         event.preventDefault();
       }
     },
-    { passive: false }
+    { passive: false, capture: true }
   );
 
   const progress = document.querySelector(".scroll-progress");
