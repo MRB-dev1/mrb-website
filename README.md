@@ -49,7 +49,7 @@ If `http://localhost:3000/contact.html` does not load, the server is not running
 Required/optional environment variables:
 
 ```txt
-CONTACT_TO_EMAIL=hello@mrb.ink
+CONTACT_TO_EMAIL=Robin@mrb.ink
 CONTACT_FROM_EMAIL=MRB <website@mrb.ink>
 RESEND_API_KEY=
 DISCORD_WEBHOOK_URL=
@@ -134,7 +134,7 @@ Set these environment variables in Cloudflare Pages project settings:
 ```txt
 DISCORD_WEBHOOK_URL=<private website-inquiries webhook>
 DISCORD_MENTION_ROLE_ID=1496844933431037952
-CONTACT_TO_EMAIL=hello@mrb.ink
+CONTACT_TO_EMAIL=Robin@mrb.ink
 CONTACT_FROM_EMAIL=MRB <website@mrb.ink>
 RESEND_API_KEY=<private Resend API key, when email is enabled>
 ```

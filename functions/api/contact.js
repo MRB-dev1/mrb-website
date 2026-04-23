@@ -45,7 +45,7 @@ const postResendEmail = async (apiKey, payload) => {
 const sendEmail = async (fields, env) => {
   const apiKey = env.RESEND_API_KEY;
   const from = env.CONTACT_FROM_EMAIL;
-  const to = env.CONTACT_TO_EMAIL || "hello@mrb.ink";
+  const to = env.CONTACT_TO_EMAIL || "Robin@mrb.ink";
 
   if (!apiKey || !from) {
     throw new Error("Email provider not configured");
@@ -75,7 +75,7 @@ const sendEmail = async (fields, env) => {
         "Summary:",
         lines.join("\n"),
         "",
-        "If you need to add anything, reply to hello@mrb.ink.",
+        "If you need to add anything, reply to Robin@mrb.ink.",
         "",
         "MRB",
       ].join("\n"),
