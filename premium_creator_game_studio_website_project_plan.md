@@ -42,6 +42,7 @@ The current starter has moved beyond a pure static mockup. It now includes:
 - A Cloudflare Pages Function in `functions/api/contact.js` for deployment on Cloudflare Pages.
 - A Cloudflare static build script in `scripts/build-cloudflare.js` that outputs to `dist-cloudflare`.
 - A `wrangler.toml` file pointing Wrangler at `dist-cloudflare`.
+- A Cloudflare `_headers` file for HTTPS/security headers and static asset caching.
 - Optional inquiry delivery to email through Resend.
 - Optional inquiry delivery to Discord through `DISCORD_WEBHOOK_URL`.
 - A confirmation modal with submitted-info summary and confetti after successful inquiry submission.
@@ -124,6 +125,24 @@ Custom domain: mrb.ink
 ```
 
 Cloudflare deployment should preserve the full current frontend quality. Do not remove animations, visual assets, product detail pages, confirmation modal behavior, Discord posting, or form validation to make deployment easier.
+
+Cloudflare domain/security settings:
+
+```txt
+SSL/TLS mode: Full or Full (strict)
+Always Use HTTPS: On
+Automatic HTTPS Rewrites: On
+```
+
+Cloudflare runtime variables required for the live backend:
+
+```txt
+DISCORD_WEBHOOK_URL
+DISCORD_MENTION_ROLE_ID=1496844933431037952
+CONTACT_TO_EMAIL=Robin@mrb.ink
+CONTACT_FROM_EMAIL=MRB <website@mrb.ink>
+RESEND_API_KEY
+```
 
 Secrets must stay in backend environment variables:
 

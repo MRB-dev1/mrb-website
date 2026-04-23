@@ -19,7 +19,7 @@ fs.readdirSync(root)
   .filter((name) => name.endsWith(".html"))
   .forEach(copyFile);
 
-["styles.css", "script.js"].forEach(copyFile);
+["styles.css", "script.js", "_headers"].filter((name) => fs.existsSync(path.join(root, name))).forEach(copyFile);
 ["assets"].forEach(copyDir);
 
 console.log(`Cloudflare assets built in ${outDir}`);

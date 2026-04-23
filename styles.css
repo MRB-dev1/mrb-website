@@ -90,6 +90,7 @@ a {
 img {
   display: block;
   max-width: 100%;
+  height: auto;
 }
 
 p {
@@ -187,6 +188,7 @@ button {
 }
 
 .brand img {
+  aspect-ratio: 16 / 9;
   width: 138px;
   height: auto;
 }
@@ -370,6 +372,7 @@ button {
 }
 
 .hero-mark img {
+  aspect-ratio: 16 / 9;
   position: relative;
   z-index: 1;
   opacity: 0.2;
@@ -826,9 +829,16 @@ button {
   padding: 128px 0;
 }
 
+.hero-metrics,
+.footer,
 body:not(.home-page) .section {
   content-visibility: auto;
   contain-intrinsic-size: auto 760px;
+}
+
+.home-page .section:not(.storyline-section):not(.tone-split-section):not(.white-fade-section):not(.final-stage) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 820px;
 }
 
 .section.tight {

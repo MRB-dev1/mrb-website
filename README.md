@@ -23,6 +23,7 @@ Static HTML/CSS starter for a premium creator-focused game development studio, n
 - `api/contact.js` - serverless contact endpoint for deployment hosts such as Vercel
 - `functions/api/contact.js` - Cloudflare Pages Function contact endpoint
 - `scripts/build-cloudflare.js` - Cloudflare Pages static build script
+- `_headers` - Cloudflare Pages HTTPS/security and cache headers
 - `wrangler.toml` - Cloudflare Pages deploy configuration
 - `vercel.json` - rewrite for `/api/contact`
 - `assets/mrb-logo-white.png` - MRB logo used across the site
@@ -139,6 +140,26 @@ RESEND_API_KEY=<private Resend API key, when email is enabled>
 ```
 
 `DISCORD_WEBHOOK_URL` is enough for Discord inquiry delivery. Email receipts need `RESEND_API_KEY` and a verified sender/domain in Resend.
+
+Recommended runtime variable values:
+
+```txt
+DISCORD_MENTION_ROLE_ID=1496844933431037952
+CONTACT_TO_EMAIL=Robin@mrb.ink
+CONTACT_FROM_EMAIL=MRB <website@mrb.ink>
+```
+
+`CONTACT_FROM_EMAIL` must use a sender/domain verified inside Resend before confirmation emails can deliver.
+
+HTTPS and security:
+
+```txt
+Cloudflare SSL/TLS mode: Full or Full (strict)
+Always Use HTTPS: On
+Automatic HTTPS Rewrites: On
+```
+
+The `_headers` file adds HSTS, upgrades insecure requests, blocks framing, sets strict referrer behavior, and caches static assets safely.
 
 Deployment options:
 
