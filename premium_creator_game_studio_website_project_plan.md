@@ -116,6 +116,8 @@ Recommended Cloudflare Pages settings:
 ```txt
 Framework preset: None
 Build command: npm run build:cloudflare
+Deploy command: leave empty
+Non-production branch deploy command: leave empty
 Build output directory: dist-cloudflare
 Functions directory: functions
 Custom domain: mrb.ink

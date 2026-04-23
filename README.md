@@ -117,6 +117,8 @@ Recommended Cloudflare setup:
 ```txt
 Framework preset: None
 Build command: npm run build:cloudflare
+Deploy command: leave empty
+Non-production branch deploy command: leave empty
 Build output directory: dist-cloudflare
 Functions directory: functions
 Production branch: main
@@ -158,6 +160,8 @@ $env:PATH='C:\Program Files\nodejs;'+$env:PATH
 ```
 
 Use Git integration or Wrangler for the production version because the site needs the `functions/api/contact.js` backend for form submissions. A simple static drag-and-drop upload is fine for previews, but it will not be the complete form system.
+
+Cloudflare Git integration note: do not put `npx wrangler deploy` in the Pages deploy command field. Pages automatically deploys the build output after the build command succeeds.
 
 ## Shop and checkout
 
