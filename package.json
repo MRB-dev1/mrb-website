@@ -1,0 +1,13 @@
+{
+  "name": "mrb-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "build:cloudflare": "node scripts/build-cloudflare.js",
+    "deploy:cloudflare": "npm run build:cloudflare && npx wrangler pages deploy dist-cloudflare"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

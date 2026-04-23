@@ -1,0 +1,8 @@
+.env
+.dev.vars
+data/
+node_modules/
+dist-cloudflare/
+server-*.log
+*.msi
+.wrangler/
