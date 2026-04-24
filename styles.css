@@ -668,7 +668,7 @@ button {
 
 .hero-proof-pills {
   display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.18fr) minmax(0, 1.12fr);
   gap: 12px;
   max-width: 760px;
   margin-top: 24px;
@@ -676,6 +676,7 @@ button {
 
 .proof-pill {
   display: grid;
+  align-content: start;
   gap: 5px;
   min-height: 82px;
   padding: 14px 16px;
@@ -697,8 +698,13 @@ button {
 }
 
 .proof-pill strong {
-  font-size: 15px;
-  line-height: 1.35;
+  color: var(--text);
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.hero-proof-pills + .hero-actions {
+  margin-top: 28px;
 }
 
 .hero-actions,
@@ -1501,6 +1507,7 @@ button {
 }
 
 .launch-dossier {
+  min-height: auto;
   align-content: start;
   gap: 18px;
 }
@@ -1522,7 +1529,7 @@ button {
   position: relative;
   z-index: 1;
   display: grid;
-  gap: 12px;
+  gap: 10px;
 }
 
 .dossier-grid article {
@@ -1606,6 +1613,7 @@ button {
 }
 
 .dossier-media {
+  min-height: 320px;
   align-content: start;
 }
 
@@ -3279,7 +3287,7 @@ button {
   }
 
   .hero-proof-pills {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
   }
 
   .hero-metrics.trust-strip {
@@ -3288,6 +3296,16 @@ button {
 
   .launch-dossier {
     min-height: auto;
+  }
+
+  .launch-dossier .cinema-title,
+  .dossier-media .media-label h3 {
+    font-size: 32px;
+  }
+
+  .dossier-lead,
+  .dossier-hook {
+    font-size: 16px;
   }
 
   .card,
@@ -3482,6 +3500,16 @@ button {
 
   .dossier-grid article {
     padding: 16px;
+  }
+
+  .launch-dossier .cinema-title,
+  .dossier-media .media-label h3 {
+    font-size: 26px;
+  }
+
+  .dossier-lead,
+  .dossier-hook {
+    font-size: 15px;
   }
 
   .hero-console {

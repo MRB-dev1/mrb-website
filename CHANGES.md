@@ -320,3 +320,28 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 ### Suggested Commit Message
 
 `trust: add flagship launch dossier and hero proof scaffolding`
+
+## Phase 5 - Limited Non-Content Polish
+
+- Kept the remaining project-name and hero-media placeholders fully visible and treated them as intentional.
+- Tightened the changed hero proof section only: the proof-pill grid now gives more width to the longer scope / launch-asset facts on desktop and stacks cleanly on narrower screens.
+- Reduced hierarchy noise in the changed proof areas by shortening the gap before the hero CTAs once the proof pills are present.
+- Tightened the changed dossier surfaces only: the homepage flagship dossier no longer carries unnecessary empty height, the dossier-grid spacing is slightly denser, and the Work dossier media frame is more compact.
+- Added mobile-specific type tuning for the changed dossier titles and supporting proof copy so Home and Work stay readable without changing their substance.
+- Did not alter CTA language, dossier substance, section order, the contact form, or the glowing progress line behavior.
+- Files touched in this phase: `styles.css`, `CHANGES.md`
+- What to verify before later work: the proof pills remain readable on tablet/mobile, the homepage dossier title and Work dossier title do not overpower their sections on phones, and the two remaining real-content placeholders still stand out clearly.
+
+### Phase 5 Verification
+
+- `npm run build:cloudflare` passed after the limited proof-section polish.
+- No JS files changed in this phase, so `node --check` was not needed.
+- Home and Work still show the same flagship proof story.
+- Remaining intentional placeholders are unchanged:
+  - flagship project name on Home
+  - flagship project name on Work
+  - hero still/loop asset on Home
+
+### Suggested Commit Message
+
+`style: polish phase 5 proof sections`
