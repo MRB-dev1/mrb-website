@@ -275,3 +275,48 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 ### Suggested Commit Message
 
 `style: apply phase 3 visual hierarchy and CTA system`
+
+## Phase 4 - Trust and Proof
+
+- Added three hero proof pills directly beneath the hero subhead. One uses a real fact (`UEFN / Fortnite`), and two are intentionally visible placeholders because the audit requires real proof rather than invented claims.
+- Converted the existing post-hero metrics strip into a slim homepage trust strip using real studio facts already present in the repo and prior user instructions: location, response time, founder contact, and specialism.
+- Added a visible hero-media placeholder inside the existing hero console so the homepage now clearly asks for a real launch still or lightweight loop instead of pretending the abstract console is final proof.
+- Replaced the old meta homepage proof block with a real flagship launch dossier structure using the provided hook, build scope, launch assets, and operational proof line.
+- Rewrote the featured Work case with the same concrete flagship proof so the Work page now shows one shipped-style dossier instead of generic capability language.
+- Replaced the remaining hero proof-pill placeholders for scope and launch assets using the provided real launch facts.
+- Kept the existing hero structure, CTA placement, and animation system intact; this was a content/proof pass within the current skeleton, not a redesign.
+- Did not touch the contact form.
+- Files touched in this phase: `index.html`, `work.html`, `styles.css`, `CHANGES.md`
+- Assumptions made: known factual trust items from the live site brief (`Stockholm, Sweden`, `5h-48h`, `Robin@mrb.ink`, `UEFN since launch`) are safe to surface without additional approval.
+- Pending human input: the flagship project name is still missing, so it is rendered as a visible placeholder rather than guessed copy.
+- Pending content: no real hero still or lightweight loop asset exists in the repo yet, so the hero-media placeholder remains visible.
+- What to verify before the next phase: hero proof pills stay readable on mobile, the trust strip feels compact rather than salesy, and the hero placeholder is obviously temporary but still visually intentional.
+
+### Phase 4 Audit Mapping
+
+| Audit item | Task ID | Status | Notes |
+| --- | --- | --- | --- |
+| Add hero proof pills beneath the subhead | 4.1 | completed | Added three pills in the hero; unresolved proof facts are rendered as visible placeholders rather than invented proof. |
+| Add a slim trust strip with location, response time, founder contact, and specialism | 4.2 | completed | Reused the existing post-hero metrics strip so the homepage skeleton and order stay intact. |
+| Add a hero visual placeholder for a real launch still/loop | 4.3 | completed | Added a visible placeholder inside the existing hero console with TODO note in source. |
+| Add one flagship launch dossier block | 4.4 | completed | Homepage flagship dossier now uses the provided hook/build/assets/proof copy; project name remains a visible placeholder pending final content. |
+| Rewrite one featured Work page case with concrete deliverables and result line | 4.5 | completed | Work page featured case now uses the same concrete flagship proof set instead of generic placeholder proof language. |
+| Add optional secondary social proof only if the audit explicitly recommends it | 4.6 | blocked: HUMAN INPUT REQUIRED | Optional better-version work; do not start without approval. |
+
+### Phase 4 Placeholders
+
+| Placeholder | File path | Missing content needed |
+| --- | --- | --- |
+| `PLACEHOLDER: add real content` | `index.html` | Final flagship project name for the homepage dossier. |
+| `PLACEHOLDER: add real content` | `work.html` | Final flagship project name for the Work page dossier and featured card. |
+| `PLACEHOLDER: add launch still or lightweight loop` | `index.html` | Real hero media asset: strongest launch still or silent 6-8 second loop. |
+
+### Phase 4 Verification
+
+- `npm run build:cloudflare` passed after the hero-proof and trust-strip updates and again after the flagship dossier / Work-page case rewrite.
+- No JS files changed in this phase, so `node --check` was not needed.
+- Final check for this phase should also confirm the homepage dossier and Work dossier use the same flagship proof set and anchors still land on the featured case.
+
+### Suggested Commit Message
+
+`trust: add flagship launch dossier and hero proof scaffolding`
