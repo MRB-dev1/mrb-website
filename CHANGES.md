@@ -194,3 +194,46 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 ### Suggested Commit Message
 
 `style: wire approved phase 1 tokens`
+
+## Phase 2 - Copy + CTA Unification
+
+- Built the copy replacement matrix before editing live page copy.
+- Applied only the audit's exact homepage rewrites that do not depend on missing proof content.
+- Unified the visible primary CTA label to `Book a discovery call` across Home, Work, Services, About, and the header CTA on Contact.
+- Unified the visible secondary CTA label to `See selected work` where the route supports it cleanly.
+- Did not touch the contact form fields, behavior, or form submit button.
+- Left the contact-form secondary link text (`Book a call`) unchanged intentionally because the contact form is locked and out of scope for this pass.
+- Did not rewrite the homepage hero yet because the audit couples that rewrite to a real proof artefact.
+- Did not rewrite the `Selected direction` section yet because the audit couples that slot to a real flagship launch dossier.
+- Did not rewrite Work / Services / About page intros because the audit diagnoses them but does not provide verbatim replacements.
+- Did not trim the homepage FAQ yet because the audit does not specify the exact two retained questions.
+- Files touched in this phase: `CHANGES.md`, `index.html`, `work.html`, `services.html`, `about.html`, `contact.html`
+
+### Copy Replacement Matrix
+
+| Page | Section | Current copy in repo | Exact replacement from audit | File path | Status |
+| --- | --- | --- | --- | --- | --- |
+| Home | Hero headline | `Game worlds built for the moment creators go live.` | `Most creator games die in the explanation.` | `index.html` | blocked: CONTENT REQUIRED |
+| Home | Hero subhead | `MRB designs polished playable experiences, launch systems, and creator-ready moments for audiences that need to understand the hook fast.` | `MRB builds the kind that land on frame one: clear hook, good footage, clean handoff, proper launch support.` | `index.html` | blocked: CONTENT REQUIRED |
+| Home | Hero primary CTA | `Book a creator call` | `Book a discovery call` | `index.html` | completed |
+| Home | Hero secondary CTA | `View selected work` | `See selected work` | `index.html` | completed |
+| Home | `What MRB builds` heading | `Interactive worlds shaped around content, not just mechanics.` | `Games for creators have two jobs: they have to play well, and they have to read well on camera.` | `index.html` | completed |
+| Home | `What MRB builds` supporting copy | `The build has to feel good in-game, but it also has to work on camera: fast to understand, easy to frame, and strong enough to become a launch moment.` | `MRB builds around the thing viewers notice first - the hook, the loop, the reveal, the reaction - then makes sure the systems, UI and launch materials back it up.` | `index.html` | completed |
+| Home | `Selected direction` section | `Lead with one strong world, then let the work prove it.` / `A premium studio homepage should feel edited...` | `Featured launch` / `One project. One hook. One proof trail. Show the world, what MRB built, what shipped with it, and what happened next. If the flagship case is strong enough, it will sell the services and the shop without explaining either to death.` | `index.html` | blocked: CONTENT REQUIRED |
+| Home | `Creator systems` heading | `The experience should be built to survive the launch.` | `A creator launch is not finished when the build works.` | `index.html` | completed |
+| Home | `Creator systems` supporting copy | `MRB plans gameplay, UI, reward states, creator notes, update paths, and support expectations so the release does not feel improvised.` | `It is finished when the creator knows what to show, what to say, what files they have, and what happens after day one. MRB plans the gameplay, the interface states, the reward logic and the launch pack as one job.` | `index.html` | completed |
+| Home | Production-path heading | `A production path with visible momentum.` | `From brief to first playable, the path stays visible.` | `index.html` | completed |
+| Home | Production-path supporting copy | `The line follows the project as the concept becomes a playable, creator-ready launch.` | `Audience fit, content angle, prototype, launch handoff.` | `index.html` | completed |
+| Home | `Separate paths` heading | `Premium studio first. Shop and services where they belong.` | `Custom work is for launches and bespoke systems.` | `index.html` | completed |
+| Home | `Separate paths` supporting copy | `The homepage builds trust. Services handle custom work. The shop sells production-ready resources without taking over the brand.` | `The shop is for teams who only need the reusable parts. Start with services if the world is unique. Start with the shop if the problem is narrower.` | `index.html` | completed |
+| Home | Homepage FAQ intro | `Clear answers before people buy or book.` / `Delivery, licensing, support, and custom work expectations should be visible without making the homepage feel like a legal document.` | `Before you book: yes, MRB handles custom builds; yes, licensing is clear; yes, discovery starts with audience, deadline and scope.` | `index.html` | blocked: HUMAN INPUT REQUIRED |
+| Home | Final CTA heading | `Bring your audience into a world built for them.` | `If you have an audience, a deadline and a real budget, start here.` | `index.html` | completed |
+| Home | Final CTA supporting copy | `If you are exploring a creator-led game launch, custom build, branded experience, or premium playable world, start with a short discovery call.` | `MRB takes discovery calls for creator launches, branded worlds and bespoke systems.` | `index.html` | completed |
+| Shared CTA | Header CTA | `Get in contact` | `Book a discovery call` | `index.html`, `work.html`, `services.html`, `about.html`, `contact.html` | completed |
+| Shared CTA | Floating CTA | `Get in contact` | `Book a discovery call` | `index.html` | completed |
+| Shared CTA | Primary CTA variants | `Book around your project` / `Plan the launch` / `Book a project call` / `Book a call` / `Start with a call` | `Book a discovery call` | `index.html`, `work.html`, `services.html`, `about.html` | completed |
+| Shared CTA | Secondary CTA variants | `View work` / `View selected work` / `Contact the studio` / `Email the studio` / `Explore services` | `See selected work` | `index.html`, `work.html`, `services.html`, `about.html` | completed |
+| Contact | Form CTA row | `Book a call` | locked contact form; no copy change applied | `contact.html` | out of scope |
+| Work | Page intro | `Case studies that prove the studio image.` / `Focused UEFN project previews built around the goal, process, visual direction, creator value, and launch result.` | no exact rewrite supplied in audit | `work.html` | blocked: HUMAN INPUT REQUIRED |
+| Services | Page intro | `Custom game development for creator-led launches and premium playable worlds.` / `MRB builds polished game systems...` | no exact rewrite supplied in audit | `services.html` | blocked: HUMAN INPUT REQUIRED |
+| About | Page intro | `A Stockholm, Sweden UEFN studio built for creator-led Fortnite launches.` / `MRB exists to turn playable ideas...` | no exact rewrite supplied in audit | `about.html` | blocked: HUMAN INPUT REQUIRED |
