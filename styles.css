@@ -20,6 +20,39 @@
   --radius: 8px;
   --max: 1180px;
   --shadow: 0 24px 80px rgba(0, 0, 0, 0.48);
+  /* Phase 1 approved token foundation; wired only, not yet applied to sections */
+  --surface-page: #020304;
+  --surface-card: #0a0d10;
+  --surface-proof: #141a22;
+  --surface-proof-raise: rgba(255, 255, 255, 0.08);
+  --border-subtle: rgba(255, 255, 255, 0.10);
+  --border-strong: rgba(255, 255, 255, 0.18);
+  --accent-cool: #bdd0e2;
+  --accent-glow-soft: rgba(189, 208, 226, 0.16);
+  --accent-glow-strong: rgba(189, 208, 226, 0.28);
+  --accent-line: linear-gradient(90deg, rgba(255, 255, 255, 0.84), rgba(189, 208, 226, 0.74));
+  --type-display: 88px;
+  --type-h1: 72px;
+  --type-h2: 48px;
+  --type-h3: 24px;
+  --type-body-lg: 19px;
+  --type-body: 16px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 72px;
+  --space-9: 104px;
+  --space-10: 144px;
+  --radius-sm: 8px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --motion-fast: 180ms ease;
+  --motion-surface: 220ms ease;
+  --motion-glow: 360ms ease;
+  --motion-reveal: 760ms cubic-bezier(0.19, 1, 0.22, 1);
 }
 
 * {

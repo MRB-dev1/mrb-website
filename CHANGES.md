@@ -3,17 +3,18 @@
 ## Phase 1 - Discovery + Design Tokens
 
 - Read and parsed `mrb_optimization_audit.md` as the audit source of truth.
-- Did not edit any site/page HTML, CSS, or JS in this phase.
 - Created the Phase 1 tracking files: `CHANGES.md`, `FOLLOW_UPS.md`, and `SIGNATURE_BASELINE.md`.
 - Mapped the audit items to Phase/Task IDs, blocked states, or out-of-scope status.
 - Extracted the current token inventory from `styles.css`, `script.js`, and `index.html`.
 - Proposed a refined token set aligned to the audit's recommended direction: launch dossier noir.
+- Wired the approved token set into `styles.css` as additive `:root` custom properties only.
+- Did not edit any site/page HTML or JS in this phase, and did not switch existing sections/components over to the new tokens yet.
 - Documented the glowing progress line baseline so later Phase 3 work can regression-check it safely.
-- Files touched: `CHANGES.md`, `FOLLOW_UPS.md`, `SIGNATURE_BASELINE.md`
-- Assumptions made: the audit's recommended homepage hero is the contrarian option, because the audit explicitly recommends it and the current hero structure can support it without architectural change.
-- Pending human input: approve the proposed refined token set; provide/confirm content for flagged proof, roster, and trust modules before later phases.
+- Files touched: `CHANGES.md`, `FOLLOW_UPS.md`, `SIGNATURE_BASELINE.md`, `styles.css`
+- Assumptions made: the audit's recommended homepage hero is the contrarian option, because the audit explicitly recommends it and the current hero structure can support it without architectural change; `--surface-proof-raise` is wired as an overlay alpha token that will later layer over `--surface-proof`, not as a standalone composite color.
+- Pending human input: provide/confirm content for flagged proof, roster, and trust modules before later phases.
 - Placeholders added: none
-- Verify before Phase 2: approve tokens; confirm blocked items needing content/human decisions; keep the glowing progress line behavior unchanged.
+- Verify before Phase 2: confirm blocked items needing content/human decisions; keep the glowing progress line behavior unchanged; migrate existing selectors deliberately instead of bulk-swapping hard-coded values.
 
 ### Audit Mapping Table
 
@@ -89,6 +90,8 @@
 
 ### Current Token Inventory
 
+Source line references below were captured during Phase 1 discovery. The additive `:root` token block wired in Task 1.5 shifts later `styles.css` line numbers, but the owning selectors and systems remain the same.
+
 | System | Current values | Source |
 | --- | --- | --- |
 | Base dark colors | `--bg #030303`, `--bg-2 #071018`, `--ink #050608` | `styles.css:2-3`, `styles.css:19` |
@@ -105,7 +108,7 @@
 | Motion timings | `180ms ease` for buttons/links/inputs; `220ms ease` for cards; `240ms ease` modal panel; `280ms ease-out` floating visual transform; `380ms ease` timeline state changes; `640ms ease` + `760ms cubic-bezier(0.19, 1, 0.22, 1)` reveal system | `styles.css:232`, `styles.css:308`, `styles.css:946`, `styles.css:1586`, `styles.css:1465-1470`, `styles.css:1504`, `styles.css:1534`, `styles.css:2602-2610` |
 | Motion loops | `logo-drift 12s ease-in-out infinite alternate`, `cta-breathe 4.8s / 3.4s`, `cta-calm 7.2s`, `package-shine 900ms`, `scope-invert-pop 560ms`, `confetti-fall` with `cubic-bezier(0.16, 0.82, 0.38, 1)` | `styles.css:354`, `styles.css:583`, `styles.css:587`, `styles.css:591`, `styles.css:745`, `styles.css:791`, `styles.css:2238-2241`, `styles.css:2387-2450` |
 
-### Proposed Refined Token System (for approval only)
+### Approved Refined Token System
 
 | Proposed token | Current base | Proposed value | Rationale |
 | --- | --- | --- | --- |
@@ -142,6 +145,52 @@
 | `--motion-glow` | `380ms ease` | `360ms ease` | Slightly tighter for motif extensions while staying in family with the current line states. |
 | `--motion-reveal` | `760ms cubic-bezier(0.19, 1, 0.22, 1)` | `760ms cubic-bezier(0.19, 1, 0.22, 1)` | Preserve the current reveal character for additive motif work. |
 
+### Token Wiring Applied
+
+All approved tokens were wired into `styles.css` inside the existing `:root` block as additive custom properties only. No existing selector was migrated to consume these tokens in this step.
+
+| Token | Wired value | Location | Notes |
+| --- | --- | --- | --- |
+| `--surface-page` | `#020304` | `styles.css:24` | New page-floor token; current `--bg` remains in use until later phases. |
+| `--surface-card` | `#0a0d10` | `styles.css:25` | New shared charcoal card token. |
+| `--surface-proof` | `#141a22` | `styles.css:26` | New lighter proof-stage base token. |
+| `--surface-proof-raise` | `rgba(255,255,255,0.08)` | `styles.css:27` | Wired as overlay alpha to layer over `--surface-proof` later. |
+| `--border-subtle` | `rgba(255,255,255,0.10)` | `styles.css:28` | New restrained border step. |
+| `--border-strong` | `rgba(255,255,255,0.18)` | `styles.css:29` | New stronger border step for key proof states. |
+| `--accent-cool` | `#bdd0e2` | `styles.css:30` | New cool accent foundation. |
+| `--accent-glow-soft` | `rgba(189,208,226,0.16)` | `styles.css:31` | New restrained glow token. |
+| `--accent-glow-strong` | `rgba(189,208,226,0.28)` | `styles.css:32` | New stronger glow token. |
+| `--accent-line` | `linear-gradient(90deg, rgba(255,255,255,0.84), rgba(189,208,226,0.74))` | `styles.css:33` | Future shared accent-line gradient token; original progress line remains untouched. |
+| `--type-display` | `88px` | `styles.css:34` | New display scale token. |
+| `--type-h1` | `72px` | `styles.css:35` | New H1 token. |
+| `--type-h2` | `48px` | `styles.css:36` | New H2 token. |
+| `--type-h3` | `24px` | `styles.css:37` | New H3 token. |
+| `--type-body-lg` | `19px` | `styles.css:38` | New large body token. |
+| `--type-body` | `16px` | `styles.css:39` | New body baseline token. |
+| `--space-2` | `8px` | `styles.css:40` | New spacing scale. |
+| `--space-3` | `12px` | `styles.css:41` | New spacing scale. |
+| `--space-4` | `16px` | `styles.css:42` | New spacing scale. |
+| `--space-5` | `24px` | `styles.css:43` | New spacing scale. |
+| `--space-6` | `32px` | `styles.css:44` | New spacing scale. |
+| `--space-7` | `48px` | `styles.css:45` | New spacing scale. |
+| `--space-8` | `72px` | `styles.css:46` | New spacing scale. |
+| `--space-9` | `104px` | `styles.css:47` | New spacing scale. |
+| `--space-10` | `144px` | `styles.css:48` | New spacing scale. |
+| `--radius-sm` | `8px` | `styles.css:49` | New small radius token. |
+| `--radius-lg` | `20px` | `styles.css:50` | New large shell radius token. |
+| `--radius-pill` | `999px` | `styles.css:51` | New pill radius token. |
+| `--motion-fast` | `180ms ease` | `styles.css:52` | New fast interaction token. |
+| `--motion-surface` | `220ms ease` | `styles.css:53` | New surface timing token. |
+| `--motion-glow` | `360ms ease` | `styles.css:54` | New glow timing token. |
+| `--motion-reveal` | `760ms cubic-bezier(0.19, 1, 0.22, 1)` | `styles.css:55` | New reveal timing token. |
+
+### Hard-coded values intentionally left in place for later migration
+
+- Existing page/base tokens such as `--bg`, `--bg-2`, `--surface`, `--surface-strong`, `--line`, `--cyan`, and `--shadow` remain live and unchanged in this step.
+- Repeated hard-coded dark panel values like `rgba(5,5,6,0.68)`, `rgba(5,5,6,0.7)`, and `rgba(8,10,12,0.52)` were not migrated yet.
+- Hard-coded progress-line and storyline gradients/glows remain untouched to preserve the original glowing progress line behavior documented in `SIGNATURE_BASELINE.md`.
+- Existing explicit type sizes (`82`, `76`, `64`, etc.), shell radii (`18`, `22`), larger story spacing (`210`, `340`), and loop timings remain in place until the relevant later phases consume the new tokens deliberately.
+
 ### Suggested Commit Message
 
-`docs: map audit, capture current tokens, and baseline glowing line`
+`style: wire approved phase 1 tokens`
