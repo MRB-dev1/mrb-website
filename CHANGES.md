@@ -237,3 +237,41 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 | Work | Page intro | `Case studies that prove the studio image.` / `Focused UEFN project previews built around the goal, process, visual direction, creator value, and launch result.` | no exact rewrite supplied in audit | `work.html` | blocked: HUMAN INPUT REQUIRED |
 | Services | Page intro | `Custom game development for creator-led launches and premium playable worlds.` / `MRB builds polished game systems...` | no exact rewrite supplied in audit | `services.html` | blocked: HUMAN INPUT REQUIRED |
 | About | Page intro | `A Stockholm, Sweden UEFN studio built for creator-led Fortnite launches.` / `MRB exists to turn playable ideas...` | no exact rewrite supplied in audit | `about.html` | blocked: HUMAN INPUT REQUIRED |
+
+## Phase 3 - Visual System
+
+- Applied the approved three-surface dark hierarchy to shared shells and homepage proof-stage sections in `styles.css`, while leaving the contact form and original glowing progress-line selectors untouched.
+- Reworked the shared CTA styling so the primary action is visibly brighter and more consistent, while secondary buttons are quieter and less glow-heavy.
+- Added restrained motif echoes to marketing surfaces using line-based top-edge accents and a light-sweep hover on primary CTA controls only.
+- Broke up the homepage rhythm with background and spacing shifts only: darker page base, brighter proof-stage bands, tighter compact decision bars, and differentiated spacing between hero, proof, production-path, separate-paths, and final CTA sections.
+- Preserved the locked contact form by explicitly restoring its existing button treatment after the shared CTA-system update.
+- Cleaned up the remaining stale `Get in contact` header CTA labels on shop, FAQ, legal, product, and book pages so the site-wide primary action is now consistent.
+- Files touched in this phase: `styles.css`, `CHANGES.md`, `FOLLOW_UPS.md`, `book.html`, `faq.html`, `license.html`, `privacy.html`, `product-case-study-page-kit.html`, `product-creator-launch-ui-pack.html`, `product-launch-checklist-system.html`, `product-premium-environment-kit.html`, `product-progression-system-template.html`, `product-studio-starter-bundle.html`, `refund-policy.html`, `shop.html`, `terms.html`
+- Assumptions made: the audit's minimum-viable visual pass should stay CSS-only, should not introduce a mixed-light section yet, and should not modify the glowing progress line's own selectors or scroll logic.
+- Pending human input: Phase 3.5 remains gated; do not introduce the audit's better-version asymmetric proof section or mixed-light expansion without explicit approval.
+- What to verify before the next phase: homepage proof sections feel more distinct on desktop/mobile, primary CTA wins quickly against secondary CTA, and the progress-line behavior matches `SIGNATURE_BASELINE.md`.
+
+### Phase 3 Audit Mapping
+
+| Audit item | Task ID | Status | Notes |
+| --- | --- | --- | --- |
+| Introduce three dark values, one restrained cool accent, subtle texture, and brighter proof panels | 3.1 | completed | Applied via existing token system in `styles.css`; homepage proof-stage sections now stay within the dark palette rather than switching to full light surfaces. |
+| Keep the same order, but make hero, flagship proof, production path, separate paths and final CTA visibly different section types | 3.2 | completed | Minimum-viable version only: background and spacing shifts; no structural or asymmetric layout changes yet. |
+| One primary CTA, one secondary CTA, consistent button styling and placement across Home, Work, Services and Contact | 3.3 | completed | Visual hierarchy updated in CSS; stale header CTA labels on secondary pages were also normalized so the system is actually site-wide. |
+| Use the glowing line motif as a subtle connector in proof cards, button hovers and section dividers | 3.4 | completed | Added button sweep and line accents on cards/dividers; original progress-line selectors and behavior left unchanged. |
+| Better version: one asymmetric proof section and one mixed-light section | 3.5 | blocked: DESIGN DECISION REQUIRED | Audit marks this as better-version work; not started. |
+| Better version: one asymmetric proof section and one mixed-light section | 3.5 | blocked: HUMAN INPUT REQUIRED | Requires explicit approval before any layout-level escalation. |
+
+### Phase 3 Verification
+
+- `npm run build:cloudflare` passed after the CSS updates and again after the final site-wide CTA-label cleanup.
+- No JS files changed in this phase, so `node --check` was not needed.
+- Stale CTA sweep now only returns:
+  - `contact.html` secondary `Book a call` link inside the locked contact form
+  - `faq.html` question text `What happens after I book a call?`
+  - `book.html` page title `Book a Call - MRB`
+- The homepage progress line and storyline spine were not edited in markup, scroll logic, or their original active-state selectors.
+
+### Suggested Commit Message
+
+`style: apply phase 3 visual hierarchy and CTA system`
