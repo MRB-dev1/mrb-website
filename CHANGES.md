@@ -24,23 +24,23 @@
 | `Expedition luxury` direction | out of scope | out of scope | Alternative direction not selected by the audit. |
 | `Product-ops premium` direction | out of scope | out of scope | Alternative direction not selected by the audit. |
 | Ignore experiential-agency direction (`resn` / `activetheory`) | out of scope | out of scope | Audit explicitly says to ignore this direction for this round. |
-| Homepage hero rewrite using the audit's recommended contrarian option | 2.3 | mapped | Audit explicitly recommends the contrarian hero, so no hero-choice gate is needed. |
-| Add a real hero proof artefact (still or loop) beside the hero | 4.1, 4.3 | blocked: CONTENT REQUIRED | Real asset and proof facts are not in the repo. |
-| Better-version silent 6-8 second hero loop | 4.3 | blocked: CONTENT REQUIRED | Gated better version; requires a real approved asset. |
+| Homepage hero rewrite using the audit's recommended contrarian option | 2.3 | completed | Applied after the real flagship proof artefact was in place. |
+| Add a real hero proof artefact (still or loop) beside the hero | 4.1, 4.3 | completed | Hero now uses the real `Attack the Brainrot` cinematic loop and proof pills. |
+| Better-version silent 6-8 second hero loop | 4.3 | completed | Implemented with the supplied silent ATB hero loop. |
 | Rewrite `What MRB builds` section | 2.4 | mapped | Exact rewrite is supplied in the audit. |
 | Delete the current meta `Selected direction` section copy | 2.4 | mapped | Audit explicitly says to delete the section as written. |
-| Replace that section with `Featured launch` framing | 2.4, 4.4 | blocked: CONTENT REQUIRED | Replacement framing is supplied, but the flagship proof content is missing. |
+| Replace that section with `Featured launch` framing | 2.4, 4.4 | completed | The homepage now uses the featured flagship launch dossier framing with ATB proof. |
 | Rewrite `Creator systems` section | 2.4 | mapped | Exact rewrite is supplied in the audit. |
 | Rewrite `From idea to launch` section copy | 2.4 | mapped | Must preserve the existing glowing line behavior. |
 | Rewrite `Separate paths` section copy | 2.4 | mapped | Exact rewrite is supplied in the audit. |
-| Compress homepage FAQ to two high-value questions | 2.6 | blocked: HUMAN INPUT REQUIRED | Audit gives the direction but does not specify the exact two retained homepage questions/answers. |
-| Rewrite the homepage FAQ intro copy | 2.4 | mapped | The audit provides exact framing copy for the homepage FAQ module. |
+| Compress homepage FAQ to two high-value questions | 2.6 | completed | Implemented as a two-question homepage FAQ using the existing licensing question plus a discovery-start question anchored to the audit's exact phrasing. |
+| Rewrite the homepage FAQ intro copy | 2.4 | completed | Applied using the audit's exact framing sentence. |
 | Rewrite the final homepage CTA block | 2.4 | mapped | Exact rewrite is supplied in the audit. |
 | Tighten Work / Services / About headers and intros | 2.5 | blocked: HUMAN INPUT REQUIRED | Audit diagnoses the issue but does not provide verbatim replacements for all affected page headers. |
 | Apply a three-surface dark hierarchy | 3.1 | mapped | Enabled by the token proposal in Phase 1. |
 | Break the repeated homepage section rhythm | 3.2 | mapped | MVP can be done within the existing order/skeleton. |
 | Better-version asymmetric proof section / mixed-light section | 3.5 | blocked: DESIGN DECISION REQUIRED | Audit marks this as a better-version visual move, not automatic MVP work. |
-| Make the Work page trustworthy with one real dossier | 4.5 | blocked: CONTENT REQUIRED | Concrete deliverables, result line, and named proof are missing. |
+| Make the Work page trustworthy with one real dossier | 4.5 | completed | The Work page now uses the named ATB dossier with concrete deliverables and operational proof. |
 | Better-version three dossier cards on Work | 4.5 | blocked: CONTENT REQUIRED | Gated expansion after MVP proof exists. |
 | Separate case-study microsites / matrix | out of scope | out of scope | Audit says this is out of scope with the locked architecture. |
 | Extend the glowing line motif into CTA hovers / proof cards / nodes | 3.4 | mapped | Additive only; original glowing line behavior stays locked. |
@@ -53,13 +53,13 @@
 | Standardize CTA placement cadence across key pages | 3.3 | mapped | Header, hero, post-proof, post-line, final CTA within the locked structure. |
 | Use fit/capacity/timing signals instead of fake scarcity | 4.2 | blocked: CONTENT REQUIRED | Any scarcity/availability statement must be true and supplied/confirmed. |
 | Surface response-time trust near the main CTA | 4.2 | mapped | Repo/user context already contains the current response-time fact. |
-| Add one flagship proof artefact near the hero | 4.4 | blocked: CONTENT REQUIRED | Flagship project/content not yet specified. |
+| Add one flagship proof artefact near the hero | 4.4 | completed | The hero now carries real ATB proof through the loop, pills, and named flagship overlay. |
 | Add a collaborator / roster strip | 4.6 | blocked: CONTENT REQUIRED | Needs real names/logos or must be skipped. |
 | Surface founder trust layer (Stockholm, founder contact, response window) | 4.2 | mapped | Factual inputs already exist in repo/user context. |
 | Add specialism proof line (`working in UEFN since launch`) | 4.2 | mapped | Fact already exists in repo/user context. |
 | Add ownership / handoff summary near the first CTA | 4.2 | blocked: HUMAN INPUT REQUIRED | Audit calls for the module, but does not provide verbatim final copy. |
 | Add recency / update cadence on proof blocks | 4.5 | blocked: CONTENT REQUIRED | Real recency/update data missing. |
-| Add Vercel-style proof strip under the hero | 4.1 | blocked: CONTENT REQUIRED | Needs real proof facts for pills/strip. |
+| Add Vercel-style proof strip under the hero | 4.1 | completed | Implemented as the three-item hero proof-pill strip using verified flagship facts. |
 | Add Stripe-style proof band after featured launch | 4.2 | blocked: CONTENT REQUIRED | Needs real metrics or operational facts. |
 | Add AREA 17 / Instrument / Ueno-style roster treatment | 4.6 | blocked: CONTENT REQUIRED | Requires real roster/recognition data. |
 | Only use a Ueno-style marquee if the names are real and strong enough | 4.6 | blocked: HUMAN INPUT REQUIRED | Requires both real names and explicit user approval. |
@@ -67,18 +67,18 @@
 | Give proof blocks dual routes into work and shop/service paths (On cue) | 3.2, 4.4 | mapped | Needs to work within current page skeleton. |
 | Make Services / Shop / FAQ feel like adjacent rooms in one house (Patagonia cue) | 5.3 | mapped | Cross-page consistency task. |
 | Sharper POV sentence plus one or two short client lines (Arc cue) | 2.3, 4.6 | blocked: CONTENT REQUIRED | POV sentence is covered by hero rewrite; client lines need real source content. |
-| Hero rewrite must ship with proof artefact | 2.3, 4.3 | blocked: CONTENT REQUIRED | Explicit coupling from the audit. |
-| Replacing `Selected direction` requires a flagship launch card | 2.4, 4.4 | blocked: CONTENT REQUIRED | Explicit coupling from the audit. |
+| Hero rewrite must ship with proof artefact | 2.3, 4.3 | completed | Hero copy was only switched once the ATB proof artefact was live. |
+| Replacing `Selected direction` requires a flagship launch card | 2.4, 4.4 | completed | The old meta slot is now a real flagship launch dossier. |
 | CTA unification must happen with CTA hierarchy normalization | 2.2, 3.3 | mapped | Explicit coupling from the audit. |
 | Compressing homepage FAQ requires spacing rebalance | 2.6, 5.3 | mapped | Explicit coupling from the audit. |
-| Work specificity requires metadata / proof chips | 4.5 | blocked: CONTENT REQUIRED | Explicit coupling from the audit. |
+| Work specificity requires metadata / proof chips | 4.5 | completed | The featured Work case now carries flagged metadata and concrete proof rows. |
 | Shop teaser should inherit flagship proof language | 3.2, 5.3 | mapped | Explicit coupling from the audit. |
-| `Hero rewrite + real proof image + unify CTA` priority bundle | 2.2, 2.3, 4.3 | blocked: CONTENT REQUIRED | Highest-priority bundle; blocked on proof asset. |
-| `Replace meta section with flagship dossier` priority bundle | 2.4, 4.4 | blocked: CONTENT REQUIRED | Highest-priority proof bundle; blocked on flagship content. |
+| `Hero rewrite + real proof image + unify CTA` priority bundle | 2.2, 2.3, 4.3 | completed | The recommended homepage bundle is now live with the real ATB loop and unified CTA language. |
+| `Replace meta section with flagship dossier` priority bundle | 2.4, 4.4 | completed | The homepage proof slot now sells through one real flagship case instead of meta commentary. |
 | `Break the section rhythm` priority bundle | 3.2 | mapped | Highest-priority MVP visual bundle. |
-| `Make the Work page trustworthy` priority bundle | 4.5 | blocked: CONTENT REQUIRED | Highest-priority proof bundle; blocked on real case content. |
+| `Make the Work page trustworthy` priority bundle | 4.5 | completed | The Work page now leads with the real ATB dossier and flagged proof. |
 | `Standardize CTA hierarchy across the whole site` priority bundle | 2.2, 3.3 | mapped | Highest-priority conversion bundle. |
-| `Trim homepage FAQ and push detail down` priority bundle | 2.6 | blocked: HUMAN INPUT REQUIRED | Exact retained homepage FAQ items still need decision/confirmation. |
+| `Trim homepage FAQ and push detail down` priority bundle | 2.6 | completed | Homepage FAQ is now reduced to two friction-removal questions with the rest pushed to the full FAQ page. |
 | `Add a concise trust strip` priority bundle | 4.2 | mapped | MVP can use verified studio facts already in repo/user context. |
 | `Tighten repeated language across Home/Services/About/Shop` priority bundle | 2.5 | blocked: HUMAN INPUT REQUIRED | The audit identifies the problem, but not all exact copy replacements. |
 | `Extend the glowing line motif` priority bundle | 3.4 | mapped | Must remain additive and preserve baseline behavior. |
@@ -213,20 +213,20 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 
 | Page | Section | Current copy in repo | Exact replacement from audit | File path | Status |
 | --- | --- | --- | --- | --- | --- |
-| Home | Hero headline | `Game worlds built for the moment creators go live.` | `Most creator games die in the explanation.` | `index.html` | blocked: CONTENT REQUIRED |
-| Home | Hero subhead | `MRB designs polished playable experiences, launch systems, and creator-ready moments for audiences that need to understand the hook fast.` | `MRB builds the kind that land on frame one: clear hook, good footage, clean handoff, proper launch support.` | `index.html` | blocked: CONTENT REQUIRED |
+| Home | Hero headline | `Game worlds built for the moment creators go live.` | `Most creator games die in the explanation.` | `index.html` | completed |
+| Home | Hero subhead | `MRB designs polished playable experiences, launch systems, and creator-ready moments for audiences that need to understand the hook fast.` | `MRB builds the kind that land on frame one: clear hook, good footage, clean handoff, proper launch support.` | `index.html` | completed |
 | Home | Hero primary CTA | `Book a creator call` | `Book a discovery call` | `index.html` | completed |
 | Home | Hero secondary CTA | `View selected work` | `See selected work` | `index.html` | completed |
 | Home | `What MRB builds` heading | `Interactive worlds shaped around content, not just mechanics.` | `Games for creators have two jobs: they have to play well, and they have to read well on camera.` | `index.html` | completed |
 | Home | `What MRB builds` supporting copy | `The build has to feel good in-game, but it also has to work on camera: fast to understand, easy to frame, and strong enough to become a launch moment.` | `MRB builds around the thing viewers notice first - the hook, the loop, the reveal, the reaction - then makes sure the systems, UI and launch materials back it up.` | `index.html` | completed |
-| Home | `Selected direction` section | `Lead with one strong world, then let the work prove it.` / `A premium studio homepage should feel edited...` | `Featured launch` / `One project. One hook. One proof trail. Show the world, what MRB built, what shipped with it, and what happened next. If the flagship case is strong enough, it will sell the services and the shop without explaining either to death.` | `index.html` | blocked: CONTENT REQUIRED |
+| Home | `Selected direction` section | `Lead with one strong world, then let the work prove it.` / `A premium studio homepage should feel edited...` | `Featured launch` / `One project. One hook. One proof trail. Show the world, what MRB built, what shipped with it, and what happened next. If the flagship case is strong enough, it will sell the services and the shop without explaining either to death.` | `index.html` | completed |
 | Home | `Creator systems` heading | `The experience should be built to survive the launch.` | `A creator launch is not finished when the build works.` | `index.html` | completed |
 | Home | `Creator systems` supporting copy | `MRB plans gameplay, UI, reward states, creator notes, update paths, and support expectations so the release does not feel improvised.` | `It is finished when the creator knows what to show, what to say, what files they have, and what happens after day one. MRB plans the gameplay, the interface states, the reward logic and the launch pack as one job.` | `index.html` | completed |
 | Home | Production-path heading | `A production path with visible momentum.` | `From brief to first playable, the path stays visible.` | `index.html` | completed |
 | Home | Production-path supporting copy | `The line follows the project as the concept becomes a playable, creator-ready launch.` | `Audience fit, content angle, prototype, launch handoff.` | `index.html` | completed |
 | Home | `Separate paths` heading | `Premium studio first. Shop and services where they belong.` | `Custom work is for launches and bespoke systems.` | `index.html` | completed |
 | Home | `Separate paths` supporting copy | `The homepage builds trust. Services handle custom work. The shop sells production-ready resources without taking over the brand.` | `The shop is for teams who only need the reusable parts. Start with services if the world is unique. Start with the shop if the problem is narrower.` | `index.html` | completed |
-| Home | Homepage FAQ intro | `Clear answers before people buy or book.` / `Delivery, licensing, support, and custom work expectations should be visible without making the homepage feel like a legal document.` | `Before you book: yes, MRB handles custom builds; yes, licensing is clear; yes, discovery starts with audience, deadline and scope.` | `index.html` | blocked: HUMAN INPUT REQUIRED |
+| Home | Homepage FAQ intro | `Clear answers before people buy or book.` / `Delivery, licensing, support, and custom work expectations should be visible without making the homepage feel like a legal document.` | `Before you book: yes, MRB handles custom builds; yes, licensing is clear; yes, discovery starts with audience, deadline and scope.` | `index.html` | completed |
 | Home | Final CTA heading | `Bring your audience into a world built for them.` | `If you have an audience, a deadline and a real budget, start here.` | `index.html` | completed |
 | Home | Final CTA supporting copy | `If you are exploring a creator-led game launch, custom build, branded experience, or premium playable world, start with a short discovery call.` | `MRB takes discovery calls for creator launches, branded worlds and bespoke systems.` | `index.html` | completed |
 | Shared CTA | Header CTA | `Get in contact` | `Book a discovery call` | `index.html`, `work.html`, `services.html`, `about.html`, `contact.html` | completed |
@@ -375,3 +375,19 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 - `npm run build:cloudflare` passed after the hero media loading changes.
 - `node --check script.js` passed after the lazy-hydration logic was added.
 - Home and Work should still stay in sync on the flagship proof story, and the homepage hero should fall back to the ATB poster when reduced motion or data saver is active.
+
+## Audit Completion Pass
+
+- Applied the audit's recommended contrarian homepage hero copy now that the real flagship proof artefact is live beside it.
+- Trimmed the homepage FAQ down to two friction-removal questions and replaced the old intro copy with the audit's exact framing sentence.
+- Normalized the remaining homepage proof-path text link from `View work` to `See selected work` so the homepage CTA language is fully consistent.
+- Kept Work / Services / About intros unchanged because the audit diagnoses those pages but does not provide verbatim replacement copy for them.
+- Kept the contact form, glowing progress line behavior, and broader page architecture unchanged.
+- Files touched in this pass: `index.html`, `CHANGES.md`
+- Assumptions made: the two homepage FAQ items should be the clearest existing friction reducers still supported by exact audit framing: licensing clarity and discovery start.
+
+### Audit Completion Verification
+
+- `npm run build:cloudflare` passed after the final homepage copy changes.
+- No JS files changed in this pass, so `node --check` is not needed.
+- The hero now matches the audit's recommended contrarian option and the homepage FAQ no longer recreates the full FAQ page in miniature.
