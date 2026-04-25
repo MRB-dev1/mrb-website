@@ -18,3 +18,7 @@
 
 - `book.html` still uses the title `Book a Call - MRB`; this is a page-title copy string, not a live CTA control.
 - `faq.html` still contains the question `What happens after I book a call?`; this is FAQ copy and should be handled in the later exact-audit FAQ pass rather than silently rewritten here.
+
+## Media follow-up
+
+- `assets/attack-the-brainrot-cinematic.mp4` is the provided source hero loop and weighs about 25 MB. It works for now, but production performance would benefit from a smaller web-encoded version or a short poster-backed cut.

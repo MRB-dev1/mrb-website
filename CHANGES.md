@@ -345,3 +345,19 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 ### Suggested Commit Message
 
 `style: polish phase 5 proof sections`
+
+## Flagship Content Completion
+
+- Replaced the final flagship project-name placeholders on Home and Work with `Attack the Brainrot`.
+- Replaced the homepage hero-media placeholder with the supplied silent cinematic loop and added the supplied ATB logo as the poster / featured-card visual accent.
+- Kept the existing proof-story substance intact: hook, build scope, launch assets, and operational proof copy are unchanged.
+- Kept the same page order, dossier structure, CTA hierarchy, contact form, and glowing progress-line behavior.
+- Files touched in this pass: `index.html`, `work.html`, `styles.css`, `CHANGES.md`, `assets/attack-the-brainrot-cinematic.mp4`, `assets/attack-the-brainrot-logo.png`
+- Assumptions made: `Attack the Brainrot` is the final public-facing title case for the project name, and the supplied `.mp4` should be used as the homepage hero loop without trimming the edit.
+- Remaining flagship placeholders: none. The Phase 4 proof system now uses real project-name and hero-media content.
+
+### Flagship Content Verification
+
+- `npm run build:cloudflare` passed after the real media assets and project name were wired into Home and Work.
+- No JS files changed in this pass, so `node --check` is not needed.
+- Home and Work should continue to show the same flagship proof story, now under the real project name `Attack the Brainrot`.
