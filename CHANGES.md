@@ -36,7 +36,7 @@
 | Compress homepage FAQ to two high-value questions | 2.6 | completed | Implemented as a two-question homepage FAQ using the existing licensing question plus a discovery-start question anchored to the audit's exact phrasing. |
 | Rewrite the homepage FAQ intro copy | 2.4 | completed | Applied using the audit's exact framing sentence. |
 | Rewrite the final homepage CTA block | 2.4 | mapped | Exact rewrite is supplied in the audit. |
-| Tighten Work / Services / About headers and intros | 2.5 | blocked: HUMAN INPUT REQUIRED | Audit diagnoses the issue but does not provide verbatim replacements for all affected page headers. |
+| Tighten Work / Services / About headers and intros | 2.5 | completed | Applied in a final cleanup pass after user approval to finish the remaining blocked work using best-fit copy aligned to the audit's diagnosis. |
 | Apply a three-surface dark hierarchy | 3.1 | mapped | Enabled by the token proposal in Phase 1. |
 | Break the repeated homepage section rhythm | 3.2 | mapped | MVP can be done within the existing order/skeleton. |
 | Better-version asymmetric proof section / mixed-light section | 3.5 | blocked: DESIGN DECISION REQUIRED | Audit marks this as a better-version visual move, not automatic MVP work. |
@@ -51,16 +51,16 @@
 | One dominant CTA: `Book a discovery call` | 2.2 | mapped | Site-wide primary CTA language. |
 | One secondary CTA: `See selected work` | 2.2 | mapped | Site-wide secondary CTA language. |
 | Standardize CTA placement cadence across key pages | 3.3 | mapped | Header, hero, post-proof, post-line, final CTA within the locked structure. |
-| Use fit/capacity/timing signals instead of fake scarcity | 4.2 | blocked: CONTENT REQUIRED | Any scarcity/availability statement must be true and supplied/confirmed. |
+| Use fit/capacity/timing signals instead of fake scarcity | 4.2 | completed | Implemented with real fit/timing language only: discovery-start criteria, rights, reply window, and platform focus. |
 | Surface response-time trust near the main CTA | 4.2 | mapped | Repo/user context already contains the current response-time fact. |
 | Add one flagship proof artefact near the hero | 4.4 | completed | The hero now carries real ATB proof through the loop, pills, and named flagship overlay. |
 | Add a collaborator / roster strip | 4.6 | blocked: CONTENT REQUIRED | Needs real names/logos or must be skipped. |
 | Surface founder trust layer (Stockholm, founder contact, response window) | 4.2 | mapped | Factual inputs already exist in repo/user context. |
 | Add specialism proof line (`working in UEFN since launch`) | 4.2 | mapped | Fact already exists in repo/user context. |
-| Add ownership / handoff summary near the first CTA | 4.2 | blocked: HUMAN INPUT REQUIRED | Audit calls for the module, but does not provide verbatim final copy. |
+| Add ownership / handoff summary near the first CTA | 4.2 | completed | Added a factual ownership / discovery / response note near the homepage hero CTA. |
 | Add recency / update cadence on proof blocks | 4.5 | blocked: CONTENT REQUIRED | Real recency/update data missing. |
 | Add Vercel-style proof strip under the hero | 4.1 | completed | Implemented as the three-item hero proof-pill strip using verified flagship facts. |
-| Add Stripe-style proof band after featured launch | 4.2 | blocked: CONTENT REQUIRED | Needs real metrics or operational facts. |
+| Add Stripe-style proof band after featured launch | 4.2 | completed | Implemented as a concrete operational-facts band using verified studio facts instead of invented metrics. |
 | Add AREA 17 / Instrument / Ueno-style roster treatment | 4.6 | blocked: CONTENT REQUIRED | Requires real roster/recognition data. |
 | Only use a Ueno-style marquee if the names are real and strong enough | 4.6 | blocked: HUMAN INPUT REQUIRED | Requires both real names and explicit user approval. |
 | Frame creator work as a launch ecosystem (Red Bull / Rapha / Arc'teryx cues) | 2.4, 4.4 | mapped | Implement through copy/proof structure, not by changing architecture. |
@@ -80,7 +80,7 @@
 | `Standardize CTA hierarchy across the whole site` priority bundle | 2.2, 3.3 | mapped | Highest-priority conversion bundle. |
 | `Trim homepage FAQ and push detail down` priority bundle | 2.6 | completed | Homepage FAQ is now reduced to two friction-removal questions with the rest pushed to the full FAQ page. |
 | `Add a concise trust strip` priority bundle | 4.2 | mapped | MVP can use verified studio facts already in repo/user context. |
-| `Tighten repeated language across Home/Services/About/Shop` priority bundle | 2.5 | blocked: HUMAN INPUT REQUIRED | The audit identifies the problem, but not all exact copy replacements. |
+| `Tighten repeated language across Home/Services/About/Shop` priority bundle | 2.5 | completed | Final cleanup pass tightened the remaining intros and shop framing using audit-aligned, non-generic copy after user approval to finish the blocked items. |
 | `Extend the glowing line motif` priority bundle | 3.4 | mapped | Must remain additive and preserve baseline behavior. |
 | Full redesign | out of scope | out of scope | Audit explicitly excludes it. |
 | Full light mode | out of scope | out of scope | Audit explicitly excludes it. |
@@ -234,9 +234,9 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 | Shared CTA | Primary CTA variants | `Book around your project` / `Plan the launch` / `Book a project call` / `Book a call` / `Start with a call` | `Book a discovery call` | `index.html`, `work.html`, `services.html`, `about.html` | completed |
 | Shared CTA | Secondary CTA variants | `View work` / `View selected work` / `Contact the studio` / `Email the studio` / `Explore services` | `See selected work` | `index.html`, `work.html`, `services.html`, `about.html` | completed |
 | Contact | Form CTA row | `Book a call` | locked contact form; no copy change applied | `contact.html` | out of scope |
-| Work | Page intro | `Case studies that prove the studio image.` / `Focused UEFN project previews built around the goal, process, visual direction, creator value, and launch result.` | no exact rewrite supplied in audit | `work.html` | blocked: HUMAN INPUT REQUIRED |
-| Services | Page intro | `Custom game development for creator-led launches and premium playable worlds.` / `MRB builds polished game systems...` | no exact rewrite supplied in audit | `services.html` | blocked: HUMAN INPUT REQUIRED |
-| About | Page intro | `A Stockholm, Sweden UEFN studio built for creator-led Fortnite launches.` / `MRB exists to turn playable ideas...` | no exact rewrite supplied in audit | `about.html` | blocked: HUMAN INPUT REQUIRED |
+| Work | Page intro | `Case studies that prove the studio image.` / `Focused UEFN project previews built around the goal, process, visual direction, creator value, and launch result.` | audit diagnoses weakness but gives no verbatim rewrite | `work.html` | completed after user approval |
+| Services | Page intro | `Custom game development for creator-led launches and premium playable worlds.` / `MRB builds polished game systems...` | audit diagnoses weakness but gives no verbatim rewrite | `services.html` | completed after user approval |
+| About | Page intro | `A Stockholm, Sweden UEFN studio built for creator-led Fortnite launches.` / `MRB exists to turn playable ideas...` | audit diagnoses weakness but gives no verbatim rewrite | `about.html` | completed after user approval |
 
 ## Phase 3 - Visual System
 
@@ -391,3 +391,18 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 - `npm run build:cloudflare` passed after the final homepage copy changes.
 - No JS files changed in this pass, so `node --check` is not needed.
 - The hero now matches the audit's recommended contrarian option and the homepage FAQ no longer recreates the full FAQ page in miniature.
+
+## Final Remaining Audit Cleanup
+
+- Tightened the remaining Work, Services, About, and Shop hero intros to remove the last obvious generic studio-language loops.
+- Added a small factual ownership / discovery / reply note beside the homepage hero CTA so the first action now carries handoff and response context.
+- Added one compact operational proof band after the featured launch using real facts instead of invented metrics.
+- Kept the contact form, flagship dossier substance, and glowing progress line behavior unchanged.
+- Files touched in this pass: `index.html`, `work.html`, `services.html`, `about.html`, `shop.html`, `styles.css`, `CHANGES.md`
+- Assumptions made: after direct user approval to finish the remaining blocked items, it was acceptable to write the final intro copy in the audit's tone even where the audit had not supplied exact verbatim replacements.
+
+### Final Remaining Audit Cleanup Verification
+
+- `npm run build:cloudflare` passed after the intro/proof cleanup.
+- No JS files changed in this pass, so `node --check` is not needed.
+- Remaining blocked items are now limited to genuinely missing real-world proof content or optional better-version work: named collaborator roster, short client lines, recency/update cadence, and larger asymmetric/mixed-light escalation.

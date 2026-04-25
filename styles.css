@@ -694,6 +694,14 @@ button {
   font-size: 20px;
 }
 
+.hero-note {
+  max-width: 620px;
+  margin: 18px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
+}
+
 .hero-proof-pills {
   display: grid;
   grid-template-columns: minmax(0, 0.62fr) minmax(0, 1.18fr) minmax(0, 1.12fr);
@@ -882,6 +890,10 @@ button {
 
 .hero-metrics.trust-strip {
   grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.launch-proof-band {
+  margin: 28px auto 0;
 }
 
 .metric {
