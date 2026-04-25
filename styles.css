@@ -580,6 +580,10 @@ button {
   background: #040506;
 }
 
+.hero-media-shell.is-hydrated {
+  background: rgba(2, 3, 4, 0.72);
+}
+
 .hero-media-shell::after {
   content: "";
   position: absolute;
@@ -2815,6 +2819,10 @@ button {
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
     transition-duration: 0.001ms !important;
+  }
+
+  .hero-media-shell.is-static .hero-media-overlay p::after {
+    content: " Poster shown for reduced motion.";
   }
 }
 

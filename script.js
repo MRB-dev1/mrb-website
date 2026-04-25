@@ -79,6 +79,67 @@
     });
   });
 
+  const hydrateHeroMedia = () => {
+    const mediaLoops = Array.from(document.querySelectorAll(".hero-media-loop"));
+
+    if (!mediaLoops.length) {
+      return;
+    }
+
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+    const prefersReducedData = Boolean(connection?.saveData) || /(?:^|-)2g$/.test(connection?.effectiveType || "");
+
+    const loadLoop = (video) => {
+      if (video.dataset.loaded === "true") {
+        return;
+      }
+
+      const source = video.querySelector("source[data-src]");
+
+      if (!source) {
+        return;
+      }
+
+      source.src = source.dataset.src;
+      video.dataset.loaded = "true";
+      video.closest(".hero-media-shell")?.classList.add("is-hydrated");
+      video.load();
+
+      const playback = video.play();
+      if (playback && typeof playback.catch === "function") {
+        playback.catch(() => {});
+      }
+    };
+
+    if (prefersReducedMotion || prefersReducedData) {
+      mediaLoops.forEach((video) => {
+        video.closest(".hero-media-shell")?.classList.add("is-static");
+      });
+      return;
+    }
+
+    if ("IntersectionObserver" in window) {
+      const mediaObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) {
+              return;
+            }
+
+            loadLoop(entry.target);
+            mediaObserver.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.2 }
+      );
+
+      mediaLoops.forEach((video) => mediaObserver.observe(video));
+    } else {
+      mediaLoops.forEach(loadLoop);
+    }
+  };
+
   const createInquiryModal = () => {
     const modal = document.createElement("div");
     modal.className = "inquiry-modal";
@@ -300,6 +361,7 @@
     revealTargets.forEach((item) => item.classList.add("is-visible"));
   }
 
+  hydrateHeroMedia();
   updateScroll();
   window.addEventListener("scroll", updateScroll, { passive: true });
   window.addEventListener("resize", updateScroll);

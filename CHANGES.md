@@ -288,8 +288,8 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 - Did not touch the contact form.
 - Files touched in this phase: `index.html`, `work.html`, `styles.css`, `CHANGES.md`
 - Assumptions made: known factual trust items from the live site brief (`Stockholm, Sweden`, `5h-48h`, `Robin@mrb.ink`, `UEFN since launch`) are safe to surface without additional approval.
-- Pending human input: the flagship project name is still missing, so it is rendered as a visible placeholder rather than guessed copy.
-- Pending content: no real hero still or lightweight loop asset exists in the repo yet, so the hero-media placeholder remains visible.
+- Pending human input at this phase: the flagship project name is still missing, so it is rendered as a visible placeholder rather than guessed copy. Resolved later in `Flagship Content Completion`.
+- Pending content at this phase: no real hero still or lightweight loop asset exists in the repo yet, so the hero-media placeholder remains visible. Resolved later in `Flagship Content Completion`.
 - What to verify before the next phase: hero proof pills stay readable on mobile, the trust strip feels compact rather than salesy, and the hero placeholder is obviously temporary but still visually intentional.
 
 ### Phase 4 Audit Mapping
@@ -307,9 +307,9 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 
 | Placeholder | File path | Missing content needed |
 | --- | --- | --- |
-| `PLACEHOLDER: add real content` | `index.html` | Final flagship project name for the homepage dossier. |
-| `PLACEHOLDER: add real content` | `work.html` | Final flagship project name for the Work page dossier and featured card. |
-| `PLACEHOLDER: add launch still or lightweight loop` | `index.html` | Real hero media asset: strongest launch still or silent 6-8 second loop. |
+| `PLACEHOLDER: add real content` | `index.html` | Final flagship project name for the homepage dossier. Resolved later in `Flagship Content Completion`. |
+| `PLACEHOLDER: add real content` | `work.html` | Final flagship project name for the Work page dossier and featured card. Resolved later in `Flagship Content Completion`. |
+| `PLACEHOLDER: add launch still or lightweight loop` | `index.html` | Real hero media asset: strongest launch still or silent 6-8 second loop. Resolved later in `Flagship Content Completion`. |
 
 ### Phase 4 Verification
 
@@ -337,7 +337,7 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 - `npm run build:cloudflare` passed after the limited proof-section polish.
 - No JS files changed in this phase, so `node --check` was not needed.
 - Home and Work still show the same flagship proof story.
-- Remaining intentional placeholders are unchanged:
+- Remaining intentional placeholders were unchanged in this phase and were resolved later in `Flagship Content Completion`:
   - flagship project name on Home
   - flagship project name on Work
   - hero still/loop asset on Home
@@ -361,3 +361,17 @@ All approved tokens were wired into `styles.css` inside the existing `:root` blo
 - `npm run build:cloudflare` passed after the real media assets and project name were wired into Home and Work.
 - No JS files changed in this pass, so `node --check` is not needed.
 - Home and Work should continue to show the same flagship proof story, now under the real project name `Attack the Brainrot`.
+
+## Flagship Media Performance Pass
+
+- Switched the new homepage hero loop to poster-first loading so the static frame appears immediately and the video source only hydrates when needed.
+- Added a small media-loading guard in `script.js` that skips video hydration for reduced-motion and reduced-data users, leaving the ATB poster visible instead of forcing autoplay.
+- Kept the hero layout, overlay copy, CTA hierarchy, contact form, and glowing progress-line behavior unchanged.
+- Files touched in this pass: `index.html`, `script.js`, `styles.css`, `CHANGES.md`
+- Assumptions made: it is better to keep the cinematic loop as an enhancement rather than a required first-paint asset.
+
+### Flagship Media Performance Verification
+
+- `npm run build:cloudflare` passed after the hero media loading changes.
+- `node --check script.js` passed after the lazy-hydration logic was added.
+- Home and Work should still stay in sync on the flagship proof story, and the homepage hero should fall back to the ATB poster when reduced motion or data saver is active.
