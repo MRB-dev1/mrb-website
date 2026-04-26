@@ -87,8 +87,6 @@
     }
 
     const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-    const prefersReducedData = Boolean(connection?.saveData) || /(?:^|-)2g$/.test(connection?.effectiveType || "");
 
     const loadLoop = (video) => {
       if (video.dataset.loaded === "true") {
@@ -112,7 +110,7 @@
       }
     };
 
-    if (prefersReducedMotion || prefersReducedData) {
+    if (prefersReducedMotion) {
       mediaLoops.forEach((video) => {
         video.closest(".hero-media-shell")?.classList.add("is-static");
       });
