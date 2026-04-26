@@ -2359,6 +2359,10 @@ button {
   padding: 26px;
 }
 
+.case-study-gallery {
+  margin-top: 18px;
+}
+
 .project-meta,
 .product-meta {
   display: flex;
