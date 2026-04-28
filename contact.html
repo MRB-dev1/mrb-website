@@ -9,8 +9,8 @@
   <title>Contact - MRB</title>
   <meta name="description" content="Contact MRB for creator partnerships, custom game development, support, and business inquiries." />
   <link rel="icon" href="assets/mrb-logo-white.png" />
-  <link rel="stylesheet" href="styles.css?v=20260426e" />
-  <script src="script.js?v=20260426e" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260426g" />
+  <script src="script.js?v=20260426g" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -30,8 +30,8 @@
   <main>
     <section class="page-hero section-shell narrow">
       <p class="eyebrow">Contact</p>
-      <h1>Talk to MRB about a project, product, or partnership.</h1>
-      <p>Use this page for general business inquiries, support questions, creator collaborations, and custom development requests.</p>
+      <h1>Talk to MRB about a <span class="accent-word">project</span>, product, or partnership.</h1>
+      <p>Send project details, product questions, or creator launch notes here. Use the call link when there is a real scope to discuss.</p>
     </section>
 
     <div class="contact-scroll section-shell">
@@ -39,21 +39,56 @@
     </div>
 
     <section class="section section-shell split" id="contact-options">
-      <div class="list-panel sticky-note">
+      <div class="list-panel sticky-note contact-methods">
         <article>
-          <h3>Business inquiries</h3>
+          <div class="icon-title-row">
+            <span class="icon-frame" aria-hidden="true">
+              <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="M6 21h12" />
+                <path d="M8 21V7h8v14" />
+                <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+              </svg>
+            </span>
+            <h3>Business inquiries</h3>
+          </div>
           <p><a class="text-link" href="mailto:hello@mrb.ink">hello@mrb.ink</a></p>
         </article>
         <article>
-          <h3>Direct CEO contact</h3>
+          <div class="icon-title-row">
+            <span class="icon-frame" aria-hidden="true">
+              <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" />
+                <path d="M5 20a7 7 0 0 1 14 0" />
+                <path d="M18 8h3M19.5 6.5v3" />
+              </svg>
+            </span>
+            <h3>Direct CEO contact</h3>
+          </div>
           <p><a class="text-link" href="mailto:Robin@mrb.ink">Robin@mrb.ink</a></p>
         </article>
         <article>
-          <h3>Product support</h3>
+          <div class="icon-title-row">
+            <span class="icon-frame" aria-hidden="true">
+              <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="M12 19a7 7 0 1 0-7-7" />
+                <path d="M5 17v3h3" />
+                <path d="M9 14a3 3 0 0 1 6 0v1h-6v-1Z" />
+              </svg>
+            </span>
+            <h3>Product support</h3>
+          </div>
           <p><a class="text-link" href="mailto:support@mrb.ink">support@mrb.ink</a></p>
         </article>
         <article>
-          <h3>Expected response</h3>
+          <div class="icon-title-row">
+            <span class="icon-frame" aria-hidden="true">
+              <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                <path d="M12 6v6l4 2" />
+                <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" />
+              </svg>
+            </span>
+            <h3>Expected response</h3>
+          </div>
           <p>Most messages should receive a reply within 5h-48h once the studio inbox is active.</p>
         </article>
       </div>
@@ -69,8 +104,60 @@
             <label for="email">Email</label>
             <input id="email" name="Email" type="email" autocomplete="email" pattern="^[^@\s]+@[^@\s]+\.[^@\s]{2,}$" title="Enter a full email address, for example name@example.com." required />
           </div>
-          <div class="field full">
+          <div class="field full topic-field">
             <label for="topic">Topic</label>
+            <div class="topic-chip-list" data-topic-chip-list>
+              <button class="topic-chip motion-safe-transition is-selected" type="button" data-topic-chip="Creator partnership" aria-pressed="true">
+                <span class="svg-icon icon--s" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M4 7h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
+                    <path d="m10 11 4 2-4 2v-4Z" />
+                    <path d="M20 8c1.7 1 2 2.1 2 4s-.3 3-2 4" />
+                  </svg>
+                </span>
+                <span>Creator partnership</span>
+              </button>
+              <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Custom development" aria-pressed="false">
+                <span class="svg-icon icon--s" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M12 3 20 7.5v9L12 21l-8-4.5v-9L12 3Z" />
+                    <path d="M12 7.5 16 9.8v4.4L12 16.5l-4-2.3V9.8L12 7.5Z" />
+                  </svg>
+                </span>
+                <span>Custom development</span>
+              </button>
+              <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Product support" aria-pressed="false">
+                <span class="svg-icon icon--s" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M12 19a7 7 0 1 0-7-7" />
+                    <path d="M5 17v3h3" />
+                    <path d="M9 14a3 3 0 0 1 6 0v1h-6v-1Z" />
+                  </svg>
+                </span>
+                <span>Product support</span>
+              </button>
+              <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Business inquiry" aria-pressed="false">
+                <span class="svg-icon icon--s" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M6 21h12" />
+                    <path d="M8 21V7h8v14" />
+                    <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+                  </svg>
+                </span>
+                <span>Business inquiry</span>
+              </button>
+              <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Other" aria-pressed="false">
+                <span class="svg-icon icon--s" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M12 18h.01" />
+                    <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2-3 4" />
+                    <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" />
+                  </svg>
+                </span>
+                <span>Other</span>
+              </button>
+            </div>
+            <p class="topic-select-note">Or use the native selector below.</p>
             <select id="topic" name="Topic">
               <option>Creator partnership</option>
               <option>Custom development</option>

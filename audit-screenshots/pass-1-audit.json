@@ -1,0 +1,63 @@
+{
+  "pass": 1,
+  "url": "http://127.0.0.1:3000/work.html",
+  "consoleErrors": [],
+  "pageErrors": [],
+  "topGridExists": true,
+  "topGridTitles": [
+    "Attack the Brainrot",
+    "Chapter Wars",
+    "Mr.Brum's 1v1 Build Fights"
+  ],
+  "imageCount": 17,
+  "brokenImages": [],
+  "emptyAltImages": [],
+  "attack": {
+    "imageCount": 6,
+    "filenames": [
+      "atb-overview.png",
+      "content.png",
+      "atb-gallery.png",
+      "content2.png",
+      "atb-loop-zone.png",
+      "content1.png"
+    ],
+    "suitableImageCountInRepo": 6,
+    "galleryPresent": true,
+    "usesAllSuitableImages": true
+  },
+  "chapterWars": {
+    "imageCount": 3,
+    "filenames": [
+      "chapter-wars-overview.png",
+      "chapter-wars-chapters.png",
+      "chapter-wars-combat.png"
+    ],
+    "heroFilename": "chapter-wars-overview.png",
+    "galleryFilenames": [
+      "chapter-wars-chapters.png",
+      "chapter-wars-combat.png"
+    ],
+    "repeatedHeroInsideGallery": false
+  },
+  "mrbrum": {
+    "imageCount": 3,
+    "filenames": [
+      "mrbrum-1v1-overview.png",
+      "mrbrum-1v1-loadout.png",
+      "mrbrum-1v1-reset.png"
+    ],
+    "heroFilename": "mrbrum-1v1-overview.png",
+    "galleryFilenames": [
+      "mrbrum-1v1-loadout.png",
+      "mrbrum-1v1-reset.png"
+    ],
+    "repeatedHeroInsideGallery": false
+  },
+  "caseStudyFormatTextPresent": false,
+  "legacyCaseStudyBlockPresent": false,
+  "replacementAssetNotes": {
+    "chapterWars": "No suitable unused Chapter Wars screenshot exists in the repo beyond overview, chapters, and combat.",
+    "mrbrum": "No suitable unused Mr.Brum screenshot exists in the repo beyond overview, loadout, and reset."
+  }
+}

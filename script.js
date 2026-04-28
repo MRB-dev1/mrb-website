@@ -268,6 +268,46 @@
     }, 1900);
   };
 
+  const setupTopicChips = (select) => {
+    const field = select.closest(".topic-field");
+
+    if (!field) {
+      return;
+    }
+
+    const chips = Array.from(field.querySelectorAll("[data-topic-chip]"));
+
+    if (!chips.length) {
+      return;
+    }
+
+    const setSelected = (value) => {
+      chips.forEach((chip) => {
+        const isSelected = chip.dataset.topicChip === value;
+        chip.classList.toggle("is-selected", isSelected);
+        chip.setAttribute("aria-pressed", String(isSelected));
+      });
+    };
+
+    chips.forEach((chip) => {
+      chip.addEventListener("click", () => {
+        select.value = chip.dataset.topicChip || select.value;
+        setSelected(select.value);
+        select.dispatchEvent(new Event("change", { bubbles: true }));
+      });
+    });
+
+    select.addEventListener("change", () => {
+      setSelected(select.value);
+    });
+
+    setSelected(select.value || chips[0]?.dataset.topicChip || "");
+  };
+
+  document
+    .querySelectorAll(".topic-field select[name='Topic']")
+    .forEach((select) => setupTopicChips(select));
+
   document.querySelectorAll("[data-contact-form]").forEach((form) => {
     const status = form.querySelector("[data-form-status]");
 
@@ -314,6 +354,9 @@
         }
 
         form.reset();
+        form.querySelectorAll(".topic-field select[name='Topic']").forEach((select) => {
+          select.dispatchEvent(new Event("change", { bubbles: true }));
+        });
         if (status) {
           status.textContent =
             result.email?.sent === false && result.discord?.sent
