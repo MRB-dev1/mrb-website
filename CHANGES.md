@@ -1,5 +1,16 @@
 # CHANGES
 
+## Work Page Case-Study Standardization - 2026-04-28
+
+- Standardized all three deep-dive sections in `work.html` to the same order: eyebrow, title, short intro line, case-study headline, body paragraph, 3-image gallery, and 4-field proof panel.
+- Kept the top 3-up project grid intact.
+- Removed the mismatched `Case study format` explainer block from the Work page.
+- Reworked the proof content into a single grouped panel per project with `Hook`, `What MRB built`, `What makes it work`, and `Why it matters`.
+- Removed the Attack placeholder-style proof field so the section no longer carries `Public outcome details can be added when available.`
+- Ensured each deep-dive now uses exactly three project images with the gallery placed above the proof panel.
+- Localized the minimal case-study CSS inside `work.html` for this pass so the Git commit would not need to sweep in unrelated uncommitted changes from the shared `styles.css`.
+- Files touched for this pass: `work.html`, `CHANGES.md`, `work-page-audit-log.md`
+
 ## Phase 1 - Discovery + Design Tokens
 
 - Read and parsed `mrb_optimization_audit.md` as the audit source of truth.

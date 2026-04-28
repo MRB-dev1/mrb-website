@@ -10,6 +10,92 @@
   <meta name="description" content="Selected work and case study previews from MRB, a premium creator-focused game development studio." />
   <link rel="icon" href="assets/mrb-logo-white.png" />
   <link rel="stylesheet" href="styles.css?v=20260426f" />
+  <style>
+    .case-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+    }
+
+    .case-gallery__item {
+      min-width: 0;
+    }
+
+    .case-proof {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 24px;
+      padding: 18px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 22px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.018)),
+        rgba(10, 13, 16, 0.9);
+    }
+
+    .case-proof__item {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+      padding: 22px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.048), rgba(255, 255, 255, 0.02)),
+        rgba(20, 26, 34, 0.72);
+    }
+
+    .proof-field-head {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+
+    .proof-field-head h3,
+    .case-proof__item p {
+      margin: 0;
+    }
+
+    .icon-frame {
+      width: 40px;
+      height: 40px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 13px;
+      color: rgba(247, 247, 242, 0.94);
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255, 255, 255, 0.12), transparent 58%),
+        linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.018)),
+        rgba(8, 11, 15, 0.92);
+    }
+
+    .icon--s {
+      width: 24px;
+      height: 24px;
+    }
+
+    .icon-frame svg {
+      width: 100%;
+      height: 100%;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 1.75;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    @media (max-width: 860px) {
+      .case-gallery,
+      .case-proof {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="site-header">
@@ -91,235 +177,329 @@
 
     <section class="section subtle-band" id="flagship-launch">
       <div class="section-shell">
-        <article class="feature-panel">
-          <div class="media-frame dossier-media">
-              <img src="assets/content.png?v=20260426e" alt="Attack the Brainrot overview still used in the launch dossier" />
-            <div class="media-label">
-              <p>Featured case study</p>
-              <h3>Attack the Brainrot</h3>
-              <p class="dossier-hook">A fast-reading creator-led world built to land on frame one and create strong reaction moments on stream.</p>
-            </div>
-          </div>
-          <div class="feature-copy">
-            <p class="eyebrow">Flagship launch dossier</p>
-            <h2>What MRB built, what shipped with it, and what happened next.</h2>
-            <p>
-              Delivered in time for the planned launch window with a complete creator handoff and post-launch support path.
-            </p>
-            <div class="table-list">
-              <article>
-                <h3>Hook</h3>
+        <article class="card">
+          <p class="eyebrow">Flagship launch dossier</p>
+          <h2>Attack the Brainrot</h2>
+          <p class="dossier-hook">A fast-reading creator-led world built to land on frame one and create strong reaction moments on stream.</p>
+          <h3>What MRB built, what shipped with it, and what happened next.</h3>
+          <p>The flagship case had to read quickly on stream and still arrive ready for the planned launch window.</p>
+
+          <div class="case-gallery">
+            <article class="case-gallery__item project-card">
+              <div class="project-thumb real-shot">
+                <img src="assets/content.png?v=20260428a" alt="Attack the Brainrot wide island overview with readable lanes, creature statues, and shoreline" />
+              </div>
+              <div class="project-body">
+                <div class="project-meta">
+                  <span>Island layout</span>
+                </div>
+                <h2>Whole-island read</h2>
+                <p>Wide overview still showing the island layout, readable lanes, and the world silhouette that makes the hook obvious on camera.</p>
+              </div>
+            </article>
+
+            <article class="case-gallery__item project-card">
+              <div class="project-thumb real-shot">
+                <img src="assets/content2.png?v=20260428a" alt="Attack the Brainrot polished loop-zone screenshot from player height with the green ring and lane ahead" />
+              </div>
+              <div class="project-body">
+                <div class="project-meta">
+                  <span>Core loop</span>
+                </div>
+                <h2>Polished lane view</h2>
+                <p>UEFN world, core loop, UI states, custom assets, and play-ready polish.</p>
+              </div>
+            </article>
+
+            <article class="case-gallery__item project-card">
+              <div class="project-thumb real-shot">
+                <img src="assets/content1.png?v=20260428a" alt="Attack the Brainrot polished character gallery with four creature statues and selection kiosks" />
+              </div>
+              <div class="project-body">
+                <div class="project-meta">
+                  <span>Visual identity</span>
+                </div>
+                <h2>Final gallery pass</h2>
                 <p>A fast-reading creator-led world built to land on frame one and create strong reaction moments on stream.</p>
-              </article>
-              <article>
+              </div>
+            </article>
+          </div>
+
+          <div class="case-proof">
+            <article class="case-proof__item">
+              <div class="proof-field-head">
+                <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M4 7h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
+                    <path d="m10 11 4 2-4 2v-4Z" />
+                    <path d="M20 8c1.7 1 2 2.1 2 4s-.3 3-2 4" />
+                  </svg>
+                </span>
+                <h3>Hook</h3>
+              </div>
+              <p>A fast-reading creator-led world built to land on frame one and create strong reaction moments on stream.</p>
+            </article>
+
+            <article class="case-proof__item">
+              <div class="proof-field-head">
+                <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M12 3 20 7.5v9L12 21l-8-4.5v-9L12 3Z" />
+                    <path d="M12 7.5 16 9.8v4.4L12 16.5l-4-2.3V9.8L12 7.5Z" />
+                  </svg>
+                </span>
                 <h3>What MRB built</h3>
-                <p>MRB built the world, the core gameplay loop, the supporting systems, the UI states, the custom assets, and the final launch handoff.</p>
-              </article>
-              <article>
-                <h3>Launch assets shipped</h3>
-                <p>Launch stills, thumbnail/key art, creator briefing notes, promo copy, and the final handoff pack.</p>
-              </article>
-              <article>
-                <h3>Result / operational proof</h3>
-                <p>Delivered in time for the planned launch window with a complete creator handoff and post-launch support path.</p>
-              </article>
-            </div>
+              </div>
+              <p>UEFN world, core loop, UI states, custom assets, and play-ready polish.</p>
+            </article>
+
+            <article class="case-proof__item">
+              <div class="proof-field-head">
+                <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M6 12h12" />
+                    <path d="M12 6v12" />
+                    <path d="M7 7h10v10H7Z" />
+                  </svg>
+                </span>
+                <h3>What makes it work</h3>
+              </div>
+              <p>Wide overview still showing the island layout, readable lanes, and the world silhouette that makes the hook obvious on camera.</p>
+            </article>
+
+            <article class="case-proof__item">
+              <div class="proof-field-head">
+                <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M5 12.5 9 16.5 19 6.5" />
+                    <path d="M6 20h12" />
+                    <path d="M9 20v-3M15 20v-6" />
+                  </svg>
+                </span>
+                <h3>Why it matters</h3>
+              </div>
+              <p>The hook reads before a creator has to explain the rules live.</p>
+            </article>
           </div>
         </article>
       </div>
     </section>
 
     <section class="section section-shell" id="chapter-wars">
-      <article class="feature-panel">
-        <div class="media-frame alt dossier-media">
-          <img src="assets/chapter-wars-overview.png?v=20260426f" alt="Chapter Wars arena overview with wide grass field and chapter landmarks" />
-          <div class="media-label">
-            <p>Competitive nostalgia showcase</p>
-            <h3>Chapter Wars</h3>
-            <p class="dossier-hook">A bright grass-heavy combat arena that turns Fortnite chapter nostalgia into a readable, colorful fight space.</p>
-          </div>
+      <article class="card">
+        <p class="eyebrow">Second standout project</p>
+        <h2>Chapter Wars</h2>
+        <p class="dossier-hook">A bright grass-heavy combat arena that turns Fortnite chapter nostalgia into a readable, colorful fight space.</p>
+        <h3>Classic chapter identity turned into a clean, memorable PvP map.</h3>
+        <p>Chapter Wars uses wide grass sightlines, instantly recognizable landmarks, and loud chapter signage so the map reads in a second and still feels playful while fighting.</p>
+
+        <div class="case-gallery">
+          <article class="case-gallery__item project-card">
+            <div class="project-thumb real-shot">
+              <img src="assets/chapter-wars-overview.png?v=20260426f" alt="Chapter Wars arena overview with wide grass field and chapter landmarks" />
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span>Competitive nostalgia showcase</span>
+              </div>
+              <h2>Classic chapter identity turned into a clean, memorable PvP map.</h2>
+              <p>Chapter Wars uses wide grass sightlines, instantly recognizable landmarks, and loud chapter signage so the map reads in a second and still feels playful while fighting.</p>
+            </div>
+          </article>
+
+          <article class="case-gallery__item project-card">
+            <div class="project-thumb real-shot">
+              <img src="assets/chapter-wars-chapters.png?v=20260426f" alt="Chapter Wars chapter sprint screenshot" />
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span>Chapter identity</span>
+              </div>
+              <h2>Chapter gate lineup</h2>
+              <p>The chapter gates and giant labels make the theme readable instantly, even before the player reaches the combat zone.</p>
+            </div>
+          </article>
+
+          <article class="case-gallery__item project-card">
+            <div class="project-thumb real-shot">
+              <img src="assets/chapter-wars-combat.png?v=20260426f" alt="Chapter Wars combat screenshot with player on wooden build pieces" />
+            </div>
+            <div class="project-body">
+              <div class="project-meta">
+                <span>Player POV</span>
+              </div>
+              <h2>Fight-space clarity</h2>
+              <p>From the player perspective, the open grass, water edge, and central builds keep the action easy to follow on screen.</p>
+            </div>
+          </article>
         </div>
-        <div class="feature-copy">
-          <p class="eyebrow">Second standout project</p>
-          <h2>Classic chapter identity turned into a clean, memorable PvP map.</h2>
-          <p>Chapter Wars uses wide grass sightlines, instantly recognizable landmarks, and loud chapter signage so the map reads in a second and still feels playful while fighting.</p>
-          <div class="table-list">
-            <article>
+
+        <div class="case-proof">
+          <article class="case-proof__item">
+            <div class="proof-field-head">
+              <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                  <path d="M4 7h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
+                  <path d="m10 11 4 2-4 2v-4Z" />
+                  <path d="M20 8c1.7 1 2 2.1 2 4s-.3 3-2 4" />
+                </svg>
+              </span>
               <h3>Hook</h3>
-              <p>A crossover arena where Chapter 1 to Chapter 4 landmarks are visible at a glance and make the match feel familiar immediately.</p>
-            </article>
-            <article>
+            </div>
+            <p>A crossover arena built around Chapter 1 to Chapter 4 landmarks so the match feels familiar immediately.</p>
+          </article>
+
+          <article class="case-proof__item">
+            <div class="proof-field-head">
+              <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                  <path d="M12 3 20 7.5v9L12 21l-8-4.5v-9L12 3Z" />
+                  <path d="M12 7.5 16 9.8v4.4L12 16.5l-4-2.3V9.8L12 7.5Z" />
+                </svg>
+              </span>
               <h3>What MRB built</h3>
-              <p>Landmark spaces, chapter theming, arena flow, combat spacing, signage, and the wide-open visual language that keeps the fights readable.</p>
-            </article>
-            <article>
+            </div>
+            <p>Landmark spaces, chapter theming, arena flow, combat spacing, signage, and the wide-open visual language that keeps the fights readable.</p>
+          </article>
+
+          <article class="case-proof__item">
+            <div class="proof-field-head">
+              <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                  <path d="M6 12h12" />
+                  <path d="M12 6v12" />
+                  <path d="M7 7h10v10H7Z" />
+                </svg>
+              </span>
               <h3>What makes it work</h3>
-              <p>The grass-heavy layout, saturated chapter colors, and central combat platform create a strong spectator frame from both overview shots and player POV.</p>
-            </article>
-            <article>
+            </div>
+            <p>The grass-heavy layout, saturated chapter colors, and central combat platform create a strong spectator frame from both overview shots and player POV.</p>
+          </article>
+
+          <article class="case-proof__item">
+            <div class="proof-field-head">
+              <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                  <path d="M5 12.5 9 16.5 19 6.5" />
+                  <path d="M6 20h12" />
+                  <path d="M9 20v-3M15 20v-6" />
+                </svg>
+              </span>
               <h3>Why it matters</h3>
-              <p>It shows MRB can build bright, nostalgic competitive maps that feel instantly understandable without losing polish.</p>
-            </article>
-          </div>
+            </div>
+            <p>It shows MRB can build bright, nostalgic competitive maps that feel instantly understandable without losing polish.</p>
+          </article>
         </div>
       </article>
-
-      <div class="grid-3 case-study-gallery">
-        <article class="project-card">
-          <div class="project-thumb real-shot">
-            <img src="assets/chapter-wars-chapters.png?v=20260426f" alt="Chapter Wars chapter sprint screenshot" />
-          </div>
-          <div class="project-body">
-            <div class="project-meta">
-              <span>Chapter identity</span>
-              <span>Readable hook</span>
-            </div>
-            <h2>Chapter landmark sprint</h2>
-            <p>The chapter gates and giant labels make the theme readable instantly, even before the player reaches the combat zone.</p>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <div class="project-thumb real-shot">
-            <img src="assets/chapter-wars-combat.png?v=20260426f" alt="Chapter Wars combat screenshot with player on wooden build pieces" />
-          </div>
-          <div class="project-body">
-            <div class="project-meta">
-              <span>Player POV</span>
-              <span>Combat read</span>
-            </div>
-            <h2>Fight-space clarity</h2>
-            <p>From the player perspective, the open grass, water edge, and central builds keep the action easy to follow on screen.</p>
-          </div>
-        </article>
-
-        <article class="project-card">
-          <div class="project-thumb real-shot">
-            <img src="assets/chapter-wars-overview.png?v=20260426f" alt="Chapter Wars wide overview showing both chapter landmarks and central platform" />
-          </div>
-          <div class="project-body">
-            <div class="project-meta">
-              <span>Overview still</span>
-              <span>Map silhouette</span>
-            </div>
-            <h2>Whole-arena overview</h2>
-            <p>The aerial read sells the map immediately: landmark contrast, big green field, and a central platform that anchors the loop.</p>
-          </div>
-        </article>
-      </div>
     </section>
 
     <section class="section subtle-band" id="mrbrum-1v1">
       <div class="section-shell">
-        <article class="feature-panel">
-          <div class="media-frame dossier-media">
-            <img src="assets/mrbrum-1v1-overview.png?v=20260426f" alt="Mr.Brum's 1v1 Build Fights overview with neon sakura trees around the arena" />
-            <div class="media-label">
-              <p>Stylized duel arena</p>
-              <h3>Mr.Brum's 1v1 Build Fights</h3>
-              <p class="dossier-hook">A darker Japan-inspired 1v1 island with clean reset flow, pink sakura accents, and a premium night-fight atmosphere.</p>
-            </div>
+        <article class="card">
+          <p class="eyebrow">Neon 1v1 showcase</p>
+          <h2>Mr.Brum's 1v1 Build Fights</h2>
+          <p class="dossier-hook">A darker Japan-inspired 1v1 island with clean reset flow, pink sakura accents, and a premium night-fight atmosphere.</p>
+          <h3>A premium duel space that feels cinematic without losing competitive clarity.</h3>
+          <p>Mr.Brum's 1v1 Build Fights leans into neon lighting, water reflections, sakura trees, and a straightforward central duel loop so the space feels premium while staying easy to use.</p>
+
+          <div class="case-gallery">
+            <article class="case-gallery__item project-card">
+              <div class="project-thumb real-shot">
+                <img src="assets/mrbrum-1v1-overview.png?v=20260426f" alt="Mr.Brum's 1v1 Build Fights overview with neon sakura trees around the arena" />
+              </div>
+              <div class="project-body">
+                <div class="project-meta">
+                  <span>Stylized duel arena</span>
+                </div>
+                <h2>A premium duel space that feels cinematic without losing competitive clarity.</h2>
+                <p>Mr.Brum's 1v1 Build Fights leans into neon lighting, water reflections, sakura trees, and a straightforward central duel loop so the space feels premium while staying easy to use.</p>
+              </div>
+            </article>
+
+            <article class="case-gallery__item project-card">
+              <div class="project-thumb real-shot">
+                <img src="assets/mrbrum-1v1-loadout.png?v=20260426f" alt="Mr.Brum's 1v1 Build Fights loadout deck screenshot" />
+              </div>
+              <div class="project-body">
+                <div class="project-meta">
+                  <span>Loadout space</span>
+                </div>
+                <h2>Loadout deck</h2>
+                <p>The entry area immediately sells the pink-sakura night theme while keeping weapon choice simple and readable.</p>
+              </div>
+            </article>
+
+            <article class="case-gallery__item project-card">
+              <div class="project-thumb real-shot">
+                <img src="assets/mrbrum-1v1-reset.png?v=20260426f" alt="Mr.Brum's 1v1 Build Fights reset staircase screenshot" />
+              </div>
+              <div class="project-body">
+                <div class="project-meta">
+                  <span>Match loop</span>
+                </div>
+                <h2>Reset and restart</h2>
+                <p>The neon stairs, reset button, and central deck make the duel rhythm easy to understand without extra explanation.</p>
+              </div>
+            </article>
           </div>
-          <div class="feature-copy">
-            <p class="eyebrow">Neon 1v1 showcase</p>
-            <h2>A premium duel space that feels cinematic without losing competitive clarity.</h2>
-            <p>Mr.Brum's 1v1 Build Fights leans into neon lighting, water reflections, sakura trees, and a straightforward central duel loop so the space feels premium while staying easy to use.</p>
-            <div class="table-list">
-              <article>
+
+          <div class="case-proof">
+            <article class="case-proof__item">
+              <div class="proof-field-head">
+                <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M4 7h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
+                    <path d="m10 11 4 2-4 2v-4Z" />
+                    <path d="M20 8c1.7 1 2 2.1 2 4s-.3 3-2 4" />
+                  </svg>
+                </span>
                 <h3>Hook</h3>
-                <p>A night-time 1v1 arena with pink sakura, glowing accents, and a reset cadence that makes the loop obvious from the first round.</p>
-              </article>
-              <article>
+              </div>
+              <p>A night-time 1v1 arena with pink sakura, glowing accents, and a clean duel platform from the first round.</p>
+            </article>
+
+            <article class="case-proof__item">
+              <div class="proof-field-head">
+                <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M12 3 20 7.5v9L12 21l-8-4.5v-9L12 3Z" />
+                    <path d="M12 7.5 16 9.8v4.4L12 16.5l-4-2.3V9.8L12 7.5Z" />
+                  </svg>
+                </span>
                 <h3>What MRB built</h3>
-                <p>The duel platform layout, reset staircase flow, loadout deck, lighting direction, and the full visual identity around the match space.</p>
-              </article>
-              <article>
+              </div>
+              <p>The duel platform layout, reset staircase flow, loadout deck, lighting direction, and the full visual identity around the match space.</p>
+            </article>
+
+            <article class="case-proof__item">
+              <div class="proof-field-head">
+                <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M5 17h14" />
+                    <path d="M8 13V9" />
+                    <path d="M12 13V7" />
+                    <path d="M16 13v-2" />
+                  </svg>
+                </span>
                 <h3>What makes it work</h3>
-                <p>The dark palette, reflected water, and bright pink tree anchors make every angle feel like a thumbnail while the arena itself stays readable.</p>
-              </article>
-              <article>
+              </div>
+              <p>The dark palette, reflected water, and bright pink tree anchors make every angle feel like a thumbnail while the arena itself stays readable.</p>
+            </article>
+
+            <article class="case-proof__item">
+              <div class="proof-field-head">
+                <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M5 12.5 9 16.5 19 6.5" />
+                    <path d="M6 20h12" />
+                    <path d="M9 20v-3M15 20v-6" />
+                  </svg>
+                </span>
                 <h3>Why it matters</h3>
-                <p>It proves MRB can move from bright grass maps into darker, more premium stylized arenas without losing gameplay clarity.</p>
-              </article>
-            </div>
+              </div>
+              <p>It proves MRB can move from bright grass maps into darker, more premium stylized arenas without losing gameplay clarity.</p>
+            </article>
           </div>
-        </article>
-
-        <div class="grid-3 case-study-gallery">
-          <article class="project-card">
-            <div class="project-thumb real-shot">
-              <img src="assets/mrbrum-1v1-loadout.png?v=20260426f" alt="Mr.Brum's 1v1 Build Fights loadout deck screenshot" />
-            </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span>Loadout space</span>
-                <span>Visual identity</span>
-              </div>
-              <h2>Loadout deck</h2>
-              <p>The entry area immediately sells the pink-sakura night theme while keeping weapon choice simple and readable.</p>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-thumb real-shot">
-              <img src="assets/mrbrum-1v1-reset.png?v=20260426f" alt="Mr.Brum's 1v1 Build Fights reset staircase screenshot" />
-            </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span>Match loop</span>
-                <span>Reset flow</span>
-              </div>
-              <h2>Reset and restart</h2>
-              <p>The neon stairs, reset button, and central deck make the duel rhythm easy to understand without extra explanation.</p>
-            </div>
-          </article>
-
-          <article class="project-card">
-            <div class="project-thumb real-shot">
-              <img src="assets/mrbrum-1v1-overview.png?v=20260426f" alt="Mr.Brum's 1v1 Build Fights overhead arena screenshot" />
-            </div>
-            <div class="project-body">
-              <div class="project-meta">
-                <span>Overview still</span>
-                <span>Arena layout</span>
-              </div>
-              <h2>Whole-island read</h2>
-              <p>The top-down overview shows the compact duel platform, the four sakura anchors, and the premium water setting around it.</p>
-            </div>
-          </article>
-        </div>
-      </div>
-    </section>
-
-    <section class="section section-shell">
-      <div class="section-heading">
-        <div>
-          <p class="eyebrow">Case study format</p>
-          <h2>Each project shows thinking, not only screenshots.</h2>
-        </div>
-        <p>A premium case study turns a build into proof by connecting the business goal to the gameplay decision.</p>
-      </div>
-
-      <div class="process-list">
-        <article>
-          <span class="step-number">01</span>
-          <h3>Challenge</h3>
-          <p>What audience, launch, platform, or gameplay problem needed to be solved?</p>
-        </article>
-        <article>
-          <span class="step-number">02</span>
-          <h3>Concept</h3>
-          <p>What was the hook, why would viewers understand it, and how would creators frame it?</p>
-        </article>
-        <article>
-          <span class="step-number">03</span>
-          <h3>Build</h3>
-          <p>What systems, assets, UI, tools, and polish work were delivered?</p>
-        </article>
-        <article>
-          <span class="step-number">04</span>
-          <h3>Result</h3>
-          <p>What changed after launch: views, plays, retention, feedback, stability, or learnings?</p>
         </article>
       </div>
     </section>
