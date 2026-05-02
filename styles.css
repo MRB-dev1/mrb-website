@@ -5584,3 +5584,118 @@ summary:focus-visible {
 .turnstile-widget {
   min-height: 70px;
 }
+
+.cookie-banner {
+  position: fixed;
+  left: clamp(16px, 3vw, 28px);
+  right: clamp(16px, 3vw, 28px);
+  bottom: clamp(16px, 3vw, 28px);
+  z-index: 90;
+  display: grid;
+  gap: 18px;
+  padding: clamp(18px, 2vw, 24px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 22px;
+  background:
+    radial-gradient(circle at top left, rgba(168, 200, 255, 0.18), transparent 42%),
+    linear-gradient(160deg, rgba(14, 18, 24, 0.98), rgba(8, 10, 15, 0.96));
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  opacity: 0;
+  transform: translateY(20px);
+  pointer-events: none;
+  transition:
+    opacity var(--motion-surface),
+    transform var(--motion-surface);
+}
+
+.cookie-banner[hidden] {
+  display: none;
+}
+
+.cookie-banner.is-open {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.cookie-banner__copy {
+  display: grid;
+  gap: 10px;
+  max-width: 60ch;
+}
+
+.cookie-banner__copy h2 {
+  margin: 0;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+}
+
+.cookie-banner__copy p {
+  margin: 0;
+  color: rgba(247, 247, 242, 0.78);
+}
+
+.cookie-banner__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.cookie-banner__button {
+  min-width: 184px;
+}
+
+.cookie-banner__link {
+  color: rgba(247, 247, 242, 0.8);
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+}
+
+.cookie-settings-button {
+  position: fixed;
+  left: 18px;
+  bottom: 18px;
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(10, 12, 16, 0.92);
+  color: rgba(247, 247, 242, 0.84);
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.24);
+}
+
+.cookie-settings-button:hover,
+.cookie-settings-button:focus-visible {
+  background: rgba(22, 27, 34, 0.96);
+  color: #ffffff;
+}
+
+@media (min-width: 860px) {
+  .cookie-banner {
+    grid-template-columns: minmax(0, 1.5fr) auto;
+    align-items: end;
+  }
+}
+
+@media (max-width: 720px) {
+  .cookie-banner__actions {
+    justify-content: stretch;
+  }
+
+  .cookie-banner__actions > * {
+    width: 100%;
+  }
+
+  .cookie-settings-button {
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+  }
+}
