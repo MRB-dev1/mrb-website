@@ -563,6 +563,13 @@
               ? "Message sent to MRB Discord. Confirmation email is not configured yet."
               : "Message sent. MRB will reply within 5h-48h.";
         }
+        if (window.mrbAnalytics && typeof window.mrbAnalytics.track === "function") {
+          window.mrbAnalytics.track("generate_lead", {
+            form_name: form.dataset.formName || "Website inquiry",
+            lead_type: String(formData.get("Topic") || "General inquiry"),
+            method: "website_form",
+          });
+        }
         showInquiryModal(summary);
         fireConfetti();
       } catch (error) {
