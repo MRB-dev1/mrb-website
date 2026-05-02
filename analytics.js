@@ -19,6 +19,8 @@
   const state = {
     consent: "unset",
     banner: null,
+    panel: null,
+    analyticsCheckbox: null,
     manageButton: null,
     tagRequested: false,
     tagLoaded: false,
@@ -331,6 +333,29 @@
     state.banner.classList.toggle("is-open", open);
   };
 
+  const syncPreferenceControls = () => {
+    if (!state.analyticsCheckbox) {
+      return;
+    }
+
+    state.analyticsCheckbox.checked = state.consent === "accepted";
+  };
+
+  const setPanelOpen = (open) => {
+    if (!state.panel) {
+      return;
+    }
+
+    if (open) {
+      setBannerOpen(false);
+    }
+
+    state.panel.hidden = !open;
+    state.panel.classList.toggle("is-open", open);
+    document.body.classList.toggle("has-cookie-panel", open);
+    syncPreferenceControls();
+  };
+
   const setConsent = async (value) => {
     state.consent = value;
     storeConsent(value);
@@ -346,6 +371,8 @@
     }
 
     setBannerOpen(false);
+    setPanelOpen(false);
+    syncPreferenceControls();
   };
 
   const createManageButton = () => {
@@ -354,7 +381,7 @@
     button.className = "cookie-settings-button motion-safe-transition";
     button.textContent = "Cookie settings";
     button.addEventListener("click", () => {
-      setBannerOpen(true);
+      setPanelOpen(true);
     });
     document.body.append(button);
     state.manageButton = button;
@@ -370,31 +397,107 @@
     banner.innerHTML = `
       <div class="cookie-banner__copy">
         <p class="eyebrow">Privacy choices</p>
-        <h2 id="cookie-banner-title">Analytics cookies are optional.</h2>
+        <h2 id="cookie-banner-title">Optional analytics</h2>
         <p id="cookie-banner-copy">
           MRB uses Google Analytics only after you allow analytics cookies. You can change this choice any time.
         </p>
       </div>
       <div class="cookie-banner__actions">
         <a class="cookie-banner__link" href="${privacyPolicyPath}">Read the privacy policy</a>
-        <button class="button secondary cookie-banner__button" type="button" data-consent-action="reject">Reject analytics</button>
-        <button class="button primary cookie-banner__button" type="button" data-consent-action="accept">Accept analytics</button>
+        <button class="button secondary cookie-banner__button" type="button" data-consent-action="customize">Customize</button>
+        <button class="button primary cookie-banner__button" type="button" data-consent-action="accept">Accept</button>
       </div>
     `;
 
     banner.querySelector("[data-consent-action='accept']")?.addEventListener("click", () => {
       setConsent("accepted");
     });
-    banner.querySelector("[data-consent-action='reject']")?.addEventListener("click", () => {
-      setConsent("rejected");
+    banner.querySelector("[data-consent-action='customize']")?.addEventListener("click", () => {
+      setPanelOpen(true);
     });
 
     document.body.append(banner);
     state.banner = banner;
   };
 
+  const createPreferencesPanel = () => {
+    const panel = document.createElement("aside");
+    panel.className = "cookie-panel";
+    panel.hidden = true;
+    panel.innerHTML = `
+      <div class="cookie-panel__backdrop" data-consent-action="close-panel"></div>
+      <div class="cookie-panel__dialog" role="dialog" aria-modal="true" aria-labelledby="cookie-panel-title">
+        <button class="cookie-panel__close" type="button" aria-label="Close cookie settings" data-consent-action="close-panel">x</button>
+        <p class="eyebrow">Cookie settings</p>
+        <h2 id="cookie-panel-title">Choose what MRB can use.</h2>
+        <p class="cookie-panel__intro">
+          Required cookies stay on so the site works and stays secure. Analytics is optional.
+        </p>
+        <div class="cookie-panel__groups">
+          <label class="cookie-option cookie-option--locked">
+            <span class="cookie-option__copy">
+              <strong>Required</strong>
+              <span>Security, essential site behavior, and your saved consent choice.</span>
+            </span>
+            <span class="cookie-toggle">
+              <input type="checkbox" checked disabled />
+              <span aria-hidden="true"></span>
+            </span>
+          </label>
+          <label class="cookie-option">
+            <span class="cookie-option__copy">
+              <strong>Analytics</strong>
+              <span>Google Analytics to measure visits, clicks, and form conversions.</span>
+            </span>
+            <span class="cookie-toggle">
+              <input type="checkbox" data-consent-checkbox="analytics" />
+              <span aria-hidden="true"></span>
+            </span>
+          </label>
+        </div>
+        <div class="cookie-panel__actions">
+          <a class="cookie-banner__link" href="${privacyPolicyPath}">Read the privacy policy</a>
+          <button class="button secondary cookie-panel__button" type="button" data-consent-action="save-preferences">Save choices</button>
+          <button class="button primary cookie-panel__button" type="button" data-consent-action="accept-all">Accept all</button>
+        </div>
+      </div>
+    `;
+
+    panel.querySelectorAll("[data-consent-action='close-panel']").forEach((element) => {
+      element.addEventListener("click", () => {
+        setPanelOpen(false);
+        if (state.consent === "unset") {
+          setBannerOpen(true);
+        }
+      });
+    });
+
+    panel.querySelector("[data-consent-action='accept-all']")?.addEventListener("click", () => {
+      setConsent("accepted");
+    });
+
+    panel.querySelector("[data-consent-action='save-preferences']")?.addEventListener("click", () => {
+      const shouldEnableAnalytics = Boolean(state.analyticsCheckbox?.checked);
+      setConsent(shouldEnableAnalytics ? "accepted" : "rejected");
+    });
+
+    panel.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") {
+        setPanelOpen(false);
+        if (state.consent === "unset") {
+          setBannerOpen(true);
+        }
+      }
+    });
+
+    document.body.append(panel);
+    state.panel = panel;
+    state.analyticsCheckbox = panel.querySelector("[data-consent-checkbox='analytics']");
+  };
+
   const initConsentUi = () => {
     createBanner();
+    createPreferencesPanel();
     createManageButton();
     if (state.consent === "unset") {
       setBannerOpen(true);
@@ -423,7 +526,7 @@
   window.mrbAnalytics = {
     isConfigured: () => validMeasurementId,
     getConsentState: () => state.consent,
-    openConsentDialog: () => setBannerOpen(true),
+    openConsentDialog: () => setPanelOpen(true),
     track,
   };
 
