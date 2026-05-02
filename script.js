@@ -243,6 +243,8 @@
   let turnstileLoader;
   const TURNSTILE_LOAD_TIMEOUT_MS = 12000;
   const TURNSTILE_POLL_INTERVAL_MS = 50;
+  const TURNSTILE_BOOT_RETRY_DELAY_MS = 1500;
+  const TURNSTILE_MAX_BOOT_ATTEMPTS = 3;
 
   const waitForTurnstileApi = (timeoutMs = TURNSTILE_LOAD_TIMEOUT_MS) =>
     new Promise((resolve, reject) => {
@@ -320,8 +322,8 @@
     const field = form.querySelector("[data-turnstile-field]");
     const widgetHost = form.querySelector("[data-turnstile-widget]");
     const note = form.querySelector("[data-turnstile-note]");
-    const retryButton = form.querySelector("[data-turnstile-retry]");
     const submitButton = form.querySelector("button[type='submit']");
+    const attemptCount = Number(form.dataset.turnstileAttemptCount || "0");
 
     form.dataset.turnstileEnabled = "false";
     form.dataset.turnstileToken = "";
@@ -331,24 +333,10 @@
       return;
     }
 
-    if (retryButton && retryButton.dataset.turnstileBound !== "true") {
-      retryButton.dataset.turnstileBound = "true";
-      retryButton.addEventListener("click", () => {
-        turnstileLoader = undefined;
-        form.dataset.turnstileToken = "";
-        form.dataset.turnstileWidgetId = "";
-        widgetHost.replaceChildren();
-        setupTurnstile(form, status);
-      });
-    }
-
     const endpoint = window.location.protocol === "file:" ? "http://localhost:3000/api/contact" : "/api/contact";
 
     try {
       field.hidden = true;
-      if (retryButton) {
-        retryButton.hidden = true;
-      }
 
       const response = await fetch(endpoint, {
         headers: { Accept: "application/json" },
@@ -358,14 +346,12 @@
       if (!response.ok || !result.turnstile?.enabled || !result.turnstile?.siteKey) {
         field.hidden = true;
         note.textContent = "Cloudflare Turnstile is not configured yet.";
-        if (retryButton) {
-          retryButton.hidden = true;
-        }
         return;
       }
 
       field.hidden = false;
       form.dataset.turnstileEnabled = "true";
+      form.dataset.turnstileAttemptCount = "0";
       if (submitButton) {
         submitButton.disabled = true;
       }
@@ -405,13 +391,24 @@
       note.textContent = "Please complete the Cloudflare Turnstile check.";
     } catch (error) {
       field.hidden = false;
-      note.textContent = "Cloudflare Turnstile did not finish loading. Retry the check.";
-      if (retryButton) {
-        retryButton.hidden = false;
+      turnstileLoader = undefined;
+      form.dataset.turnstileAttemptCount = String(attemptCount + 1);
+
+      if (attemptCount + 1 < TURNSTILE_MAX_BOOT_ATTEMPTS) {
+        note.textContent = "Loading Cloudflare Turnstile…";
+        window.setTimeout(() => {
+          form.dataset.turnstileToken = "";
+          form.dataset.turnstileWidgetId = "";
+          widgetHost.replaceChildren();
+          setupTurnstile(form, status);
+        }, TURNSTILE_BOOT_RETRY_DELAY_MS);
+      } else {
+        note.textContent = "Cloudflare Turnstile did not load. Refresh the page and try again.";
+        if (submitButton) {
+          submitButton.disabled = false;
+        }
       }
-      if (submitButton) {
-        submitButton.disabled = false;
-      }
+
       if (status) {
         status.textContent = "Could not load the Cloudflare Turnstile check right now.";
       }
