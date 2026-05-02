@@ -333,6 +333,14 @@
     state.banner.classList.toggle("is-open", open);
   };
 
+  const syncManageButtonVisibility = () => {
+    if (!state.manageButton) {
+      return;
+    }
+
+    state.manageButton.hidden = state.consent === "unset";
+  };
+
   const syncPreferenceControls = () => {
     if (!state.analyticsCheckbox) {
       return;
@@ -373,6 +381,7 @@
     setBannerOpen(false);
     setPanelOpen(false);
     syncPreferenceControls();
+    syncManageButtonVisibility();
   };
 
   const createManageButton = () => {
@@ -380,6 +389,7 @@
     button.type = "button";
     button.className = "cookie-settings-button motion-safe-transition";
     button.textContent = "Cookie settings";
+    button.hidden = true;
     button.addEventListener("click", () => {
       setPanelOpen(true);
     });
@@ -404,8 +414,8 @@
       </div>
       <div class="cookie-banner__actions">
         <a class="cookie-banner__link" href="${privacyPolicyPath}">Read the privacy policy</a>
-        <button class="button secondary cookie-banner__button" type="button" data-consent-action="customize">Customize</button>
-        <button class="button primary cookie-banner__button" type="button" data-consent-action="accept">Accept</button>
+        <button class="button secondary cookie-banner__button" type="button" data-consent-action="customize">More options</button>
+        <button class="button primary cookie-banner__button" type="button" data-consent-action="accept">Accept all</button>
       </div>
     `;
 
@@ -499,6 +509,7 @@
     createBanner();
     createPreferencesPanel();
     createManageButton();
+    syncManageButtonVisibility();
     if (state.consent === "unset") {
       setBannerOpen(true);
     }
