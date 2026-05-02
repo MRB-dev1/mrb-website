@@ -47,6 +47,10 @@ This site uses the inline `gtag` integration in [analytics.js](/C:/Users/robin/D
   Purpose: Read-depth milestones.
   Params: `percent_scrolled`.
 
+- `section_view`
+  Purpose: One-time section visibility tracking as visitors move through page content.
+  Params: `section_id`, `section_name`, `section_index`.
+
 ### UI interactions
 
 - `mobile_menu_toggle`
@@ -167,7 +171,7 @@ Current repo note:
 
 ## DebugView Verification
 
-1. Set `debug: true` in [analytics-config.js](/C:/Users/robin/Downloads/creator_studio_starter/analytics-config.js).
+1. Set `debug: true` in [analytics-config.js](/C:/Users/robin/Downloads/creator_studio_starter/analytics-config.js), or temporarily open the page with `?debug_ga=1`.
 2. Enable the Google Analytics Debugger browser extension.
 3. Start the site with `npm start`.
 4. Open the local pages through `http://localhost:3000/`.
@@ -175,6 +179,7 @@ Current repo note:
 6. Open GA4 DebugView and confirm `page_view` plus the interaction you are testing.
 7. For Web Vitals, wait about 10 seconds after load for `LCP` and `CLS`.
 8. For commerce, switch product links to Lemon Squeezy test-mode URLs before validating `begin_checkout` and `purchase`.
+9. For quick browser-side diagnostics, run `window.mrbAnalytics.getDiagnostics()` in DevTools after accepting cookies.
 
 ## Privacy Boundary
 

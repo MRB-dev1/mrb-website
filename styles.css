@@ -5587,15 +5587,15 @@ summary:focus-visible {
 
 .cookie-banner {
   position: fixed;
-  left: 18px;
-  bottom: 18px;
+  left: 50%;
+  bottom: 24px;
   z-index: 90;
   display: grid;
-  gap: 14px;
-  width: min(420px, calc(100vw - 36px));
-  padding: 16px 16px 14px;
+  gap: 16px;
+  width: min(560px, calc(100vw - 32px));
+  padding: 20px 20px 18px;
   border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
+  border-radius: 22px;
   background:
     radial-gradient(circle at top left, rgba(168, 200, 255, 0.18), transparent 42%),
     linear-gradient(160deg, rgba(14, 18, 24, 0.98), rgba(8, 10, 15, 0.96));
@@ -5603,7 +5603,7 @@ summary:focus-visible {
     0 24px 60px rgba(0, 0, 0, 0.45),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   opacity: 0;
-  transform: translateY(20px);
+  transform: translate(-50%, 20px);
   pointer-events: none;
   transition:
     opacity var(--motion-surface),
@@ -5616,7 +5616,7 @@ summary:focus-visible {
 
 .cookie-banner.is-open {
   opacity: 1;
-  transform: translateY(0);
+  transform: translate(-50%, 0);
   pointer-events: auto;
 }
 
@@ -5637,19 +5637,23 @@ summary:focus-visible {
 }
 
 .cookie-banner__actions {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  gap: 10px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 12px;
 }
 
 .cookie-banner__button {
-  min-width: 132px;
-  min-height: 44px;
+  width: 100%;
+  min-width: 0;
+  min-height: 48px;
+  justify-content: center;
 }
 
 .cookie-banner__link {
+  grid-column: 1 / -1;
+  justify-self: center;
+  text-align: center;
   color: rgba(247, 247, 242, 0.8);
   text-decoration: underline;
   text-underline-offset: 0.18em;
@@ -5665,7 +5669,7 @@ summary:focus-visible {
   inset: 0;
   z-index: 110;
   display: grid;
-  place-items: end start;
+  place-items: center;
   padding: 20px;
 }
 
@@ -5827,13 +5831,13 @@ summary:focus-visible {
 @media (min-width: 860px) {
   .cookie-banner {
     grid-template-columns: 1fr;
-    align-items: start;
+    align-items: center;
   }
 }
 
 @media (max-width: 720px) {
   .cookie-banner__actions {
-    justify-content: stretch;
+    grid-template-columns: 1fr;
   }
 
   .cookie-banner__actions > * {
@@ -5842,7 +5846,7 @@ summary:focus-visible {
 
   .cookie-panel {
     padding: 16px;
-    place-items: end stretch;
+    place-items: center stretch;
   }
 
   .cookie-panel__dialog {

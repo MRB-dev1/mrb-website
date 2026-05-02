@@ -1,5 +1,6 @@
 (() => {
   const config = window.MRB_ANALYTICS_CONFIG || {};
+  const debugEnabled = Boolean(config.debug) || new URLSearchParams(window.location.search).get("debug_ga") === "1";
   const measurementId = typeof config.measurementId === "string" ? config.measurementId.trim() : "";
   const consentCookieName = config.consentCookieName || "mrb_cookie_consent";
   const consentStorageKey = config.consentStorageKey || "mrb_cookie_consent";
@@ -13,6 +14,8 @@
   const lemonScriptUrl = "https://app.lemonsqueezy.com/js/lemon.js";
   const firedScrollDepths = new Set();
   const viewedItems = new Set();
+  const viewedSections = new Set();
+  const observedSections = new WeakSet();
   const startedForms = new WeakSet();
   const boundDetails = new WeakSet();
   const boundVideos = new WeakSet();
@@ -41,6 +44,7 @@
     panelSource: "panel",
     jsErrorsTracked: 0,
     pendingCheckoutItem: null,
+    sectionObserver: null,
     mutationObserver: null,
     bindingFrame: null,
   };
@@ -464,26 +468,33 @@
     }
 
     state.tagRequested = true;
-    window.gtag("consent", "default", buildConsentPayload(false));
-    window.gtag("consent", "update", buildConsentPayload(true));
-    window.gtag("js", new Date());
-    window.gtag("config", measurementId, {
-      anonymize_ip: true,
-      allow_google_signals: false,
-      allow_ad_personalization_signals: false,
-      cookie_flags: window.location.protocol === "https:" ? "SameSite=Lax;Secure" : "SameSite=Lax",
-      debug_mode: Boolean(config.debug),
-      send_page_view: true,
-      transport_type: "beacon",
-    });
-
-    syncUserProperties();
 
     try {
       await loadGoogleTag();
+      window.gtag("consent", "default", buildConsentPayload(false));
+      window.gtag("consent", "update", buildConsentPayload(true));
+      window.gtag("js", new Date());
+      window.gtag("config", measurementId, {
+        anonymize_ip: true,
+        allow_google_signals: false,
+        allow_ad_personalization_signals: false,
+        cookie_flags: window.location.protocol === "https:" ? "SameSite=Lax;Secure" : "SameSite=Lax",
+        debug_mode: debugEnabled,
+        send_page_view: true,
+        transport_type: "beacon",
+      });
+
+      syncUserProperties();
+
+      if (debugEnabled) {
+        console.info("[MRB analytics] GA4 configured", {
+          consent: state.consent,
+          measurementId,
+        });
+      }
     } catch (error) {
       state.tagRequested = false;
-      if (config.debug) {
+      if (debugEnabled) {
         console.warn(error);
       }
     }
@@ -840,6 +851,89 @@
     }
   };
 
+  const getTrackableSections = () =>
+    Array.from(document.querySelectorAll("main section")).filter((section) => !section.closest("aside"));
+
+  const getSectionIndex = (section) => getTrackableSections().indexOf(section);
+
+  const getSectionName = (section, index) =>
+    normalizeText(
+      section.dataset.analyticsLabel ||
+        section.getAttribute("aria-label") ||
+        section.querySelector("h1, h2, h3, .eyebrow")?.textContent ||
+        section.id ||
+        `Section ${index + 1}`,
+      80
+    );
+
+  const trackSectionView = (section) => {
+    if (state.consent !== "accepted") {
+      return;
+    }
+
+    const index = getSectionIndex(section);
+    if (index < 0) {
+      return;
+    }
+
+    const sectionId = normalizeText(section.id || "", 80);
+    const key = `${getCurrentPath()}::${sectionId || `section-${index + 1}`}`;
+    if (viewedSections.has(key)) {
+      return;
+    }
+
+    viewedSections.add(key);
+    track("section_view", {
+      section_id: sectionId,
+      section_name: getSectionName(section, index),
+      section_index: index + 1,
+    });
+  };
+
+  const trackVisibleSectionsNow = () => {
+    if (state.consent !== "accepted") {
+      return;
+    }
+
+    getTrackableSections().forEach((section) => {
+      const rect = section.getBoundingClientRect();
+      const visibleHeight = Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+      const sectionHeight = Math.max(rect.height, 1);
+      if (visibleHeight / sectionHeight >= 0.35) {
+        trackSectionView(section);
+      }
+    });
+  };
+
+  const initSectionTracking = () => {
+    if ("IntersectionObserver" in window && !state.sectionObserver) {
+      state.sectionObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting || state.consent !== "accepted") {
+              return;
+            }
+
+            trackSectionView(entry.target);
+            state.sectionObserver?.unobserve(entry.target);
+          });
+        },
+        { threshold: 0.35, rootMargin: "0px 0px -12% 0px" }
+      );
+    }
+
+    if (state.sectionObserver) {
+      getTrackableSections().forEach((section) => {
+        if (!observedSections.has(section)) {
+          observedSections.add(section);
+          state.sectionObserver.observe(section);
+        }
+      });
+    }
+
+    trackVisibleSectionsNow();
+  };
+
   const reportWebVital = (metric) => {
     track("web_vital", {
       metric_name: metric.name,
@@ -870,7 +964,7 @@
       webVitals.onTTFB(reportWebVital);
     } catch (error) {
       state.webVitalsRequested = false;
-      if (config.debug) {
+      if (debugEnabled) {
         console.warn(error);
       }
     }
@@ -1209,7 +1303,7 @@
       }
     } catch (error) {
       state.lemonRequested = false;
-      if (config.debug) {
+      if (debugEnabled) {
         console.warn(error);
       }
     }
@@ -1266,6 +1360,7 @@
       syncUserProperties();
       trackConsentState(value, interactionSource, previousConsent);
       trackVisibleCommerceItems();
+      initSectionTracking();
       initWebVitals();
     } else {
       if (state.tagRequested) {
@@ -1295,9 +1390,9 @@
         </p>
       </div>
       <div class="cookie-banner__actions">
-        <a class="cookie-banner__link" href="${privacyPolicyPath}">Read the privacy policy</a>
+        <button class="button primary cookie-banner__button" type="button" data-consent-action="accept">Accept analytics</button>
         <button class="button secondary cookie-banner__button" type="button" data-consent-action="customize">More options</button>
-        <button class="button primary cookie-banner__button" type="button" data-consent-action="accept">Accept all</button>
+        <a class="cookie-banner__link" href="${privacyPolicyPath}">Read the privacy policy</a>
       </div>
     `;
 
@@ -1408,12 +1503,14 @@
       emitScrollDepth();
       syncUserProperties();
       trackVisibleCommerceItems();
+      initSectionTracking();
       initWebVitals();
     } else if (state.consent === "rejected") {
       clearAnalyticsCookies();
     }
 
     bindDynamicElements();
+    initSectionTracking();
     initMutationObserver();
     initErrorTracking();
     initFormTracking();
@@ -1435,6 +1532,14 @@
     },
     clearAnalyticsCookies,
     describeForm,
+    getDiagnostics: () => ({
+      consent: state.consent,
+      debugEnabled,
+      measurementId,
+      tagRequested: state.tagRequested,
+      tagLoaded: state.tagLoaded,
+      webVitalsLoaded: state.webVitalsLoaded,
+    }),
     getProductData,
     setUserProperty,
     track,
