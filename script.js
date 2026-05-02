@@ -345,7 +345,7 @@
 
       if (!response.ok || !result.turnstile?.enabled || !result.turnstile?.siteKey) {
         field.hidden = true;
-        note.textContent = "Cloudflare Turnstile is not configured yet.";
+        note.textContent = "Bot verification is not configured yet.";
         return;
       }
 
@@ -356,7 +356,7 @@
         submitButton.disabled = true;
       }
 
-      note.textContent = "Loading Cloudflare Turnstile…";
+      note.textContent = "Loading bot verification…";
       widgetHost.replaceChildren();
       await loadTurnstileScript();
 
@@ -380,7 +380,7 @@
         },
         "error-callback": () => {
           form.dataset.turnstileToken = "";
-          note.textContent = "Could not load the Cloudflare Turnstile check. Refresh and try again.";
+          note.textContent = "Could not load bot verification. Refresh and try again.";
           if (submitButton) {
             submitButton.disabled = true;
           }
@@ -388,14 +388,14 @@
       });
 
       form.dataset.turnstileWidgetId = String(widgetId);
-      note.textContent = "Please complete the Cloudflare Turnstile check.";
+      note.textContent = "Please complete bot verification.";
     } catch (error) {
       field.hidden = false;
       turnstileLoader = undefined;
       form.dataset.turnstileAttemptCount = String(attemptCount + 1);
 
       if (attemptCount + 1 < TURNSTILE_MAX_BOOT_ATTEMPTS) {
-        note.textContent = "Loading Cloudflare Turnstile…";
+        note.textContent = "Loading bot verification…";
         window.setTimeout(() => {
           form.dataset.turnstileToken = "";
           form.dataset.turnstileWidgetId = "";
@@ -403,14 +403,14 @@
           setupTurnstile(form, status);
         }, TURNSTILE_BOOT_RETRY_DELAY_MS);
       } else {
-        note.textContent = "Cloudflare Turnstile did not load. Refresh the page and try again.";
+        note.textContent = "Bot verification did not load. Refresh the page and try again.";
         if (submitButton) {
           submitButton.disabled = false;
         }
       }
 
       if (status) {
-        status.textContent = "Could not load the Cloudflare Turnstile check right now.";
+        status.textContent = "Could not load bot verification right now.";
       }
     }
   };
@@ -554,7 +554,7 @@
           form.dataset.turnstileToken = "";
           const note = form.querySelector("[data-turnstile-note]");
           if (note) {
-            note.textContent = "Please complete the Cloudflare Turnstile check.";
+            note.textContent = "Please complete bot verification.";
           }
         }
         if (status) {
@@ -572,7 +572,7 @@
           if (error.message === "Invalid email") {
             status.textContent = "Use a full email address before sending.";
           } else if (error.message === "Turnstile incomplete") {
-            status.textContent = "Please complete the Cloudflare Turnstile check before sending.";
+            status.textContent = "Please complete bot verification before sending.";
           } else if (error.result?.message) {
             status.textContent = error.result.message;
           } else {

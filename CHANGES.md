@@ -9,6 +9,7 @@
 - Filtered internal anti-spam fields out of stored submissions, Discord notifications, and email notifications so only the visible inquiry content is forwarded.
 - Added `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` to `.env.example` and documented them in `README.md` for production deployment.
 - Added a hard block for the recurring spam name `RobertBic` across the local server, Vercel-style handler, and Cloudflare Pages Function.
+- Changed the contact-page user-facing language from `Cloudflare Turnstile` to neutral `Bot verification` copy while keeping the same Cloudflare verification flow.
 - Kept the existing `services.html` and matching `styles.css` visual refresh in this production deployment, including the segmented packages/process treatment and scoped `services-page` styling.
 - Verified the Node-side handlers with syntax checks plus mocked submission tests covering Turnstile config loading, token acceptance, and disposable-email rejection.
 
