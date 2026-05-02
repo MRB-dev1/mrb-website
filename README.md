@@ -27,6 +27,7 @@ Static HTML/CSS starter for a premium creator-focused game development studio, n
 - `wrangler.toml` - Cloudflare Pages deploy configuration
 - `vercel.json` - rewrite for `/api/contact`
 - `assets/mrb-logo-white.png` - MRB logo used across the site
+- `assets/mrb-browser-icon.png` - dedicated browser favicon asset derived from the MRB logo
 
 ## Backend and contact form
 
