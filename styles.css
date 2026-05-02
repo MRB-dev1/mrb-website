@@ -5145,3 +5145,442 @@ summary:focus-visible {
     justify-content: flex-start;
   }
 }
+
+/* Services page UX/UI polish: scoped segmentation, package/process icons, and focused accent discipline. */
+.services-page {
+  --services-bg: var(--surface-page);
+  --services-surface: var(--surface-card);
+  --services-surface-blue: var(--surface-proof);
+  --services-border: var(--border-subtle);
+  --services-accent: var(--accent-blue);
+  --services-accent-soft: color-mix(in srgb, var(--services-accent) 8%, transparent);
+  --services-accent-panel: color-mix(in srgb, var(--services-accent) 12%, transparent);
+  --services-accent-line: color-mix(in srgb, var(--services-accent) 24%, transparent);
+  --services-accent-strong: color-mix(in srgb, var(--services-accent) 38%, transparent);
+}
+
+.services-page .services-hero {
+  position: relative;
+  isolation: isolate;
+}
+
+.services-page .services-hero::before {
+  content: "";
+  position: absolute;
+  inset: -24px -60px 8px 36%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(circle at 68% 34%, var(--services-accent-panel), transparent 42%);
+  filter: blur(10px);
+  opacity: 0.95;
+}
+
+.services-page .services-capabilities {
+  position: relative;
+}
+
+.services-page .services-capabilities::after {
+  content: "";
+  display: block;
+  width: min(100%, 860px);
+  height: 1px;
+  margin: 54px auto 0;
+  background: linear-gradient(90deg, transparent, var(--services-accent), transparent);
+  opacity: 0.3;
+}
+
+.services-page .services-capabilities .card {
+  border-color: var(--services-border);
+  border-top: 2px solid var(--services-accent-line);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.02)),
+    var(--services-surface);
+}
+
+.services-page .services-capabilities .card-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 54px;
+  margin-bottom: 24px;
+  padding: 6px 12px;
+  border: 1px solid var(--services-accent-line);
+  border-radius: var(--radius-pill);
+  background: var(--services-accent-soft);
+  color: var(--services-accent);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.services-page .services-capabilities .icon-frame {
+  color: var(--services-accent);
+  border-color: var(--services-accent-line);
+  background:
+    radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.12), transparent 56%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.018)),
+    color-mix(in srgb, var(--services-surface) 90%, var(--services-accent) 10%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 24px var(--services-accent-soft);
+}
+
+.services-page .services-packages {
+  position: relative;
+  overflow: hidden;
+  border-top: 1px solid var(--services-border);
+  border-bottom: 1px solid var(--services-border);
+  background:
+    radial-gradient(circle at 82% 18%, var(--services-accent-soft), transparent 28%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.025), rgba(255, 255, 255, 0.01)),
+    linear-gradient(180deg, var(--services-surface-blue) 0%, color-mix(in srgb, var(--services-surface-blue) 64%, var(--services-bg)) 100%);
+  box-shadow: inset 0 1px 0 var(--services-accent-soft);
+}
+
+.services-page .services-packages .sticky-note {
+  z-index: 1;
+}
+
+.services-page .package-panel {
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.services-page .package-card {
+  display: grid;
+  gap: 14px;
+  min-height: 100%;
+  padding: 28px;
+  border: 1px solid var(--services-border);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.055), rgba(255, 255, 255, 0.022)),
+    var(--services-surface);
+}
+
+.services-page .package-card .icon-title-row {
+  margin-bottom: 0;
+}
+
+.services-page .package-card .icon-frame {
+  color: var(--services-accent);
+  border-color: var(--services-accent-line);
+  background:
+    radial-gradient(circle at 50% 28%, rgba(255, 255, 255, 0.12), transparent 56%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.018)),
+    color-mix(in srgb, var(--services-surface) 86%, var(--services-accent) 14%);
+}
+
+.services-page .package-card h3,
+.services-page .package-card p {
+  margin: 0;
+}
+
+.services-page .package-card:hover {
+  border-color: var(--services-accent-strong);
+  box-shadow:
+    0 20px 70px rgba(0, 0, 0, 0.38),
+    0 0 0 1px var(--services-accent-soft),
+    0 0 32px var(--services-accent-soft);
+}
+
+.services-page .package-card--starter {
+  border-top: 2px solid var(--services-accent-strong);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.015)),
+    var(--services-bg);
+}
+
+.services-page .package-card--system {
+  border-left: 4px solid var(--services-accent);
+  padding-left: 25px;
+}
+
+.services-page .package-card--launch {
+  border-color: var(--services-accent-strong);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.024)),
+    color-mix(in srgb, var(--services-surface-blue) 70%, var(--services-surface) 30%);
+  box-shadow:
+    0 24px 70px var(--services-accent-panel),
+    0 20px 70px rgba(0, 0, 0, 0.34);
+}
+
+.services-page .package-card--full {
+  border-style: dashed;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015)),
+    var(--services-bg);
+}
+
+.services-page .package-card--full::after {
+  content: "";
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  width: 12px;
+  height: 12px;
+  border-top: 1px solid var(--services-accent);
+  border-right: 1px solid var(--services-accent);
+  opacity: 0.85;
+}
+
+.services-page .services-packages .button:focus-visible,
+.services-page .services-final-cta .button:focus-visible {
+  outline: 2px solid var(--services-accent);
+  outline-offset: 4px;
+  border-color: var(--services-accent-strong);
+}
+
+.services-page .services-process {
+  position: relative;
+  overflow: hidden;
+  padding: 104px 32px 96px;
+  border: 1px solid var(--services-border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 84% 18%, var(--services-accent-soft), transparent 26%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.012)),
+    var(--services-bg);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.04),
+    0 22px 76px rgba(0, 0, 0, 0.34);
+}
+
+.services-page .services-process .section-heading,
+.services-page .services-process .process-list {
+  position: relative;
+  z-index: 1;
+}
+
+.services-page .services-process .process-list {
+  position: relative;
+  overflow: hidden;
+  border-color: var(--services-border);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.045), rgba(255, 255, 255, 0.016)),
+    color-mix(in srgb, var(--services-surface) 82%, var(--services-bg) 18%);
+}
+
+.services-page .services-process .process-list::before {
+  content: "";
+  position: absolute;
+  left: 50px;
+  top: 24px;
+  bottom: 24px;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, var(--services-accent-strong) 12%, var(--services-accent-strong) 88%, transparent);
+}
+
+.services-page .services-process .process-list article {
+  position: relative;
+  display: grid;
+  grid-template-columns: 56px 1fr;
+  gap: 20px;
+  align-items: start;
+  padding: 26px 28px;
+  background:
+    linear-gradient(90deg, var(--services-accent-soft), transparent 34%),
+    rgba(5, 5, 6, 0.78);
+}
+
+.services-page .services-process .process-list article + article {
+  border-top: 1px solid var(--services-border);
+}
+
+.services-page .services-process .process-list article:hover {
+  background:
+    linear-gradient(90deg, var(--services-accent-panel), transparent 36%),
+    rgba(8, 8, 10, 0.88);
+}
+
+.services-page .process-step__marker {
+  position: relative;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--services-accent-strong);
+  border-radius: var(--radius-pill);
+  background: var(--services-accent-soft);
+  color: var(--services-accent);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 24px var(--services-accent-soft);
+}
+
+.services-page .process-step__marker svg {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.services-page .process-step__body {
+  min-width: 0;
+}
+
+.services-page .process-step__body .step-number {
+  display: inline-flex;
+  align-items: center;
+  min-width: 52px;
+  margin: 0 0 10px;
+  padding: 4px 10px;
+  border: 1px solid var(--services-accent-line);
+  border-radius: var(--radius-pill);
+  background: var(--services-accent-soft);
+  color: var(--services-accent);
+}
+
+.services-page .process-step__body h3 {
+  margin: 0 0 10px;
+}
+
+.services-page .process-step__body p {
+  margin: 0;
+}
+
+.services-page .services-faq .grid-2 {
+  gap: 14px;
+}
+
+.services-page .services-faq .card.compact {
+  min-height: 100%;
+  border-color: var(--services-border);
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.018)),
+    color-mix(in srgb, var(--services-surface) 92%, var(--services-bg) 8%);
+}
+
+.services-page .services-faq .card.compact::after {
+  content: "";
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--services-accent), transparent);
+  opacity: 0.16;
+}
+
+.services-page .services-final-cta {
+  position: relative;
+  overflow: hidden;
+  padding: 88px 40px;
+  border: 1px solid var(--services-accent-line);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 78% 18%, var(--services-accent-panel), transparent 30%),
+    linear-gradient(135deg, color-mix(in srgb, var(--services-surface-blue) 54%, var(--services-surface) 46%), var(--services-bg));
+  box-shadow:
+    0 28px 90px var(--services-accent-soft),
+    0 24px 80px rgba(0, 0, 0, 0.4);
+}
+
+.services-page .services-final-cta h2::after {
+  content: "";
+  display: block;
+  width: 56px;
+  height: 1px;
+  margin: 18px auto 0;
+  background: var(--services-accent);
+  opacity: 0.8;
+}
+
+.services-page .services-final-cta .button.secondary {
+  border-color: var(--services-accent-line);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+@media (min-width: 720px) {
+  .services-page .package-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 980px) {
+  .services-page .services-process {
+    padding: 88px 24px 80px;
+  }
+
+  .services-page .services-process .process-list article {
+    grid-template-columns: 56px 1fr;
+  }
+}
+
+@media (max-width: 620px) {
+  .services-page .services-capabilities::after {
+    margin-top: 40px;
+  }
+
+  .services-page .services-process,
+  .services-page .services-final-cta {
+    padding: 72px 20px;
+  }
+
+  .services-page .services-process .process-list::before {
+    left: 38px;
+    top: 22px;
+    bottom: 22px;
+  }
+
+  .services-page .services-process .process-list article {
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+    padding: 22px 18px;
+  }
+
+  .services-page .process-step__marker {
+    width: 40px;
+    height: 40px;
+  }
+
+  .services-page .package-card {
+    padding: 24px;
+  }
+}
+
+.turnstile-field[hidden] {
+  display: none;
+}
+
+.turnstile-card {
+  display: grid;
+  gap: 14px;
+  padding: 18px;
+  border: 1px solid rgba(168, 200, 255, 0.22);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at top right, rgba(168, 200, 255, 0.1), transparent 36%),
+    rgba(255, 255, 255, 0.025);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+}
+
+.turnstile-card__head {
+  display: grid;
+  gap: 6px;
+}
+
+.turnstile-card__head label,
+.turnstile-card__head p,
+.turnstile-card__note {
+  margin: 0;
+}
+
+.turnstile-card__head p {
+  color: var(--muted-2);
+  font-size: 12px;
+}
+
+.turnstile-card__note {
+  color: var(--muted-2);
+  font-size: 12px;
+}
+
+.turnstile-widget {
+  min-height: 70px;
+}

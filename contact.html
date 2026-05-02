@@ -9,8 +9,8 @@
   <title>Contact - MRB</title>
   <meta name="description" content="Contact MRB for creator partnerships, custom game development, support, and business inquiries." />
   <link rel="icon" href="assets/mrb-logo-white.png" />
-  <link rel="stylesheet" href="styles.css?v=20260426g" />
-  <script src="script.js?v=20260426g" defer></script>
+  <link rel="stylesheet" href="styles.css?v=20260501a" />
+  <script src="script.js?v=20260501a" defer></script>
 </head>
 <body>
   <header class="site-header">
@@ -169,6 +169,16 @@
           <div class="field full">
             <label for="message">Message</label>
             <textarea id="message" name="Message" placeholder="Tell MRB what you need help with." required></textarea>
+          </div>
+          <div class="field full turnstile-field" data-turnstile-field hidden>
+            <div class="turnstile-card">
+              <div class="turnstile-card__head">
+                <label>Spam protection</label>
+                <p>Please confirm you are not a robot before sending.</p>
+              </div>
+              <div class="turnstile-widget" data-turnstile-widget></div>
+              <p class="turnstile-card__note" data-turnstile-note>Loading Cloudflare Turnstile…</p>
+            </div>
           </div>
         </div>
         <div class="action-row">

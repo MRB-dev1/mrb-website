@@ -1,11 +1,34 @@
+const {
+  filterVisibleFields,
+  findDisposableEmailDomain,
+  getTurnstileConfig,
+  isBlockedName,
+  isRateLimited,
+  isValidEmail,
+  recordSubmissionAttempt,
+  verifyTurnstileToken,
+} = require("../contact-security");
+
 const sendJson = (res, status, payload) => {
   res.statusCode = status;
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.setHeader("Cache-Control", "no-store");
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
-  res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   res.end(JSON.stringify(payload));
+};
+
+const sendConfig = (res) => {
+  const turnstile = getTurnstileConfig(process.env);
+
+  sendJson(res, 200, {
+    ok: true,
+    turnstile: {
+      enabled: turnstile.enabled,
+      siteKey: turnstile.enabled ? turnstile.siteKey : "",
+    },
+  });
 };
 
 const parseBody = (req) =>
@@ -34,8 +57,6 @@ const parseBody = (req) =>
     req.on("error", reject);
   });
 
-const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-
 const postResendEmail = async (apiKey, payload) => {
   const response = await fetch("https://api.resend.com/emails", {
     method: "POST",
@@ -62,12 +83,13 @@ const sendEmail = async (fields) => {
     throw new Error("Email provider not configured");
   }
 
-  const lines = Object.entries(fields).map(([key, value]) => `${key}: ${value}`);
-  const submitterEmail = String(fields.Email || "").trim();
+  const visibleFields = filterVisibleFields(fields);
+  const lines = Object.entries(visibleFields).map(([key, value]) => `${key}: ${value}`);
+  const submitterEmail = String(visibleFields.Email || "").trim();
   const adminEmail = await postResendEmail(apiKey, {
       from,
       to,
-      subject: `MRB website inquiry - ${fields.Form || "Contact"}`,
+      subject: `MRB website inquiry - ${visibleFields.Form || "Contact"}`,
       text: lines.join("\n"),
   });
 
@@ -79,7 +101,7 @@ const sendEmail = async (fields) => {
       to: submitterEmail,
       subject: "MRB received your inquiry",
       text: [
-        `Hi ${fields.Name || "there"},`,
+        `Hi ${visibleFields.Name || "there"},`,
         "",
         "MRB has received your message. We will get back to you within 5h-48h.",
         "",
@@ -101,8 +123,7 @@ const sendEmail = async (fields) => {
 };
 
 const formatDiscordFields = (fields) =>
-  Object.entries(fields)
-    .filter(([key, value]) => key !== "website" && String(value).trim())
+  Object.entries(filterVisibleFields(fields))
     .slice(0, 12)
     .map(([key, value]) => ({
       name: key,
@@ -146,17 +167,22 @@ const sendDiscord = async (fields) => {
 };
 
 module.exports = async (req, res) => {
+  if (req.method === "GET") {
+    sendConfig(res);
+    return;
+  }
+
   if (req.method === "OPTIONS") {
     res.statusCode = 204;
     res.setHeader("Access-Control-Allow-Origin", "*");
     res.setHeader("Access-Control-Allow-Headers", "Content-Type, Accept");
-    res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+    res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
     res.end();
     return;
   }
 
   if (req.method !== "POST") {
-    res.setHeader("Allow", "POST");
+    res.setHeader("Allow", "GET, POST");
     sendJson(res, 405, { ok: false, message: "Method not allowed" });
     return;
   }
@@ -172,11 +198,65 @@ module.exports = async (req, res) => {
     const name = String(fields.Name || "").trim();
     const email = String(fields.Email || "").trim();
     const message = String(fields.Message || fields["Project summary"] || "").trim();
+    const requestIp = req.headers["x-forwarded-for"]?.split(",")[0]?.trim() || req.socket.remoteAddress;
+    const turnstile = getTurnstileConfig(process.env);
 
     if (!name || !isValidEmail(email) || !message) {
       sendJson(res, 400, { ok: false, message: "Missing required fields" });
       return;
     }
+
+    if (isBlockedName(name)) {
+      sendJson(res, 403, {
+        ok: false,
+        message: "This contact submission was blocked.",
+      });
+      return;
+    }
+
+    if (findDisposableEmailDomain(email)) {
+      sendJson(res, 400, {
+        ok: false,
+        message: "Temporary or disposable email addresses are not accepted. Use your real email instead.",
+      });
+      return;
+    }
+
+    const rateLimit = isRateLimited({ ip: requestIp, email });
+    if (rateLimit.limited) {
+      recordSubmissionAttempt({ ip: requestIp, email });
+      sendJson(res, 429, {
+        ok: false,
+        message: "Too many contact attempts from this connection. Please try again a bit later.",
+      });
+      return;
+    }
+
+    let turnstileResult = { success: true, skipped: true };
+    try {
+      turnstileResult = await verifyTurnstileToken({
+        token: fields["cf-turnstile-response"],
+        remoteIp: requestIp,
+        env: process.env,
+      });
+    } catch (error) {
+      sendJson(res, 502, {
+        ok: false,
+        message: "Could not verify the Cloudflare Turnstile check right now. Please try again.",
+      });
+      return;
+    }
+
+    if (turnstile.enabled && !turnstileResult.success) {
+      sendJson(res, 400, {
+        ok: false,
+        message: "Please complete the Cloudflare Turnstile check before sending.",
+        errors: turnstileResult["error-codes"] || [],
+      });
+      return;
+    }
+
+    recordSubmissionAttempt({ ip: requestIp, email });
 
     const results = await Promise.allSettled([sendEmail(fields), sendDiscord(fields)]);
     const emailResult =

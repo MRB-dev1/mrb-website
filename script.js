@@ -205,7 +205,7 @@
   let inquiryModal;
 
   const summarizeSubmission = (formData) => {
-    const hiddenFields = new Set(["website"]);
+    const hiddenFields = new Set(["website", "cf-turnstile-response"]);
 
     return Array.from(formData.entries())
       .map(([key, value]) => [key, String(value).trim()])
@@ -238,6 +238,112 @@
       inquiryModal.modal.classList.add("is-open");
       inquiryModal.closeButton.focus();
     });
+  };
+
+  let turnstileLoader;
+
+  const loadTurnstileScript = () => {
+    if (window.turnstile) {
+      return Promise.resolve(window.turnstile);
+    }
+
+    if (turnstileLoader) {
+      return turnstileLoader;
+    }
+
+    turnstileLoader = new Promise((resolve, reject) => {
+      const existing = document.querySelector("script[data-turnstile-script]");
+
+      if (existing) {
+        existing.addEventListener("load", () => resolve(window.turnstile), { once: true });
+        existing.addEventListener("error", () => reject(new Error("Turnstile failed to load")), { once: true });
+        return;
+      }
+
+      const script = document.createElement("script");
+      script.src = "https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit";
+      script.async = true;
+      script.defer = true;
+      script.dataset.turnstileScript = "true";
+      script.addEventListener("load", () => resolve(window.turnstile), { once: true });
+      script.addEventListener("error", () => reject(new Error("Turnstile failed to load")), { once: true });
+      document.head.append(script);
+    });
+
+    return turnstileLoader;
+  };
+
+  const setupTurnstile = async (form, status) => {
+    const field = form.querySelector("[data-turnstile-field]");
+    const widgetHost = form.querySelector("[data-turnstile-widget]");
+    const note = form.querySelector("[data-turnstile-note]");
+    const submitButton = form.querySelector("button[type='submit']");
+
+    form.dataset.turnstileEnabled = "false";
+    form.dataset.turnstileToken = "";
+    form.dataset.turnstileWidgetId = "";
+
+    if (!field || !widgetHost || !note) {
+      return;
+    }
+
+    const endpoint = window.location.protocol === "file:" ? "http://localhost:3000/api/contact" : "/api/contact";
+
+    try {
+      const response = await fetch(endpoint, {
+        headers: { Accept: "application/json" },
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.turnstile?.enabled || !result.turnstile?.siteKey) {
+        field.hidden = true;
+        note.textContent = "Cloudflare Turnstile is not configured yet.";
+        return;
+      }
+
+      field.hidden = false;
+      form.dataset.turnstileEnabled = "true";
+      if (submitButton) {
+        submitButton.disabled = true;
+      }
+
+      await loadTurnstileScript();
+
+      const widgetId = window.turnstile.render(widgetHost, {
+        sitekey: result.turnstile.siteKey,
+        theme: "dark",
+        appearance: "always",
+        callback: (token) => {
+          form.dataset.turnstileToken = token || "";
+          note.textContent = "Verification complete.";
+          if (submitButton) {
+            submitButton.disabled = false;
+          }
+        },
+        "expired-callback": () => {
+          form.dataset.turnstileToken = "";
+          note.textContent = "Verification expired. Please confirm again.";
+          if (submitButton) {
+            submitButton.disabled = true;
+          }
+        },
+        "error-callback": () => {
+          form.dataset.turnstileToken = "";
+          note.textContent = "Could not load the Cloudflare Turnstile check. Refresh and try again.";
+          if (submitButton) {
+            submitButton.disabled = true;
+          }
+        },
+      });
+
+      form.dataset.turnstileWidgetId = String(widgetId);
+      note.textContent = "Please complete the Cloudflare Turnstile check.";
+    } catch (error) {
+      field.hidden = true;
+      if (status) {
+        status.textContent = "Could not load the Cloudflare Turnstile check right now.";
+      }
+    }
   };
 
   const fireConfetti = () => {
@@ -310,6 +416,7 @@
 
   document.querySelectorAll("[data-contact-form]").forEach((form) => {
     const status = form.querySelector("[data-form-status]");
+    setupTurnstile(form, status);
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -341,6 +448,20 @@
           emailInput.setCustomValidity("");
         }
 
+        if (form.dataset.turnstileEnabled === "true") {
+          const widgetId = form.dataset.turnstileWidgetId;
+          const token =
+            window.turnstile && widgetId !== ""
+              ? window.turnstile.getResponse(widgetId)
+              : form.dataset.turnstileToken || "";
+
+          if (!token) {
+            throw new Error("Turnstile incomplete");
+          }
+
+          formData.set("cf-turnstile-response", token);
+        }
+
         const response = await fetch(endpoint, {
           method: "POST",
           headers: { Accept: "application/json" },
@@ -350,13 +471,23 @@
         const result = await response.json().catch(() => ({}));
 
         if (!response.ok) {
-          throw new Error("Submission failed");
+          const error = new Error(result.message || "Submission failed");
+          error.result = result;
+          throw error;
         }
 
         form.reset();
         form.querySelectorAll(".topic-field select[name='Topic']").forEach((select) => {
           select.dispatchEvent(new Event("change", { bubbles: true }));
         });
+        if (form.dataset.turnstileEnabled === "true" && window.turnstile && form.dataset.turnstileWidgetId !== "") {
+          window.turnstile.reset(form.dataset.turnstileWidgetId);
+          form.dataset.turnstileToken = "";
+          const note = form.querySelector("[data-turnstile-note]");
+          if (note) {
+            note.textContent = "Please complete the Cloudflare Turnstile check.";
+          }
+        }
         if (status) {
           status.textContent =
             result.email?.sent === false && result.discord?.sent
@@ -368,9 +499,18 @@
       } catch (error) {
         if (status) {
           const isFilePreview = window.location.protocol === "file:";
-          status.textContent = isFilePreview
-            ? "Start the backend with npm start, then open http://localhost:3000/contact.html. For now, email hello@mrb.ink or Robin@mrb.ink."
-            : "Could not reach the form backend. Email hello@mrb.ink or Robin@mrb.ink.";
+
+          if (error.message === "Invalid email") {
+            status.textContent = "Use a full email address before sending.";
+          } else if (error.message === "Turnstile incomplete") {
+            status.textContent = "Please complete the Cloudflare Turnstile check before sending.";
+          } else if (error.result?.message) {
+            status.textContent = error.result.message;
+          } else {
+            status.textContent = isFilePreview
+              ? "Start the backend with npm start, then open http://localhost:3000/contact.html. For now, email hello@mrb.ink or Robin@mrb.ink."
+              : "Could not reach the form backend. Email hello@mrb.ink or Robin@mrb.ink.";
+          }
         }
       } finally {
         if (submitButton) {

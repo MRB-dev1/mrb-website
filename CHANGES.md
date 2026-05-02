@@ -1,5 +1,17 @@
 # CHANGES
 
+## Contact Anti-Spam Hardening + Services Page Refresh - 2026-05-01
+
+- Added a lightweight anti-bot layer to the contact flow across `server.js`, `api/contact.js`, and `functions/api/contact.js`.
+- Added `contact-security.js` as the shared local/serverless validation helper for disposable-email checks, Turnstile verification, and simple rate limiting.
+- Added `data/disposable-email-domains.json` with a starter denylist used to reject common temp/disposable inbox providers.
+- Replaced the custom inline math challenge with a Cloudflare Turnstile integration path driven by `GET /api/contact` and backend `siteverify` checks.
+- Filtered internal anti-spam fields out of stored submissions, Discord notifications, and email notifications so only the visible inquiry content is forwarded.
+- Added `TURNSTILE_SITE_KEY` and `TURNSTILE_SECRET_KEY` to `.env.example` and documented them in `README.md` for production deployment.
+- Added a hard block for the recurring spam name `RobertBic` across the local server, Vercel-style handler, and Cloudflare Pages Function.
+- Kept the existing `services.html` and matching `styles.css` visual refresh in this production deployment, including the segmented packages/process treatment and scoped `services-page` styling.
+- Verified the Node-side handlers with syntax checks plus mocked submission tests covering Turnstile config loading, token acceptance, and disposable-email rejection.
+
 ## Work Page Case-Study Standardization - 2026-04-28
 
 - Standardized all three deep-dive sections in `work.html` to the same order: eyebrow, title, short intro line, case-study headline, body paragraph, 3-image gallery, and 4-field proof panel.

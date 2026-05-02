@@ -9,9 +9,9 @@
   <title>Services - MRB</title>
   <meta name="description" content="Custom game development services from MRB: creator launch builds, custom coding, game systems, prototypes, assets, polish, and optimization." />
   <link rel="icon" href="assets/mrb-logo-white.png" />
-  <link rel="stylesheet" href="styles.css?v=20260426g" />
+  <link rel="stylesheet" href="styles.css?v=20260428a" />
 </head>
-<body>
+<body class="services-page">
   <header class="site-header">
     <a class="brand" href="index.html" aria-label="MRB home">
       <img src="assets/mrb-logo-white.png" alt="MRB" />
@@ -27,13 +27,13 @@
   </header>
 
   <main>
-    <section class="page-hero section-shell narrow">
+    <section class="page-hero section-shell narrow services-hero">
       <p class="eyebrow">Custom development</p>
       <h1>Custom UEFN development for <span class="accent-word">launches</span>, bespoke systems, and production support.</h1>
       <p>MRB scopes the hook, builds the systems, prepares the handoff, and stays close through launch when a template is not enough.</p>
     </section>
 
-    <section class="section section-shell">
+    <section class="section section-shell services-capabilities">
       <div class="grid-3 service-grid">
         <article class="card" id="creator-launches">
           <span class="card-number">01</span>
@@ -118,7 +118,7 @@
       </div>
     </section>
 
-    <section class="section subtle-band">
+    <section class="section subtle-band services-packages">
       <div class="section-shell split">
         <div class="sticky-note">
           <p class="eyebrow">Project packages</p>
@@ -128,27 +128,64 @@
         </div>
 
         <div class="list-panel package-panel">
-          <article>
-            <h3>Starter project</h3>
+          <article class="package-card package-card--starter">
+            <div class="icon-title-row icon-title-row--compact">
+              <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                  <path d="M14 4c3 1.2 5.8 4 7 7-2.1.2-4.2 1.1-5.8 2.7-1.6 1.6-2.5 3.7-2.7 5.8-3-1.2-5.8-4-7-7 .2-2.1 1.1-4.2 2.7-5.8C9.8 5.1 11.9 4.2 14 4Z" />
+                  <path d="M14.5 9.5h.01" />
+                  <path d="m7 17-3 3" />
+                  <path d="m9 20-4-1" />
+                </svg>
+              </span>
+              <h3>Starter project</h3>
+            </div>
             <p>From $500 to $1,500 for a focused prototype, small feature, or narrow production task.</p>
           </article>
-          <article>
-            <h3>Small custom system</h3>
+          <article class="package-card package-card--system">
+            <div class="icon-title-row icon-title-row--compact">
+              <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                  <path d="M9 4c-2 0-3 1-3 3v2c0 1-.4 1.8-1.2 2.4L4 12l.8.6C5.6 13.2 6 14 6 15v2c0 2 1 3 3 3" />
+                  <path d="M15 4c2 0 3 1 3 3v2c0 1 .4 1.8 1.2 2.4L20 12l-.8.6C18.4 13.2 18 14 18 15v2c0 2-1 3-3 3" />
+                </svg>
+              </span>
+              <h3>Small custom system</h3>
+            </div>
             <p>From $750 to $2,500 for a defined gameplay system, UI flow, tool, or script package.</p>
           </article>
-          <article>
-            <h3>Creator launch build</h3>
+          <article class="package-card package-card--launch">
+            <div class="icon-title-row icon-title-row--compact">
+              <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                  <path d="M12 5v14" />
+                  <path d="m8 19 4-14 4 14" />
+                  <path d="M5 12a7 7 0 0 1 14 0" />
+                  <path d="M8 12a4 4 0 0 1 8 0" />
+                </svg>
+              </span>
+              <h3>Creator launch build</h3>
+            </div>
             <p>From $2,500 to $10,000+ for a campaign-ready experience with polish, assets, launch support, and iteration.</p>
           </article>
-          <article>
-            <h3>Full custom development</h3>
+          <article class="package-card package-card--full">
+            <div class="icon-title-row icon-title-row--compact">
+              <span class="icon-frame icon-frame--tight" aria-hidden="true">
+                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                  <path d="m12 4 8 4-8 4-8-4 8-4Z" />
+                  <path d="m4 12 8 4 8-4" />
+                  <path d="m4 16 8 4 8-4" />
+                </svg>
+              </span>
+              <h3>Full custom development</h3>
+            </div>
             <p>Quoted after discovery for larger worlds, branded experiences, complex systems, or long-term production support.</p>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section-shell">
+    <section class="section section-shell services-process">
       <div class="section-heading">
         <div>
           <p class="eyebrow">How work starts</p>
@@ -158,35 +195,77 @@
       </div>
 
       <div class="process-list">
-        <article>
-          <span class="step-number">01</span>
-          <h3>Discovery call</h3>
-          <p>We start with audience, launch window, risk, budget range, and the proof or references you already have.</p>
+        <article class="process-step process-step--discovery">
+          <span class="process-step__marker" aria-hidden="true">
+            <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+              <path d="M4 6h16a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H9l-5 3v-3H4a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2Z" />
+            </svg>
+          </span>
+          <div class="process-step__body">
+            <span class="step-number">01</span>
+            <h3>Discovery call</h3>
+            <p>We start with audience, launch window, risk, budget range, and the proof or references you already have.</p>
+          </div>
         </article>
-        <article>
-          <span class="step-number">02</span>
-          <h3>Scope and direction</h3>
-          <p>We shape the gameplay hook, deliverables, risk points, milestones, and what the first version should include.</p>
+        <article class="process-step process-step--direction">
+          <span class="process-step__marker" aria-hidden="true">
+            <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+              <circle cx="12" cy="12" r="8" />
+              <path d="m14.5 9.5-4 1.5-1.5 4 4-1.5 1.5-4Z" />
+            </svg>
+          </span>
+          <div class="process-step__body">
+            <span class="step-number">02</span>
+            <h3>Scope and direction</h3>
+            <p>We shape the gameplay hook, deliverables, risk points, milestones, and what the first version should include.</p>
+          </div>
         </article>
-        <article>
-          <span class="step-number">03</span>
-          <h3>Build and review</h3>
-          <p>We move through production with clear review points, playable checks, and decisions tied to launch quality.</p>
+        <article class="process-step process-step--build">
+          <span class="process-step__marker" aria-hidden="true">
+            <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+              <path d="m8 8-4 4 4 4" />
+              <path d="m16 8 4 4-4 4" />
+              <path d="m14 5-4 14" />
+            </svg>
+          </span>
+          <div class="process-step__body">
+            <span class="step-number">03</span>
+            <h3>Build and review</h3>
+            <p>We move through production with clear review points, playable checks, and decisions tied to launch quality.</p>
+          </div>
         </article>
-        <article>
-          <span class="step-number">04</span>
-          <h3>Launch handoff</h3>
-          <p>You receive the build, source or packaged files as agreed, usage notes, launch materials, and support details.</p>
+        <article class="process-step process-step--handoff">
+          <span class="process-step__marker" aria-hidden="true">
+            <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+              <path d="m12 3 8 4.5v9L12 21l-8-4.5v-9L12 3Z" />
+              <path d="m8.5 12.5 2.5 2.5 4.5-5" />
+            </svg>
+          </span>
+          <div class="process-step__body">
+            <span class="step-number">04</span>
+            <h3>Launch handoff</h3>
+            <p>You receive the build, source or packaged files as agreed, usage notes, launch materials, and support details.</p>
+          </div>
         </article>
-        <article>
-          <span class="step-number">05</span>
-          <h3>Maintenance and updates</h3>
-          <p>After launch, MRB can maintain the UEFN experience with bug fixes, UEFN compatibility updates, Verse or device adjustments, balancing, small content changes, and performance checks.</p>
+        <article class="process-step process-step--maintenance">
+          <span class="process-step__marker" aria-hidden="true">
+            <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+              <path d="M20 5v5h-5" />
+              <path d="M4 19v-5h5" />
+              <path d="M20 10a8 8 0 0 0-14-4" />
+              <path d="M4 14a8 8 0 0 0 14 4" />
+            </svg>
+          </span>
+          <div class="process-step__body">
+            <span class="step-number">05</span>
+            <h3>Maintenance and updates</h3>
+            <p>After launch, MRB can maintain the UEFN experience with bug fixes, UEFN compatibility updates, Verse or device adjustments, balancing, small content changes, and performance checks.</p>
+          </div>
         </article>
       </div>
     </section>
 
-    <section class="section section-shell">
+    <section class="section section-shell services-faq">
       <div class="section-heading stack">
         <p class="eyebrow">FAQ</p>
         <h2>Common project questions.</h2>
@@ -216,7 +295,7 @@
       </div>
     </section>
 
-    <section class="section section-shell final-cta">
+    <section class="section section-shell final-cta services-final-cta">
       <p class="eyebrow">Ready to scope it?</p>
       <h2>Start with the audience and the launch <span class="accent-word">moment</span>.</h2>
       <p>Tell MRB what you want to build, who it is for, and when it needs to go live.</p>

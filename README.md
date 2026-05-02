@@ -54,7 +54,16 @@ CONTACT_FROM_EMAIL=MRB <website@mrb.ink>
 RESEND_API_KEY=
 DISCORD_WEBHOOK_URL=
 DISCORD_MENTION_ROLE_ID=1496844933431037952
+TURNSTILE_SITE_KEY=
+TURNSTILE_SECRET_KEY=
 ```
+
+Contact anti-spam behavior:
+
+- The contact form now rejects known disposable or temporary email domains before submission is accepted.
+- The contact flow keeps the hidden honeypot field, blocks repeat bursts, and can require a Cloudflare Turnstile verification before allowing a submission through.
+- Turnstile is loaded from `GET /api/contact`, which exposes only the public site key. Server-side validation happens in the backend by calling Cloudflare's `siteverify` endpoint with `TURNSTILE_SECRET_KEY`.
+- If `TURNSTILE_SITE_KEY` or `TURNSTILE_SECRET_KEY` is missing, the widget stays hidden and the backend skips Turnstile validation until the real keys are configured.
 
 `DISCORD_WEBHOOK_URL` lets inquiries post into a private Discord channel through the backend. Do not put Discord webhooks, bot tokens, Resend keys, Lemon Squeezy API keys, or other secrets in HTML or `script.js`.
 
@@ -137,6 +146,8 @@ DISCORD_MENTION_ROLE_ID=1496844933431037952
 CONTACT_TO_EMAIL=Robin@mrb.ink
 CONTACT_FROM_EMAIL=MRB <website@mrb.ink>
 RESEND_API_KEY=<private Resend API key, when email is enabled>
+TURNSTILE_SITE_KEY=<public Turnstile site key>
+TURNSTILE_SECRET_KEY=<private Turnstile secret key>
 ```
 
 `DISCORD_WEBHOOK_URL` is enough for Discord inquiry delivery. Email receipts need `RESEND_API_KEY` and a verified sender/domain in Resend.
