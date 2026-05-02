@@ -30,7 +30,6 @@
     banner: null,
     panel: null,
     analyticsCheckbox: null,
-    manageButton: null,
     tagRequested: false,
     tagLoaded: false,
     webVitalsRequested: false,
@@ -765,14 +764,6 @@
     state.banner.classList.toggle("is-open", open);
   };
 
-  const syncManageButtonVisibility = () => {
-    if (!state.manageButton) {
-      return;
-    }
-
-    state.manageButton.hidden = state.consent === "unset";
-  };
-
   const syncPreferenceControls = () => {
     if (!state.analyticsCheckbox) {
       return;
@@ -1286,21 +1277,6 @@
     setBannerOpen(false);
     setPanelOpen(false);
     syncPreferenceControls();
-    syncManageButtonVisibility();
-  };
-
-  const createManageButton = () => {
-    const button = document.createElement("button");
-    button.type = "button";
-    button.className = "cookie-settings-button motion-safe-transition";
-    button.textContent = "Cookie settings";
-    button.hidden = true;
-    button.addEventListener("click", () => {
-      state.panelSource = "manage_button";
-      setPanelOpen(true);
-    });
-    document.body.append(button);
-    state.manageButton = button;
   };
 
   const createBanner = () => {
@@ -1415,8 +1391,6 @@
   const initConsentUi = () => {
     createBanner();
     createPreferencesPanel();
-    createManageButton();
-    syncManageButtonVisibility();
     if (state.consent === "unset") {
       setBannerOpen(true);
     }
@@ -1456,7 +1430,7 @@
     isConfigured: () => validMeasurementId,
     getConsentState: () => state.consent,
     openConsentDialog: () => {
-      state.panelSource = "manage_button";
+      state.panelSource = "panel";
       setPanelOpen(true);
     },
     clearAnalyticsCookies,
