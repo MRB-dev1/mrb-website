@@ -3,6 +3,25 @@
   const storylines = Array.from(document.querySelectorAll("[data-storyline]"));
 
   const clamp = (value, min = 0, max = 1) => Math.min(Math.max(value, min), max);
+  const getAnalyticsApi = () =>
+    window.mrbAnalytics && typeof window.mrbAnalytics.track === "function" ? window.mrbAnalytics : null;
+  const trackAnalyticsEvent = (eventName, params = {}) => {
+    const analytics = getAnalyticsApi();
+    if (analytics) {
+      analytics.track(eventName, params);
+    }
+  };
+  const describeForm = (form) => {
+    const analytics = getAnalyticsApi();
+    if (analytics && typeof analytics.describeForm === "function") {
+      return analytics.describeForm(form);
+    }
+
+    return {
+      form_name: form.dataset.formName || form.getAttribute("aria-label") || form.id || "form",
+      form_id: form.id || "",
+    };
+  };
 
   const updateScroll = () => {
     const scrollable = document.documentElement.scrollHeight - window.innerHeight;
@@ -356,7 +375,7 @@
         submitButton.disabled = true;
       }
 
-      note.textContent = "Loading bot verification…";
+      note.textContent = "Loading bot verification...";
       widgetHost.replaceChildren();
       await loadTurnstileScript();
 
@@ -395,7 +414,7 @@
       form.dataset.turnstileAttemptCount = String(attemptCount + 1);
 
       if (attemptCount + 1 < TURNSTILE_MAX_BOOT_ATTEMPTS) {
-        note.textContent = "Loading bot verification…";
+        note.textContent = "Loading bot verification...";
         window.setTimeout(() => {
           form.dataset.turnstileToken = "";
           form.dataset.turnstileWidgetId = "";
@@ -489,6 +508,10 @@
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      const formMeta = describeForm(form);
+      trackAnalyticsEvent("form_submit_attempt", {
+        form_name: formMeta.form_name,
+      });
 
       if (status) {
         status.textContent = "Sending...";
@@ -542,6 +565,7 @@
         if (!response.ok) {
           const error = new Error(result.message || "Submission failed");
           error.result = result;
+          error.statusCode = response.status;
           throw error;
         }
 
@@ -563,16 +587,33 @@
               ? "Message sent to MRB Discord. Confirmation email is not configured yet."
               : "Message sent. MRB will reply within 5h-48h.";
         }
-        if (window.mrbAnalytics && typeof window.mrbAnalytics.track === "function") {
-          window.mrbAnalytics.track("generate_lead", {
-            form_name: form.dataset.formName || "Website inquiry",
+        if (form.id === "contact-form") {
+          trackAnalyticsEvent("generate_lead", {
+            form_name: formMeta.form_name,
             lead_type: String(formData.get("Topic") || "General inquiry"),
             method: "website_form",
+          });
+        } else {
+          trackAnalyticsEvent("form_submit_success", {
+            form_name: formMeta.form_name,
           });
         }
         showInquiryModal(summary);
         fireConfetti();
       } catch (error) {
+        const errorCode =
+          error.statusCode ||
+          (error.message === "Invalid email"
+            ? "validation"
+            : error.message === "Turnstile incomplete"
+              ? "turnstile"
+              : "network");
+
+        trackAnalyticsEvent("form_submit_failure", {
+          form_name: formMeta.form_name,
+          error_code: String(errorCode),
+        });
+
         if (status) {
           const isFilePreview = window.location.protocol === "file:";
 

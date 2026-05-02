@@ -1,77 +1,42 @@
 # Cookie Verification Guide
 
-This site uses a consent-aware Google Analytics 4 setup.
+Use this checklist when verifying the consent flow and consent-related analytics.
 
-## 1. Current Measurement ID
+## Expected behavior
 
-The site is configured to use:
+- Before consent is accepted, there should be no requests to `googletagmanager.com`, `google-analytics.com`, or `analytics.google.com`.
+- If the visitor rejects analytics immediately, no consent telemetry is sent. This is intentional.
+- If the visitor accepts analytics, GA4 should initialize immediately and `page_view` should appear in DebugView.
+- If the visitor later changes an existing accepted choice from the manage panel, `consent_changed` should fire before analytics storage is revoked.
+- Rejecting analytics should clear `_ga*` cookies through `clearAnalyticsCookies()`.
 
-```txt
-G-D4NFJ9E124
-```
+## Consent telemetry events
 
-The value lives in `analytics-config.js`.
+- `consent_banner_view`
+  Fires only after the visitor accepts analytics on a page where the banner was shown.
 
-## 2. Expected behavior
+- `consent_set`
+  Params: `consent_state`, `interaction_source`.
+  `interaction_source` values currently used: `banner`, `panel`, `manage_button`.
 
-- Before a visitor makes a choice, Google Analytics should not load.
-- After `Reject analytics`, Google Analytics should still not load and no GA cookies should exist.
-- After `Accept analytics`, the Google tag should load and GA cookies can be set.
-- The site stores the consent choice in the first-party cookie `mrb_cookie_consent`.
+- `consent_changed`
+  Params: `consent_state`, `interaction_source`.
+  Fires only when an existing consent choice is changed from the preferences panel.
 
-## 3. Browser checks
+## Manual verification steps
 
-Use a private/incognito window so you start clean.
-
-### Application or Storage tab
-
-Check cookies for your site.
-
-- Before consent: no `_ga`, `_ga_*`, `_gid`, or `_gat` cookies.
-- After reject: still no `_ga`, `_ga_*`, `_gid`, or `_gat` cookies.
-- After accept: expect `mrb_cookie_consent=accepted` plus GA cookies such as `_ga`.
-
-### Network tab
-
-Filter for these domains:
-
-- `googletagmanager.com`
-- `google-analytics.com`
-
-Expected results:
-
-- Before consent: no requests to either domain.
-- After reject: no requests to either domain.
-- After accept: request to `gtag/js?id=...` and analytics collection requests like `g/collect`.
-
-## 4. Revoke consent test
-
-Use the `Cookie settings` button on the site.
-
-1. Accept analytics.
-2. Confirm GA requests and cookies appear.
-3. Reopen Cookie settings.
-4. Choose `Reject analytics`.
-5. Refresh the page.
-6. Confirm GA cookies are cleared and no new analytics requests fire.
-
-## 5. Event checks
-
-After accepting analytics, verify these interactions in GA DebugView or Tag Assistant:
-
-- Page views on each HTML page.
-- `cta_click`
-- `booking_click`
-- `email_click`
-- `outbound_click`
-- `file_download`
-- `scroll_depth`
-- `generate_lead`
-
-Important: the contact form tracking intentionally avoids sending names, emails, or message content to Google Analytics.
-
-## 6. Helpful tools
-
-- Google Tag Assistant: [tagassistant.google.com](https://tagassistant.google.com/)
-- Google consent mode guide: [developers.google.com/tag-platform/security/guides/consent](https://developers.google.com/tag-platform/security/guides/consent)
-- Google consent mode overview: [developers.google.com/tag-platform/security/concepts/consent-mode](https://developers.google.com/tag-platform/security/concepts/consent-mode)
+1. Set `debug: true` in [analytics-config.js](/C:/Users/robin/Downloads/creator_studio_starter/analytics-config.js).
+2. Start the site with `npm start`.
+3. Open a page in a fresh browser session and confirm the banner appears.
+4. With DevTools open, verify there are no GA requests before clicking any consent action.
+5. Accept analytics and confirm:
+   `page_view` appears in DebugView.
+   `consent_banner_view` appears once.
+   `consent_set` appears with `consent_state=accepted`.
+6. Re-open cookie settings from the manage button, disable analytics, save, and confirm:
+   `consent_changed` appears with `consent_state=rejected`.
+   `_ga*` cookies are removed.
+   New GA requests stop after consent is revoked.
+7. Retry from a fresh session and reject analytics first. Confirm:
+   no GA requests are sent.
+   no `_ga*` cookies remain after rejection.
