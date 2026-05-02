@@ -241,6 +241,29 @@
   };
 
   let turnstileLoader;
+  const TURNSTILE_LOAD_TIMEOUT_MS = 12000;
+  const TURNSTILE_POLL_INTERVAL_MS = 50;
+
+  const waitForTurnstileApi = (timeoutMs = TURNSTILE_LOAD_TIMEOUT_MS) =>
+    new Promise((resolve, reject) => {
+      const startedAt = Date.now();
+
+      const check = () => {
+        if (window.turnstile && typeof window.turnstile.render === "function") {
+          resolve(window.turnstile);
+          return;
+        }
+
+        if (Date.now() - startedAt >= timeoutMs) {
+          reject(new Error("Turnstile timed out"));
+          return;
+        }
+
+        window.setTimeout(check, TURNSTILE_POLL_INTERVAL_MS);
+      };
+
+      check();
+    });
 
   const loadTurnstileScript = () => {
     if (window.turnstile) {
@@ -255,8 +278,22 @@
       const existing = document.querySelector("script[data-turnstile-script]");
 
       if (existing) {
-        existing.addEventListener("load", () => resolve(window.turnstile), { once: true });
+        if (window.turnstile) {
+          resolve(window.turnstile);
+          return;
+        }
+
+        existing.addEventListener(
+          "load",
+          () => {
+            waitForTurnstileApi().then(resolve).catch(reject);
+          },
+          { once: true }
+        );
         existing.addEventListener("error", () => reject(new Error("Turnstile failed to load")), { once: true });
+        window.setTimeout(() => {
+          waitForTurnstileApi().then(resolve).catch(reject);
+        }, 0);
         return;
       }
 
@@ -265,7 +302,13 @@
       script.async = true;
       script.defer = true;
       script.dataset.turnstileScript = "true";
-      script.addEventListener("load", () => resolve(window.turnstile), { once: true });
+      script.addEventListener(
+        "load",
+        () => {
+          waitForTurnstileApi().then(resolve).catch(reject);
+        },
+        { once: true }
+      );
       script.addEventListener("error", () => reject(new Error("Turnstile failed to load")), { once: true });
       document.head.append(script);
     });
@@ -277,6 +320,7 @@
     const field = form.querySelector("[data-turnstile-field]");
     const widgetHost = form.querySelector("[data-turnstile-widget]");
     const note = form.querySelector("[data-turnstile-note]");
+    const retryButton = form.querySelector("[data-turnstile-retry]");
     const submitButton = form.querySelector("button[type='submit']");
 
     form.dataset.turnstileEnabled = "false";
@@ -287,9 +331,25 @@
       return;
     }
 
+    if (retryButton && retryButton.dataset.turnstileBound !== "true") {
+      retryButton.dataset.turnstileBound = "true";
+      retryButton.addEventListener("click", () => {
+        turnstileLoader = undefined;
+        form.dataset.turnstileToken = "";
+        form.dataset.turnstileWidgetId = "";
+        widgetHost.replaceChildren();
+        setupTurnstile(form, status);
+      });
+    }
+
     const endpoint = window.location.protocol === "file:" ? "http://localhost:3000/api/contact" : "/api/contact";
 
     try {
+      field.hidden = true;
+      if (retryButton) {
+        retryButton.hidden = true;
+      }
+
       const response = await fetch(endpoint, {
         headers: { Accept: "application/json" },
       });
@@ -298,6 +358,9 @@
       if (!response.ok || !result.turnstile?.enabled || !result.turnstile?.siteKey) {
         field.hidden = true;
         note.textContent = "Cloudflare Turnstile is not configured yet.";
+        if (retryButton) {
+          retryButton.hidden = true;
+        }
         return;
       }
 
@@ -307,6 +370,8 @@
         submitButton.disabled = true;
       }
 
+      note.textContent = "Loading Cloudflare Turnstile…";
+      widgetHost.replaceChildren();
       await loadTurnstileScript();
 
       const widgetId = window.turnstile.render(widgetHost, {
@@ -339,7 +404,14 @@
       form.dataset.turnstileWidgetId = String(widgetId);
       note.textContent = "Please complete the Cloudflare Turnstile check.";
     } catch (error) {
-      field.hidden = true;
+      field.hidden = false;
+      note.textContent = "Cloudflare Turnstile did not finish loading. Retry the check.";
+      if (retryButton) {
+        retryButton.hidden = false;
+      }
+      if (submitButton) {
+        submitButton.disabled = false;
+      }
       if (status) {
         status.textContent = "Could not load the Cloudflare Turnstile check right now.";
       }

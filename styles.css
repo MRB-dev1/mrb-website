@@ -5584,3 +5584,11 @@ summary:focus-visible {
 .turnstile-widget {
   min-height: 70px;
 }
+
+.turnstile-retry[hidden] {
+  display: none;
+}
+
+.turnstile-retry {
+  justify-self: start;
+}
