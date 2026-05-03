@@ -5444,6 +5444,27 @@ summary:focus-visible {
   margin: 0;
 }
 
+.services-page .process-step__deliverables {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.services-page .process-step__deliverables span {
+  display: inline-flex;
+  align-items: center;
+  padding: 9px 12px;
+  border: 1px solid var(--services-accent-line);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--services-accent-soft) 84%, rgba(255, 255, 255, 0.02));
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 .services-page .services-faq .grid-2 {
   gap: 14px;
 }
@@ -5579,6 +5600,10 @@ summary:focus-visible {
 .turnstile-card__note {
   color: var(--muted-2);
   font-size: 12px;
+}
+
+.turnstile-card__note[hidden] {
+  display: none;
 }
 
 .turnstile-widget {

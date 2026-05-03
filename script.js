@@ -184,7 +184,7 @@
 
     const message = document.createElement("p");
     message.className = "inquiry-modal__message";
-    message.textContent = "Here is the summary. We will get back to you in 5h-48h.";
+    message.textContent = "Here is the summary. MRB will reply within one business day.";
 
     const list = document.createElement("dl");
     list.className = "inquiry-summary";
@@ -260,10 +260,14 @@
   };
 
   let turnstileLoader;
+  let turnstileConfigLoader;
   const TURNSTILE_LOAD_TIMEOUT_MS = 12000;
   const TURNSTILE_POLL_INTERVAL_MS = 50;
   const TURNSTILE_BOOT_RETRY_DELAY_MS = 1500;
   const TURNSTILE_MAX_BOOT_ATTEMPTS = 3;
+
+  const getTurnstileEndpoint = (form) =>
+    window.location.protocol === "file:" ? "http://localhost:3000/api/contact" : form.action || "/api/contact";
 
   const waitForTurnstileApi = (timeoutMs = TURNSTILE_LOAD_TIMEOUT_MS) =>
     new Promise((resolve, reject) => {
@@ -337,6 +341,38 @@
     return turnstileLoader;
   };
 
+  const loadTurnstileConfig = (form) => {
+    if (turnstileConfigLoader) {
+      return turnstileConfigLoader;
+    }
+
+    turnstileConfigLoader = fetch(getTurnstileEndpoint(form), {
+      headers: { Accept: "application/json" },
+    })
+      .then(async (response) => ({
+        ok: response.ok,
+        result: await response.json().catch(() => ({})),
+      }))
+      .catch((error) => {
+        turnstileConfigLoader = undefined;
+        throw error;
+      });
+
+    return turnstileConfigLoader;
+  };
+
+  const primeTurnstile = (form) => {
+    loadTurnstileConfig(form)
+      .then(({ ok, result }) => {
+        if (ok && result.turnstile?.enabled && result.turnstile?.siteKey) {
+          return loadTurnstileScript();
+        }
+
+        return undefined;
+      })
+      .catch(() => {});
+  };
+
   const setupTurnstile = async (form, status) => {
     const field = form.querySelector("[data-turnstile-field]");
     const widgetHost = form.querySelector("[data-turnstile-widget]");
@@ -345,37 +381,34 @@
     const attemptCount = Number(form.dataset.turnstileAttemptCount || "0");
 
     form.dataset.turnstileEnabled = "false";
+    form.dataset.turnstilePending = "true";
     form.dataset.turnstileToken = "";
     form.dataset.turnstileWidgetId = "";
 
     if (!field || !widgetHost || !note) {
+      form.dataset.turnstilePending = "false";
       return;
     }
 
-    const endpoint = window.location.protocol === "file:" ? "http://localhost:3000/api/contact" : "/api/contact";
-
     try {
       field.hidden = true;
+      note.hidden = true;
 
-      const response = await fetch(endpoint, {
-        headers: { Accept: "application/json" },
-      });
-      const result = await response.json().catch(() => ({}));
+      const { ok, result } = await loadTurnstileConfig(form);
 
-      if (!response.ok || !result.turnstile?.enabled || !result.turnstile?.siteKey) {
+      if (!ok || !result.turnstile?.enabled || !result.turnstile?.siteKey) {
         field.hidden = true;
-        note.textContent = "Bot verification is not configured yet.";
+        note.hidden = true;
+        form.dataset.turnstilePending = "false";
         return;
       }
 
-      field.hidden = false;
       form.dataset.turnstileEnabled = "true";
       form.dataset.turnstileAttemptCount = "0";
       if (submitButton) {
         submitButton.disabled = true;
       }
 
-      note.textContent = "Loading bot verification...";
       widgetHost.replaceChildren();
       await loadTurnstileScript();
 
@@ -385,6 +418,7 @@
         appearance: "always",
         callback: (token) => {
           form.dataset.turnstileToken = token || "";
+          form.dataset.turnstilePending = "false";
           note.textContent = "Verification complete.";
           if (submitButton) {
             submitButton.disabled = false;
@@ -392,6 +426,7 @@
         },
         "expired-callback": () => {
           form.dataset.turnstileToken = "";
+          form.dataset.turnstilePending = "false";
           note.textContent = "Verification expired. Please confirm again.";
           if (submitButton) {
             submitButton.disabled = true;
@@ -399,6 +434,7 @@
         },
         "error-callback": () => {
           form.dataset.turnstileToken = "";
+          form.dataset.turnstilePending = "false";
           note.textContent = "Could not load bot verification. Refresh and try again.";
           if (submitButton) {
             submitButton.disabled = true;
@@ -407,14 +443,18 @@
       });
 
       form.dataset.turnstileWidgetId = String(widgetId);
+      form.dataset.turnstilePending = "false";
+      field.hidden = false;
+      note.hidden = false;
       note.textContent = "Please complete bot verification.";
     } catch (error) {
-      field.hidden = false;
+      note.hidden = false;
       turnstileLoader = undefined;
       form.dataset.turnstileAttemptCount = String(attemptCount + 1);
 
       if (attemptCount + 1 < TURNSTILE_MAX_BOOT_ATTEMPTS) {
-        note.textContent = "Loading bot verification...";
+        field.hidden = true;
+        note.hidden = true;
         window.setTimeout(() => {
           form.dataset.turnstileToken = "";
           form.dataset.turnstileWidgetId = "";
@@ -422,6 +462,8 @@
           setupTurnstile(form, status);
         }, TURNSTILE_BOOT_RETRY_DELAY_MS);
       } else {
+        field.hidden = false;
+        form.dataset.turnstilePending = "false";
         note.textContent = "Bot verification did not load. Refresh the page and try again.";
         if (submitButton) {
           submitButton.disabled = false;
@@ -502,7 +544,13 @@
     .querySelectorAll(".topic-field select[name='Topic']")
     .forEach((select) => setupTopicChips(select));
 
-  document.querySelectorAll("[data-contact-form]").forEach((form) => {
+  const contactForms = Array.from(document.querySelectorAll("[data-contact-form]"));
+
+  contactForms.forEach((form) => {
+    primeTurnstile(form);
+  });
+
+  contactForms.forEach((form) => {
     const status = form.querySelector("[data-form-status]");
     setupTurnstile(form, status);
 
@@ -512,6 +560,13 @@
       trackAnalyticsEvent("form_submit_attempt", {
         form_name: formMeta.form_name,
       });
+
+      if (form.dataset.turnstilePending === "true") {
+        if (status) {
+          status.textContent = "Verification is still getting ready. Try again in a moment.";
+        }
+        return;
+      }
 
       if (status) {
         status.textContent = "Sending...";
@@ -525,7 +580,7 @@
       const formData = new FormData(form);
       formData.set("Form", form.dataset.formName || "Website inquiry");
       const summary = summarizeSubmission(formData);
-      const endpoint = window.location.protocol === "file:" ? "http://localhost:3000/api/contact" : form.action;
+      const endpoint = getTurnstileEndpoint(form);
 
       try {
         const emailInput = form.querySelector("input[name='Email']");
@@ -585,7 +640,7 @@
           status.textContent =
             result.email?.sent === false && result.discord?.sent
               ? "Message sent to MRB Discord. Confirmation email is not configured yet."
-              : "Message sent. MRB will reply within 5h-48h.";
+              : "Message sent. MRB will reply within one business day.";
         }
         if (form.id === "contact-form") {
           trackAnalyticsEvent("generate_lead", {
@@ -625,8 +680,8 @@
             status.textContent = error.result.message;
           } else {
             status.textContent = isFilePreview
-              ? "Start the backend with npm start, then open http://localhost:3000/contact.html. For now, email hello@mrb.ink or Robin@mrb.ink."
-              : "Could not reach the form backend. Email hello@mrb.ink or Robin@mrb.ink.";
+              ? "Start the backend with npm start, then open http://localhost:3000/contact.html. For now, email hello@mrb.ink."
+              : "Could not reach the form backend. Email hello@mrb.ink.";
           }
         }
       } finally {
