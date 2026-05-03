@@ -25,5 +25,5 @@
 
 ## Contact anti-spam follow-up
 
-- The disposable-email denylist is a practical starter list, not a permanent source of truth. Review and refresh it over time if new temp-mail providers show up in spam.
-- The live Turnstile widget needs a real Cloudflare Turnstile site key and secret key bound to `mrb.ink`. Until those keys are added to Pages, the widget stays hidden and the backend skips Turnstile validation.
+- Current live code uses the hidden `website` honeypot field plus required-field and email-format validation.
+- If the future backend grows beyond the current Discord inquiry webhook flow, reassess whether stronger spam controls belong in that larger backend rather than in the static-site phase.
