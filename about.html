@@ -6,18 +6,24 @@
   <meta name="color-scheme" content="light only" />
   <meta name="supported-color-schemes" content="light" />
   <meta name="theme-color" content="#030303" />
-  <title>About - MRB</title>
-  <meta name="description" content="About MRB, a premium game development studio for creators, brands, communities, and launch-ready playable worlds." />
+  <title>About - MRB.INK</title>
+  <meta name="description" content="About MRB.INK, the Stockholm UEFN Studio behind creator launches, launch-ready worlds, and public-ready game systems." />
   <link rel="icon" type="image/png" href="assets/mrb-browser-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=20260503b" />
+  <link rel="stylesheet" href="styles.css?v=20260504a" />
+  <script src="script.js?v=20260503a" defer></script>
   <script src="analytics-config.js?v=20260502a" defer></script>
   <script src="analytics.js?v=20260503a" defer></script>
 </head>
-<body>
+<body class="about-page">
   <header class="site-header">
-    <a class="brand" href="index.html" aria-label="MRB home">
-      <img src="assets/mrb-logo-white.png" alt="MRB" />
-      <span class="brand-text">MRB Studio</span>
+    <a class="brand" href="index.html" aria-label="MRB.INK home">
+      <span class="brand-mark">
+        <img src="assets/mrb-logo-white.png" alt="MRB.INK" />
+      </span>
+      <span class="brand-lockup">
+        <span class="brand-wordmark">MRB.INK</span>
+        <span class="brand-text">Stockholm UEFN Studio</span>
+      </span>
     </a>
     <nav class="nav" aria-label="Main navigation">
       <a href="work.html" data-analytics-label="Work">Work</a>
@@ -27,107 +33,152 @@
       <a href="about.html" aria-current="page" data-analytics-label="About">About</a>
       <a href="contact.html" data-analytics-label="Contact">Contact</a>
     </nav>
-    <a class="nav-cta" href="contact.html">Book a discovery call</a>
+    <a class="nav-cta mrb-btn mrb-btn--primary" href="contact.html" data-analytics-label="Header Book Discovery Call">Book a discovery call</a>
   </header>
 
   <main>
-    <section class="page-hero section-shell narrow">
-      <p class="eyebrow">About MRB</p>
-      <h1>Stockholm studio. UEFN-native. Built for <span class="accent-word">public</span> launches.</h1>
-      <p>MRB works where game feel, launch readiness, and audience readability have to hold up at the same time. Based in Stockholm, Sweden, MRB has worked with UEFN since the day it launched.</p>
+    <section class="page-hero section-shell about-hero">
+      <div class="about-hero__copy" data-reveal="panel">
+        <p class="eyebrow">MRB.INK</p>
+        <h1>Stockholm UEFN Studio for creator launches that need to read fast and hold up live.</h1>
+        <p class="about-hero__lead">MRB.INK works where game feel, launch readiness, and audience readability have to hold up at the same time. Based in Stockholm, Sweden, MRB.INK has worked with UEFN since the day it launched.</p>
+        <ul class="about-hero__proof" aria-label="Studio strengths">
+          <li>Creator-launch focus</li>
+          <li>UEFN-native since launch</li>
+          <li>Built for public attention</li>
+        </ul>
+        <div class="action-row about-hero__actions">
+          <a class="mrb-btn mrb-btn--primary" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer" data-analytics-label="About Hero Book Discovery Call">Book a discovery call</a>
+          <a class="mrb-btn mrb-btn--secondary" href="work.html" data-analytics-label="About Hero See Selected Work">See selected work</a>
+        </div>
+      </div>
+
+      <div class="about-hero__media" data-reveal="panel">
+        <figure class="about-hero__frame">
+          <img src="assets/content.png?v=20260428a" alt="Attack the Brainrot island overview showing readable lanes, silhouettes, and launch-scale worldbuilding." />
+          <figcaption class="about-hero__caption">
+            <span class="about-hero__caption-label">Studio standard</span>
+            <strong>Launch worlds shaped for stream readability, game feel, and partner-ready handoff.</strong>
+          </figcaption>
+        </figure>
+
+        <div class="about-hero__notes" aria-label="MRB.INK approach">
+          <article class="about-hero__note">
+            <span>Hook first</span>
+            <p>Every concept has to survive the first live explanation.</p>
+          </article>
+          <article class="about-hero__note">
+            <span>Operationally serious</span>
+            <p>Polish, stability, and public-ready presentation matter before launch day.</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section class="section section-shell">
-      <article class="feature-panel">
-        <div class="media-frame alt">
-          <div class="media-label">
-            <p>Studio mission</p>
-            <h3>Games built as launch moments.</h3>
-          </div>
-        </div>
-        <div class="feature-copy">
-          <p class="eyebrow">Philosophy</p>
-          <h2>The best creator game experiences are <span class="accent-word">clear</span> before they are complicated.</h2>
-          <p>
-            MRB focuses on strong hooks, polished presentation, practical production, and audience-readable design. The goal is not to make every feature possible. The goal is to make the right moment feel sharp.
-          </p>
-        </div>
-      </article>
-    </section>
-
-    <section class="section subtle-band">
+    <section class="section subtle-band about-positioning" data-reveal="panel">
       <div class="section-shell">
-        <div class="section-heading">
+        <div class="about-positioning__lead">
           <div>
-            <p class="eyebrow">Values</p>
-            <h2>How MRB approaches the work.</h2>
+            <p class="eyebrow">Positioning</p>
+            <h2>Premium here means edited intensity, not vague luxury.</h2>
           </div>
           <p>Premium does not mean vague. It means intentional, edited, stable, and ready for public attention.</p>
         </div>
 
-        <div class="grid-4 values-grid">
-          <article class="card compact">
-            <div class="icon-title-row">
-              <span class="icon-frame" aria-hidden="true">
-                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                  <path d="M4 7h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
-                  <path d="m10 11 4 2-4 2v-4Z" />
-                </svg>
-              </span>
-              <h3>Clarity</h3>
-            </div>
-            <p>Every project needs a hook that creators and audiences can understand quickly.</p>
+        <div class="about-positioning__identity" aria-label="MRB.INK naming system">
+          <article class="card about-positioning__card">
+            <p class="about-positioning__label">Brand</p>
+            <h3>MRB.INK</h3>
+            <p>Use the studio name when the brand itself is the point.</p>
           </article>
-          <article class="card compact">
-            <div class="icon-title-row">
-              <span class="icon-frame" aria-hidden="true">
-                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                  <path d="M5 15c0-3.3 2.7-6 6-6h8" />
-                  <path d="M5 15v4h4" />
-                  <path d="M18 6v6" />
-                  <path d="M15 9h6" />
-                </svg>
-              </span>
-              <h3>Polish</h3>
-            </div>
-            <p>Presentation, usability, pacing, and feel matter because they shape trust immediately.</p>
+          <article class="card about-positioning__card">
+            <p class="about-positioning__label">Descriptor</p>
+            <h3>Stockholm UEFN Studio</h3>
+            <p>Use the descriptor when category clarity needs to land instantly.</p>
           </article>
-          <article class="card compact">
-            <div class="icon-title-row">
-              <span class="icon-frame" aria-hidden="true">
-                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                  <path d="M5 12.5 9 16.5 19 6.5" />
-                  <path d="M6 20h12" />
-                  <path d="M9 20v-3M15 20v-6" />
-                </svg>
-              </span>
-              <h3>Proof</h3>
-            </div>
-            <p>Case studies, screenshots, clips, and learnings show how decisions were made.</p>
+          <article class="card about-positioning__card">
+            <p class="about-positioning__label">Audience context</p>
+            <h3>Creator launches</h3>
+            <p>Use the audience context when the live moment is what the build has to win.</p>
           </article>
-          <article class="card compact">
-            <div class="icon-title-row">
-              <span class="icon-frame" aria-hidden="true">
-                <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                  <path d="M12 19a7 7 0 1 0-7-7" />
-                  <path d="M12 8v5l3 2" />
-                </svg>
-              </span>
-              <h3>Speed</h3>
+        </div>
+
+        <div class="about-positioning__values">
+          <div class="section-heading stack">
+            <div>
+              <p class="eyebrow">Operating standard</p>
+              <h2>How MRB.INK approaches the work.</h2>
             </div>
-            <p>MRB works with speed: fast decisions, fast playable checks, and a production rhythm that keeps launches moving.</p>
-          </article>
+            <p>The studio signal stays gaming-native by pairing strict hierarchy with sharper hooks, project imagery, and launch language.</p>
+          </div>
+
+          <div class="grid-4 values-grid">
+            <article class="card compact">
+              <div class="icon-title-row">
+                <span class="icon-frame" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M4 7h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
+                    <path d="m10 11 4 2-4 2v-4Z" />
+                  </svg>
+                </span>
+                <h3>Clarity</h3>
+              </div>
+              <p>Every project needs a hook that creators and audiences can understand quickly.</p>
+            </article>
+            <article class="card compact">
+              <div class="icon-title-row">
+                <span class="icon-frame" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M5 15c0-3.3 2.7-6 6-6h8" />
+                    <path d="M5 15v4h4" />
+                    <path d="M18 6v6" />
+                    <path d="M15 9h6" />
+                  </svg>
+                </span>
+                <h3>Polish</h3>
+              </div>
+              <p>Presentation, usability, pacing, and feel matter because they shape trust immediately.</p>
+            </article>
+            <article class="card compact">
+              <div class="icon-title-row">
+                <span class="icon-frame" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M5 12.5 9 16.5 19 6.5" />
+                    <path d="M6 20h12" />
+                    <path d="M9 20v-3M15 20v-6" />
+                  </svg>
+                </span>
+                <h3>Proof</h3>
+              </div>
+              <p>Case studies, screenshots, clips, and learnings show how decisions were made.</p>
+            </article>
+            <article class="card compact">
+              <div class="icon-title-row">
+                <span class="icon-frame" aria-hidden="true">
+                  <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                    <path d="M12 19a7 7 0 1 0-7-7" />
+                    <path d="M12 8v5l3 2" />
+                  </svg>
+                </span>
+                <h3>Speed</h3>
+              </div>
+              <p>MRB.INK works with speed: fast decisions, fast playable checks, and a production rhythm that keeps launches moving.</p>
+            </article>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section section-shell split">
-      <div>
-        <p class="eyebrow">Platforms</p>
-        <h2>Focused on UEFN for creator-led Fortnite launches.</h2>
-        <p>MRB currently supports UEFN / Fortnite projects only, so the studio can stay focused on the platform, production constraints, and creator workflows that matter most.</p>
+    <section class="section section-shell split about-story" data-reveal="panel">
+      <div class="about-story__intro">
+        <p class="eyebrow">Studio focus</p>
+        <h2>The best creator game experiences are <span class="accent-word">clear</span> before they are complicated.</h2>
+        <p>MRB.INK focuses on strong hooks, polished presentation, practical production, and audience-readable design. The goal is not to make every feature possible. The goal is to make the right moment feel sharp.</p>
+        <p>MRB.INK currently supports UEFN / Fortnite projects only, so the studio can stay focused on the platform, production constraints, and creator workflows that matter most.</p>
+        <a class="mrb-btn mrb-btn--secondary about-story__cta" href="work.html" data-analytics-label="About Story See Selected Work">See selected work</a>
       </div>
-      <div class="list-panel platform-card-grid">
+
+      <div class="list-panel platform-card-grid about-story__lanes">
         <article>
           <div class="icon-title-row">
             <span class="icon-frame" aria-hidden="true">
@@ -169,50 +220,101 @@
       </div>
     </section>
 
-    <section class="section section-shell final-cta">
-      <p class="eyebrow">Work with MRB</p>
-      <h2>Start with a world your audience will understand.</h2>
-      <p>MRB can help shape the concept, prototype the hook, build the system, or prepare the launch.</p>
+    <section class="section section-shell about-proof" data-reveal="panel">
+      <div class="section-heading about-proof__heading">
+        <div>
+          <p class="eyebrow">Proof</p>
+          <h2>Recent worlds show how the standard lands in public.</h2>
+        </div>
+        <p>Project imagery carries the emotional layer. Underneath it, the build still has to read clearly, play smoothly, and survive launch pressure.</p>
+      </div>
+
+      <div class="about-proof__grid">
+        <article class="card about-proof-card">
+          <figure class="about-proof-card__media">
+            <img src="assets/content2.png?v=20260428a" alt="Attack the Brainrot lane view with a bright ring marker, clear route ahead, and readable gameplay spacing." />
+          </figure>
+          <div class="about-proof-card__body">
+            <p class="about-proof-card__label">Launch readability</p>
+            <h3>Attack the Brainrot</h3>
+            <p>Wide lanes, clean silhouettes, and a hook that lands before the creator has to explain the rules live.</p>
+          </div>
+        </article>
+
+        <article class="card about-proof-card">
+          <figure class="about-proof-card__media">
+            <img src="assets/chapter-wars-chapters.png?v=20260426f" alt="Chapter Wars arena screenshot with bright chapter landmarks and fast-reading nostalgia cues." />
+          </figure>
+          <div class="about-proof-card__body">
+            <p class="about-proof-card__label">Readable nostalgia</p>
+            <h3>Chapter Wars</h3>
+            <p>Recognizable landmarks and brighter lanes keep the world legible even when the energy level is high.</p>
+          </div>
+        </article>
+
+        <article class="card about-proof-card">
+          <figure class="about-proof-card__media">
+            <img src="assets/mrbrum-1v1-reset.png?v=20260426f" alt="Mr.Brum's 1v1 Build Fights reset platform with strong night atmosphere and a clear duel layout." />
+          </figure>
+          <div class="about-proof-card__body">
+            <p class="about-proof-card__label">Public-ready polish</p>
+            <h3>Mr.Brum's 1v1 Build Fights</h3>
+            <p>Darker atmosphere, clean reset flow, and a duel loop that still reads under pressure.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section section-shell final-cta about-final-cta" data-reveal="panel">
+      <p class="eyebrow">Work with MRB.INK</p>
+      <h2>Start with a clearer launch plan, not a vague wishlist.</h2>
+      <p>Book a discovery call if you need the hook scoped, the build structured, or the launch prepared for public attention.</p>
       <div class="action-row center">
-        <a class="button primary" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer">Book a discovery call</a>
-        <a class="button secondary" href="work.html" data-analytics-label="See Selected Work">See selected work</a>
+        <a class="mrb-btn mrb-btn--primary" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer" data-analytics-label="About Final Book Discovery Call">Book a discovery call</a>
+        <a class="mrb-btn mrb-btn--secondary" href="work.html" data-analytics-label="About Final See Selected Work">See selected work</a>
       </div>
     </section>
   </main>
 
   <footer class="footer section-shell">
-    <div>
-      <a class="footer-brand" href="index.html" aria-label="MRB home">
-        <img src="assets/mrb-logo-white.png" alt="MRB" />
+    <div class="footer-intro">
+      <a class="brand footer-brand" href="index.html" aria-label="MRB.INK home">
+        <span class="brand-mark">
+          <img src="assets/mrb-logo-white.png" alt="MRB.INK" />
+        </span>
+        <span class="brand-lockup">
+          <span class="brand-wordmark">MRB.INK</span>
+          <span class="brand-text">Stockholm UEFN Studio</span>
+        </span>
       </a>
-      <p>Premium creator-focused game development studio for launch-ready playable worlds.</p>
+      <p class="footer-kicker">Premium creator launches for teams with a real date to hit.</p>
+      <p class="footer-copy">UEFN worlds, creator launch systems, and partner-ready production support built in Stockholm for content creators, brands, and collaborators with real budgets.</p>
+      <a class="mrb-btn mrb-btn--primary footer-cta" href="contact.html" data-analytics-label="Footer Book Discovery Call">Book a discovery call</a>
     </div>
     <nav class="footer-grid" aria-label="Footer navigation">
-      <div>
-        <h2>Studio</h2>
+      <div class="footer-section">
+        <p class="footer-heading">Studio</p>
         <a href="index.html" data-analytics-label="Home">Home</a>
         <a href="work.html" data-analytics-label="Work">Work</a>
         <a href="about.html" data-analytics-label="About">About</a>
         <a href="contact.html" data-analytics-label="Contact">Contact</a>
-        <a href="faq.html" data-analytics-label="FAQ">FAQ</a>
-        <a href="https://x.com/MRB_Main" target="_blank" rel="noreferrer" data-analytics-label="X / Twitter">X / Twitter</a>
       </div>
-      <div>
-        <h2>Services</h2>
-        <a href="services.html#creator-launches" data-analytics-label="Creator Partnerships">Creator partnerships</a>
+      <div class="footer-section">
+        <p class="footer-heading">Services</p>
+        <a href="services.html#creator-launches" data-analytics-label="Creator Launches">Creator launches</a>
         <a href="services.html#custom-coding" data-analytics-label="Custom Coding">Custom coding</a>
         <a href="services.html#game-systems" data-analytics-label="Game Systems">Game systems</a>
-        <a href="contact.html" data-analytics-label="Contact MRB">Contact MRB</a>
+        <a href="contact.html" data-analytics-label="Services Contact CTA">Book a discovery call</a>
       </div>
-      <div>
-        <h2>Shop</h2>
-        <a href="shop.html" data-analytics-label="All Products">All products</a>
-        <a href="shop.html#scripts" data-analytics-label="Scripts">Scripts</a>
-        <a href="shop.html#assets" data-analytics-label="Assets">Assets</a>
-        <a href="license.html" data-analytics-label="License Terms">License terms</a>
+      <div class="footer-section">
+        <p class="footer-heading">Channels</p>
+        <a href="shop.html" data-analytics-label="All Products">Shop</a>
+        <a href="faq.html" data-analytics-label="FAQ">FAQ</a>
+        <a href="mailto:hello@mrb.ink" data-analytics-label="Email Hello">hello@mrb.ink</a>
+        <a href="https://x.com/MRB_Main" target="_blank" rel="noreferrer" data-analytics-label="X / Twitter">X / Twitter</a>
       </div>
-      <div>
-        <h2>Legal</h2>
+      <div class="footer-section">
+        <p class="footer-heading">Legal</p>
         <a href="privacy.html" data-analytics-label="Privacy Policy">Privacy Policy</a>
         <a href="terms.html" data-analytics-label="Terms of Service">Terms of Service</a>
         <a href="refund-policy.html" data-analytics-label="Refund Policy">Refund Policy</a>

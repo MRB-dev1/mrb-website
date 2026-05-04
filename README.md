@@ -96,5 +96,5 @@ npm run deploy:cloudflare
 ## Current caveats
 
 - Shared header/footer/nav markup is duplicated across the root HTML files.
-- `script.js` is only included on `index.html`, `contact.html`, `book.html`, and `faq.html`.
+- `script.js` is included on `index.html`, `work.html`, `services.html`, `shop.html`, `about.html`, `faq.html`, `contact.html`, and `book.html`; product detail pages and legal pages still omit it.
 - Shop analytics is wired for product views and selection, but `begin_checkout` / `purchase` need real Lemon Squeezy checkout URLs instead of the current `mailto:` product CTAs.

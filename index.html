@@ -9,7 +9,7 @@
   <title>MRB - Creator-Focused Game Studio</title>
   <meta name="description" content="MRB is a premium game development studio building creator-ready game experiences, launch moments, and custom game systems for creators, brands, and communities." />
   <link rel="icon" type="image/png" href="assets/mrb-browser-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=20260503b" />
+  <link rel="stylesheet" href="styles.css?v=20260503c" />
   <script src="analytics-config.js?v=20260502a" defer></script>
   <script src="analytics.js?v=20260503a" defer></script>
   <script src="script.js?v=20260503a" defer></script>
@@ -17,9 +17,14 @@
 <body class="home-page">
   <div class="scroll-progress" aria-hidden="true"></div>
   <header class="site-header">
-    <a class="brand" href="index.html" aria-label="MRB home">
-      <img src="assets/mrb-logo-white.png" alt="MRB" />
-      <span class="brand-text">MRB Studio</span>
+    <a class="brand" href="index.html" aria-label="MRB.INK home">
+      <span class="brand-mark">
+        <img src="assets/mrb-logo-white.png" alt="MRB.INK" />
+      </span>
+      <span class="brand-lockup">
+        <span class="brand-wordmark">MRB.INK</span>
+        <span class="brand-text">Stockholm UEFN Studio</span>
+      </span>
     </a>
 
     <nav class="nav" aria-label="Main navigation">
@@ -27,118 +32,77 @@
       <a href="services.html" data-analytics-label="Services">Services</a>
       <a href="shop.html" data-analytics-label="Shop">Shop</a>
       <a href="faq.html" data-analytics-label="FAQ">FAQ</a>
-      <a href="about.html" data-analytics-label="About">About</a><a href="contact.html" data-analytics-label="Contact">Contact</a></nav>
+      <a href="about.html" data-analytics-label="About">About</a>
+      <a href="contact.html" data-analytics-label="Contact">Contact</a>
+    </nav>
 
-    <a class="nav-cta" href="contact.html" data-analytics-label="Header Book Discovery Call">
-      <span class="cta-icon" aria-hidden="true">
-        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-          <path d="M7 2v3M17 2v3M4 9h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" />
-        </svg>
-      </span>
-      <span>Book a discovery call</span>
-      <span class="cta-arrow" aria-hidden="true">
-        <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-          <path d="M5 12h14M13 5l7 7-7 7" />
-        </svg>
-      </span>
-    </a>
+    <a class="nav-cta mrb-btn mrb-btn--primary" href="contact.html" data-analytics-label="Header Book Discovery Call">Book a discovery call</a>
   </header>
   <a class="floating-book" href="contact.html" data-analytics-label="Floating Contact CTA">Get in contact</a>
 
   <main>
-    <section class="hero hero-cinematic">
-      <div class="hero-mark" aria-hidden="true">
-        <img src="assets/mrb-logo-white.png" alt="" />
-      </div>
-
-      <div class="section-shell hero-stage">
-        <div class="hero-copy">
-          <p class="eyebrow" data-reveal="drop">Launch-ready experiences</p>
-          <h1 class="hero-headline hero-headline-home" aria-label="Game worlds built for the moment creators go live.">
-            <span data-reveal="drop">Game worlds</span>
-            <span data-reveal="drop">built for the</span>
-            <span data-reveal="drop" class="hero-line-third">moment&nbsp;creators</span>
-            <span data-reveal="drop" class="hero-line-last"><span class="hero-go">go</span>&nbsp;live.</span>
-          </h1>
-          <p class="hero-text" data-reveal="fade">
-            MRB builds UEFN worlds, systems, and launch packs around the five-second moment a viewer understands what they&rsquo;re watching.
+    <section class="mrb-hero" aria-labelledby="mrb-hero-title">
+      <div class="section-shell mrb-hero__inner">
+        <div class="mrb-hero__copy">
+          <p class="mrb-hero__eyebrow" data-reveal="panel">
+            STOCKHOLM UEFN STUDIO / CREATOR LAUNCHES
           </p>
-          <div class="hero-actions" data-reveal="fade">
-            <a class="button primary hero-cta" href="contact.html" data-analytics-label="Home Hero Book Discovery Call">
-              <span class="cta-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                  <path d="M7 2v3M17 2v3M4 9h16M6 5h12a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Z" />
-                </svg>
-              </span>
-              <span>Book a discovery call</span>
-              <span class="cta-arrow" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                  <path d="M5 12h14M13 5l7 7-7 7" />
-                </svg>
-              </span>
+
+          <h1 id="mrb-hero-title" class="mrb-hero__title" data-reveal="panel">
+            Fortnite worlds built to read live.
+          </h1>
+
+          <p class="mrb-hero__lead" data-reveal="panel">
+            Premium UEFN islands for creators, brands, and partners with a launch
+            window, an audience, and no room for vague delivery.
+          </p>
+
+          <ul class="mrb-hero__proof" aria-label="Studio proof points" data-reveal="panel">
+            <li>UEFN since launch</li>
+            <li>Creator-first systems</li>
+            <li>Replies within one business day</li>
+          </ul>
+
+          <div class="mrb-hero__actions" aria-label="Primary actions" data-reveal="panel">
+            <a class="mrb-btn mrb-btn--primary" href="contact.html" data-analytics-label="Home Hero Book Discovery Call">
+              Book a discovery call
             </a>
-            <a class="button secondary" href="work.html" data-analytics-label="See Selected Work">See selected work</a>
+
+            <a class="mrb-btn mrb-btn--secondary" href="work.html" data-analytics-label="Home Hero View Selected Work">
+              View selected work
+            </a>
           </div>
-          <p class="hero-note" data-reveal="fade">First call: audience, launch window, risk, and budget range.</p>
         </div>
 
-        <aside class="hero-console" aria-label="Creator launch kit preview" data-reveal="panel">
-          <div class="console-topline">
-            <span>Creator Launch Kit</span>
-            <strong><span class="live-dot" aria-hidden="true"></span>Live-ready</strong>
+        <figure class="mrb-hero__media" data-reveal="panel">
+          <div class="mrb-hero__frame">
+            <span class="mrb-hero__mediaLabel">Frame-one proof</span>
+
+            <video
+              class="mrb-hero__video hero-media-loop"
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster="assets/content.png?v=20260426e"
+              aria-label="Preview of Attack the Brainrot, an MRB Fortnite world designed to read clearly on stream"
+            >
+              <source data-src="assets/attack-the-brainrot-cinematic.mp4?v=20260426e" type="video/mp4" />
+            </video>
+
+            <div class="mrb-hero__mediaShade" aria-hidden="true"></div>
+
+            <figcaption class="mrb-hero__mediaPanel">
+              <span class="mrb-hero__mediaKicker">Attack the Brainrot</span>
+              <strong>Readable world silhouette, bright route, creator-ready angle.</strong>
+            </figcaption>
           </div>
-          <div class="console-screen">
-            <div class="console-orbit"></div>
-            <div class="console-grid"></div>
-            <div class="hero-media-shell">
-              <video class="hero-media-loop" autoplay muted loop playsinline preload="none" poster="assets/content1.png?v=20260426e" aria-label="Attack the Brainrot cinematic trailer preview">
-                <source data-src="assets/attack-the-brainrot-cinematic.mp4?v=20260426e" type="video/mp4" />
-              </video>
-              <div class="hero-media-overlay">
-                <strong>Attack the Brainrot</strong>
-              </div>
-            </div>
-          </div>
-          <div class="console-stack reveal-sequence">
-            <article>
-              <div class="console-feature-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                  <path d="M12 4a8 8 0 1 0 8 8M12 4v8l5 3M20 4l-3 1M20 4l-1 3" />
-                </svg>
-              </div>
-              <div class="console-feature-copy">
-                <strong>Content hook</strong>
-                <p>A clear idea creators can explain in seconds.</p>
-              </div>
-            </article>
-            <article>
-              <div class="console-feature-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                  <path d="M7 10h10a4 4 0 0 1 4 4v1a3 3 0 0 1-3 3h-1l-2-2H9l-2 2H6a3 3 0 0 1-3-3v-1a4 4 0 0 1 4-4ZM8 13h.01M16 13h.01M8 7l1-2h6l1 2" />
-                </svg>
-              </div>
-              <div class="console-feature-copy">
-                <strong>Playable moment</strong>
-                <p>Gameplay beats designed for reactions and clips.</p>
-              </div>
-            </article>
-            <article>
-              <div class="console-feature-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                  <path d="M12 3l8 4.5v9L12 21l-8-4.5v-9L12 3Zm0 4.5v9" />
-                </svg>
-              </div>
-              <div class="console-feature-copy">
-                <strong>Launch support</strong>
-                <p>Notes, screenshots, update rhythm, and handoff.</p>
-              </div>
-            </article>
-          </div>
-        </aside>
+        </figure>
       </div>
     </section>
 
-    <section class="hero-metrics trust-strip reveal-sequence" aria-label="Studio trust signals">
+    <section class="hero-metrics trust-strip mrb-hero__trust reveal-sequence" aria-label="Studio trust signals">
       <div class="metric">
         <div class="metric-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
@@ -158,7 +122,7 @@
         </div>
         <div class="metric-copy">
           <span>Response window</span>
-          <strong>5h to 48h</strong>
+          <strong>One business day</strong>
         </div>
       </div>
       <div class="metric">
@@ -265,7 +229,7 @@
             MRB packages the hook, the build, the handoff, and the launch path in a way a creator or client can judge quickly.
           </p>
           <div class="action-row">
-            <a class="button primary" href="contact.html">Book a discovery call</a>
+            <a class="button primary" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer">Book a discovery call</a>
             <a class="button secondary" href="work.html#flagship-launch" data-analytics-label="View Launch Dossier">View launch dossier</a>
           </div>
         </div>
@@ -428,7 +392,7 @@
 
     <div class="segment-divider mega-divider section-shell" data-reveal="scale" aria-label="Start a project">
       <span></span>
-      <a href="contact.html">Book a discovery call</a>
+      <a href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer">Book a discovery call</a>
       <span></span>
     </div>
 
@@ -520,7 +484,7 @@
             <span>Ready to plan the first playable version?</span>
             <strong>MRB can help define the scope before production starts.</strong>
           </div>
-          <a class="small-button" href="contact.html">Book a discovery call</a>
+          <a class="small-button" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer">Book a discovery call</a>
         </div>
       </div>
     </section>
@@ -639,45 +603,51 @@
       <h2>If you have an audience, a deadline and a real budget, <span class="accent-word">start</span> here.</h2>
       <p>MRB takes discovery calls for creator launches, branded worlds and bespoke systems.</p>
       <div class="action-row center">
-        <a class="button primary" href="contact.html">Book a discovery call</a>
+        <a class="button primary" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer">Book a discovery call</a>
         <a class="button secondary" href="work.html" data-analytics-label="See Selected Work">See selected work</a>
       </div>
     </section>
   </main>
 
   <footer class="footer section-shell">
-    <div>
-      <a class="footer-brand" href="index.html" aria-label="MRB home">
-        <img src="assets/mrb-logo-white.png" alt="MRB" />
+    <div class="footer-intro">
+      <a class="brand footer-brand" href="index.html" aria-label="MRB.INK home">
+        <span class="brand-mark">
+          <img src="assets/mrb-logo-white.png" alt="MRB.INK" />
+        </span>
+        <span class="brand-lockup">
+          <span class="brand-wordmark">MRB.INK</span>
+          <span class="brand-text">Stockholm UEFN Studio</span>
+        </span>
       </a>
-      <p>Premium creator-focused game development studio for launch-ready playable worlds.</p>
+      <p class="footer-kicker">Premium creator launches for teams with a real date to hit.</p>
+      <p class="footer-copy">UEFN worlds, creator launch systems, and partner-ready production support built in Stockholm for content creators, brands, and collaborators with real budgets.</p>
+      <a class="mrb-btn mrb-btn--primary footer-cta" href="contact.html" data-analytics-label="Footer Book Discovery Call">Book a discovery call</a>
     </div>
     <nav class="footer-grid" aria-label="Footer navigation">
-      <div>
-        <h2>Studio</h2>
+      <div class="footer-section">
+        <p class="footer-heading">Studio</p>
         <a href="index.html" data-analytics-label="Home">Home</a>
         <a href="work.html" data-analytics-label="Work">Work</a>
         <a href="about.html" data-analytics-label="About">About</a>
         <a href="contact.html" data-analytics-label="Contact">Contact</a>
-        <a href="faq.html" data-analytics-label="FAQ">FAQ</a>
-        <a href="https://x.com/MRB_Main" target="_blank" rel="noreferrer" data-analytics-label="X / Twitter">X / Twitter</a>
       </div>
-      <div>
-        <h2>Services</h2>
-        <a href="services.html#creator-launches" data-analytics-label="Creator Partnerships">Creator partnerships</a>
+      <div class="footer-section">
+        <p class="footer-heading">Services</p>
+        <a href="services.html#creator-launches" data-analytics-label="Creator Launches">Creator launches</a>
         <a href="services.html#custom-coding" data-analytics-label="Custom Coding">Custom coding</a>
         <a href="services.html#game-systems" data-analytics-label="Game Systems">Game systems</a>
-        <a href="contact.html" data-analytics-label="Contact MRB">Contact MRB</a>
+        <a href="contact.html" data-analytics-label="Services Contact CTA">Book a discovery call</a>
       </div>
-      <div>
-        <h2>Shop</h2>
-        <a href="shop.html" data-analytics-label="All Products">All products</a>
-        <a href="shop.html#scripts" data-analytics-label="Scripts">Scripts</a>
-        <a href="shop.html#assets" data-analytics-label="Assets">Assets</a>
-        <a href="license.html" data-analytics-label="License Terms">License terms</a>
+      <div class="footer-section">
+        <p class="footer-heading">Channels</p>
+        <a href="shop.html" data-analytics-label="All Products">Shop</a>
+        <a href="faq.html" data-analytics-label="FAQ">FAQ</a>
+        <a href="mailto:hello@mrb.ink" data-analytics-label="Email Hello">hello@mrb.ink</a>
+        <a href="https://x.com/MRB_Main" target="_blank" rel="noreferrer" data-analytics-label="X / Twitter">X / Twitter</a>
       </div>
-      <div>
-        <h2>Legal</h2>
+      <div class="footer-section">
+        <p class="footer-heading">Legal</p>
         <a href="privacy.html" data-analytics-label="Privacy Policy">Privacy Policy</a>
         <a href="terms.html" data-analytics-label="Terms of Service">Terms of Service</a>
         <a href="refund-policy.html" data-analytics-label="Refund Policy">Refund Policy</a>

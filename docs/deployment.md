@@ -32,10 +32,10 @@ Build contents are defined by `scripts/build-cloudflare.js`:
 - all root `*.html`
 - `styles.css`
 - `script.js`
+- `analytics.js`
+- `analytics-config.js`
 - `_headers`
 - `assets/`
-
-The script also has optional copy hooks for `analytics.js` and `analytics-config.js` if those files exist, but they are not present in the current repo.
 
 ## Branch and environment mapping
 

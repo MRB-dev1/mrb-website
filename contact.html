@@ -9,34 +9,78 @@
   <title>Contact - MRB</title>
   <meta name="description" content="Contact MRB for creator partnerships, custom game development, support, and business inquiries." />
   <link rel="icon" type="image/png" href="assets/mrb-browser-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=20260503b" />
+  <link rel="stylesheet" href="styles.css?v=20260503c" />
   <script src="analytics-config.js?v=20260502a" defer></script>
   <script src="analytics.js?v=20260503a" defer></script>
   <script src="script.js?v=20260503a" defer></script>
 </head>
-<body>
+<body class="contact-page">
   <header class="site-header">
-    <a class="brand" href="index.html" aria-label="MRB home">
-      <img src="assets/mrb-logo-white.png" alt="MRB" />
-      <span class="brand-text">MRB Studio</span>
+    <a class="brand" href="index.html" aria-label="MRB.INK home">
+      <span class="brand-mark">
+        <img src="assets/mrb-logo-white.png" alt="MRB.INK" />
+      </span>
+      <span class="brand-lockup">
+        <span class="brand-wordmark">MRB.INK</span>
+        <span class="brand-text">Stockholm UEFN Studio</span>
+      </span>
     </a>
     <nav class="nav" aria-label="Main navigation">
       <a href="work.html" data-analytics-label="Work">Work</a>
       <a href="services.html" data-analytics-label="Services">Services</a>
       <a href="shop.html" data-analytics-label="Shop">Shop</a>
       <a href="faq.html" data-analytics-label="FAQ">FAQ</a>
-      <a href="about.html" data-analytics-label="About">About</a><a href="contact.html" aria-current="page" data-analytics-label="Contact">Contact</a></nav>
-    <a class="nav-cta" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer">Book a discovery call</a>
+      <a href="about.html" data-analytics-label="About">About</a>
+      <a href="contact.html" aria-current="page" data-analytics-label="Contact">Contact</a>
+    </nav>
+    <a class="nav-cta mrb-btn mrb-btn--primary" href="contact.html" data-analytics-label="Header Book Discovery Call">Book a discovery call</a>
   </header>
 
   <main>
-    <section class="page-hero section-shell narrow">
-      <p class="eyebrow">Contact</p>
-      <h1>Planning a creator launch or custom build? <span class="accent-word">Book a discovery call.</span></h1>
-      <p>Product or support questions? Email <a class="text-link" href="mailto:support@mrb.ink">support@mrb.ink</a>. Use the form below when you want MRB to review scope, timing, or production needs in writing first.</p>
-      <div class="action-row">
-        <a class="button primary" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer">Book a discovery call</a>
-        <a class="button secondary" href="mailto:support@mrb.ink">Email support</a>
+    <section class="page-hero section-shell contact-hero">
+      <div class="contact-hero__grid">
+        <div class="contact-hero__copy" data-reveal="panel">
+          <p class="eyebrow">Contact</p>
+          <h1>Planning a creator launch or custom build? <span class="accent-word">Book a discovery call.</span></h1>
+          <p>Product or support questions? Email <a class="text-link" href="mailto:support@mrb.ink">support@mrb.ink</a>. Use the form below when you want MRB to review scope, timing, or production needs in writing first.</p>
+          <ul class="contact-hero__signals" aria-label="Launch brief essentials">
+            <li>Launch window</li>
+            <li>Budget range</li>
+            <li>Best-fit route</li>
+            <li>Go-live ready</li>
+          </ul>
+          <div class="action-row">
+            <a class="button primary" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer">Book a discovery call</a>
+            <a class="button secondary" href="#contact-form" data-scroll-center="#contact-form">Start a launch brief</a>
+          </div>
+        </div>
+        <aside class="contact-hero__brief-card" aria-labelledby="contact-brief-preview-title" data-reveal="panel">
+          <p class="eyebrow">Launch brief</p>
+          <h2 id="contact-brief-preview-title">Fastest route to a real next step.</h2>
+          <p>Give MRB the launch window, budget range, best-fit route, and what needs to be ready when the creator goes live. That routes the brief faster than a generic contact note.</p>
+          <div class="contact-hero__brief-grid" aria-label="Launch brief preview">
+            <article>
+              <span>01</span>
+              <strong>Launch window</strong>
+              <p>What date, stream beat, or partner timing the work has to hit.</p>
+            </article>
+            <article>
+              <span>02</span>
+              <strong>Budget range</strong>
+              <p>Enough range for MRB to route scope instead of guessing.</p>
+            </article>
+            <article>
+              <span>03</span>
+              <strong>Best-fit route</strong>
+              <p>Pick the fastest lane for custom work, support, or a founder-level question.</p>
+            </article>
+            <article>
+              <span>04</span>
+              <strong>Go-live ready</strong>
+              <p>What assets, systems, or approvals need to be in place.</p>
+            </article>
+          </div>
+        </aside>
       </div>
     </section>
 
@@ -45,7 +89,12 @@
     </div>
 
     <section class="section section-shell split" id="contact-options">
-      <div class="list-panel sticky-note contact-methods">
+      <div class="list-panel sticky-note contact-methods" data-reveal="left">
+        <article class="contact-methods__intro">
+          <p class="eyebrow">Routing options</p>
+          <h2>One page, one clear next move.</h2>
+          <p>Use the launch brief when you want scope, timing, or creator-launch requirements reviewed in writing first. Use the call route when the budget and direction are already clear enough to talk live.</p>
+        </article>
         <article>
           <div class="icon-title-row">
             <span class="icon-frame" aria-hidden="true">
@@ -99,100 +148,215 @@
         </article>
       </div>
 
-      <form class="form-panel" id="contact-form" action="/api/contact" method="post" data-contact-form data-form-name="Contact message">
-        <div class="form-grid">
-          <input class="honeypot" name="website" tabindex="-1" autocomplete="off" />
-          <div class="field">
-            <label for="name">Name</label>
-            <input id="name" name="Name" autocomplete="name" required />
+      <form class="form-panel contact-form-panel" id="contact-form" action="/api/contact" method="post" data-contact-form data-form-name="Launch brief" data-reveal="right">
+        <div class="contact-form-shell" data-form-shell>
+          <div class="contact-form-panel__intro">
+            <p class="eyebrow">Launch brief</p>
+            <h2>Start a launch brief</h2>
+            <p>Tell us the launch window, budget range, best-fit route, and what needs to be ready when the creator goes live.</p>
           </div>
-          <div class="field">
-            <label for="email">Email</label>
-            <input id="email" name="Email" type="email" autocomplete="email" pattern="^[^@\s]+@[^@\s]+\.[^@\s]{2,}$" title="Enter a full email address, for example name@example.com." required />
-          </div>
-          <div class="field full topic-field">
-            <label for="topic">Topic</label>
-            <div class="topic-chip-list" data-topic-chip-list>
-              <button class="topic-chip motion-safe-transition is-selected" type="button" data-topic-chip="Creator partnership" aria-pressed="true">
-                <span class="svg-icon icon--s" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                    <path d="M4 7h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
-                    <path d="m10 11 4 2-4 2v-4Z" />
-                    <path d="M20 8c1.7 1 2 2.1 2 4s-.3 3-2 4" />
-                  </svg>
-                </span>
-                <span>Creator partnership</span>
-              </button>
-              <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Custom development" aria-pressed="false">
-                <span class="svg-icon icon--s" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                    <path d="M12 3 20 7.5v9L12 21l-8-4.5v-9L12 3Z" />
-                    <path d="M12 7.5 16 9.8v4.4L12 16.5l-4-2.3V9.8L12 7.5Z" />
-                  </svg>
-                </span>
-                <span>Custom development</span>
-              </button>
-              <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Product support" aria-pressed="false">
-                <span class="svg-icon icon--s" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                    <path d="M12 19a7 7 0 1 0-7-7" />
-                    <path d="M5 17v3h3" />
-                    <path d="M9 14a3 3 0 0 1 6 0v1h-6v-1Z" />
-                  </svg>
-                </span>
-                <span>Product support</span>
-              </button>
-              <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Business inquiry" aria-pressed="false">
-                <span class="svg-icon icon--s" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                    <path d="M6 21h12" />
-                    <path d="M8 21V7h8v14" />
-                    <path d="M9 7V5a3 3 0 0 1 6 0v2" />
-                  </svg>
-                </span>
-                <span>Business inquiry</span>
-              </button>
-              <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Other" aria-pressed="false">
-                <span class="svg-icon icon--s" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
-                    <path d="M12 18h.01" />
-                    <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2-3 4" />
-                    <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" />
-                  </svg>
-                </span>
-                <span>Other</span>
-              </button>
+          <div class="form-grid">
+            <input class="honeypot" name="website" tabindex="-1" autocomplete="off" />
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="Name" autocomplete="name" required />
             </div>
-            <p class="topic-select-note">Or use the native selector below.</p>
-            <select id="topic" name="Topic">
-              <option>Creator partnership</option>
-              <option>Custom development</option>
-              <option>Product support</option>
-              <option>Business inquiry</option>
-              <option>Other</option>
-            </select>
-          </div>
-          <div class="field full">
-            <label for="message">Message</label>
-            <textarea id="message" name="Message" placeholder="Tell MRB what you need help with." required></textarea>
-          </div>
-          <div class="field full turnstile-field" data-turnstile-field hidden>
-            <div class="turnstile-card">
-              <div class="turnstile-card__head">
-                <label>Bot verification</label>
-                <p>Please confirm you are not a robot before sending.</p>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="Email" type="email" autocomplete="email" pattern="^[^@\s]+@[^@\s]+\.[^@\s]{2,}$" title="Enter a full email address, for example name@example.com." required />
+            </div>
+            <div class="field field--custom-select">
+              <label id="launch-window-label" for="launch-window">Launch window</label>
+              <div class="contact-select" data-contact-select data-empty-label="Select launch window">
+                <select class="contact-native-select" id="launch-window" name="Launch window" data-contact-select-native required>
+                  <option value="" selected disabled>Select launch window</option>
+                  <option>As soon as possible</option>
+                  <option>Within 30 days</option>
+                  <option>1 to 3 months</option>
+                  <option>3+ months</option>
+                  <option>Still scoping timing</option>
+                </select>
+                <button class="contact-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="launch-window-label launch-window-value" data-contact-select-trigger data-field-surface>
+                  <span class="contact-select__copy">
+                    <span class="contact-select__value" id="launch-window-value" data-contact-select-value>Select launch window</span>
+                    <span class="contact-select__hint">Pick the timing MRB should plan around.</span>
+                  </span>
+                  <span class="contact-select__chevron" aria-hidden="true"></span>
+                </button>
+                <div class="contact-select__menu" data-contact-select-menu hidden>
+                  <div class="contact-select__list" role="listbox" aria-labelledby="launch-window-label" data-contact-select-list>
+                    <button class="contact-select__option" type="button" role="option" data-value="As soon as possible" aria-selected="false">
+                      <span class="contact-select__option-label">As soon as possible</span>
+                      <span class="contact-select__option-note">Launch is already moving.</span>
+                    </button>
+                    <button class="contact-select__option" type="button" role="option" data-value="Within 30 days" aria-selected="false">
+                      <span class="contact-select__option-label">Within 30 days</span>
+                      <span class="contact-select__option-note">Fast turnaround matters.</span>
+                    </button>
+                    <button class="contact-select__option" type="button" role="option" data-value="1 to 3 months" aria-selected="false">
+                      <span class="contact-select__option-label">1 to 3 months</span>
+                      <span class="contact-select__option-note">Enough time to scope and ship cleanly.</span>
+                    </button>
+                    <button class="contact-select__option" type="button" role="option" data-value="3+ months" aria-selected="false">
+                      <span class="contact-select__option-label">3+ months</span>
+                      <span class="contact-select__option-note">Planned build with room for phases.</span>
+                    </button>
+                    <button class="contact-select__option" type="button" role="option" data-value="Still scoping timing" aria-selected="false">
+                      <span class="contact-select__option-label">Still scoping timing</span>
+                      <span class="contact-select__option-note">The date is still moving.</span>
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div class="turnstile-widget" data-turnstile-widget></div>
-              <p class="turnstile-card__note" data-turnstile-note hidden>Please complete bot verification.</p>
+            </div>
+            <div class="field field--custom-select">
+              <label id="budget-range-label" for="budget-range">Budget range</label>
+              <div class="contact-select" data-contact-select data-empty-label="Select budget range">
+                <select class="contact-native-select" id="budget-range" name="Budget range" data-contact-select-native required>
+                  <option value="" selected disabled>Select budget range</option>
+                  <option>Under $1,000</option>
+                  <option>$1,000 - $2,500</option>
+                  <option>$2,500 - $10,000</option>
+                  <option>$10,000+</option>
+                  <option>Need help scoping</option>
+                </select>
+                <button class="contact-select__trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-labelledby="budget-range-label budget-range-value" data-contact-select-trigger data-field-surface>
+                  <span class="contact-select__copy">
+                    <span class="contact-select__value" id="budget-range-value" data-contact-select-value>Select budget range</span>
+                    <span class="contact-select__hint">Give MRB the budget lane before scope gets expensive.</span>
+                  </span>
+                  <span class="contact-select__chevron" aria-hidden="true"></span>
+                </button>
+                <div class="contact-select__menu" data-contact-select-menu hidden>
+                  <div class="contact-select__list" role="listbox" aria-labelledby="budget-range-label" data-contact-select-list>
+                    <button class="contact-select__option" type="button" role="option" data-value="Under $1,000" aria-selected="false">
+                      <span class="contact-select__option-label">Under $1,000</span>
+                      <span class="contact-select__option-note">Tight scope or focused support.</span>
+                    </button>
+                    <button class="contact-select__option" type="button" role="option" data-value="$1,000 - $2,500" aria-selected="false">
+                      <span class="contact-select__option-label">$1,000 - $2,500</span>
+                      <span class="contact-select__option-note">Smaller custom route or setup block.</span>
+                    </button>
+                    <button class="contact-select__option" type="button" role="option" data-value="$2,500 - $10,000" aria-selected="false">
+                      <span class="contact-select__option-label">$2,500 - $10,000</span>
+                      <span class="contact-select__option-note">Production work with room for systems and polish.</span>
+                    </button>
+                    <button class="contact-select__option" type="button" role="option" data-value="$10,000+" aria-selected="false">
+                      <span class="contact-select__option-label">$10,000+</span>
+                      <span class="contact-select__option-note">Large launch, brand, or multi-partner build.</span>
+                    </button>
+                    <button class="contact-select__option" type="button" role="option" data-value="Need help scoping" aria-selected="false">
+                      <span class="contact-select__option-label">Need help scoping</span>
+                      <span class="contact-select__option-note">The budget needs a quick fit check first.</span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="field full topic-field">
+              <label for="topic">Best-fit route</label>
+              <div class="topic-chip-list" data-topic-chip-list data-field-surface>
+                <button class="topic-chip motion-safe-transition is-selected" type="button" data-topic-chip="Creator partnership" aria-pressed="true">
+                  <span class="svg-icon icon--s" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <path d="M4 7h11a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2Z" />
+                      <path d="m10 11 4 2-4 2v-4Z" />
+                      <path d="M20 8c1.7 1 2 2.1 2 4s-.3 3-2 4" />
+                    </svg>
+                  </span>
+                  <span>Creator partnership</span>
+                </button>
+                <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Custom development" aria-pressed="false">
+                  <span class="svg-icon icon--s" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <path d="M12 3 20 7.5v9L12 21l-8-4.5v-9L12 3Z" />
+                      <path d="M12 7.5 16 9.8v4.4L12 16.5l-4-2.3V9.8L12 7.5Z" />
+                    </svg>
+                  </span>
+                  <span>Custom development</span>
+                </button>
+                <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Product support" aria-pressed="false">
+                  <span class="svg-icon icon--s" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <path d="M12 19a7 7 0 1 0-7-7" />
+                      <path d="M5 17v3h3" />
+                      <path d="M9 14a3 3 0 0 1 6 0v1h-6v-1Z" />
+                    </svg>
+                  </span>
+                  <span>Product support</span>
+                </button>
+                <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Business inquiry" aria-pressed="false">
+                  <span class="svg-icon icon--s" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <path d="M6 21h12" />
+                      <path d="M8 21V7h8v14" />
+                      <path d="M9 7V5a3 3 0 0 1 6 0v2" />
+                    </svg>
+                  </span>
+                  <span>Business inquiry</span>
+                </button>
+                <button class="topic-chip motion-safe-transition" type="button" data-topic-chip="Other" aria-pressed="false">
+                  <span class="svg-icon icon--s" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false" aria-hidden="true">
+                      <path d="M12 18h.01" />
+                      <path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 2-3 4" />
+                      <path d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Z" />
+                    </svg>
+                  </span>
+                  <span>Other</span>
+                </button>
+              </div>
+              <select class="contact-native-select" id="topic" name="Topic">
+                <option>Creator partnership</option>
+                <option>Custom development</option>
+                <option>Product support</option>
+                <option>Business inquiry</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="message">What needs to be ready when the creator goes live?</label>
+              <textarea id="message" name="Message" placeholder="Deliverables, assets, approvals, launch beats, and anything already in motion." required></textarea>
+            </div>
+            <div class="field full turnstile-field" data-turnstile-field hidden>
+              <div class="turnstile-card">
+                <div class="turnstile-card__head">
+                  <label>Bot verification</label>
+                  <p>Please confirm you are not a robot before sending.</p>
+                </div>
+                <div class="turnstile-widget" data-turnstile-widget></div>
+                <p class="turnstile-card__note" data-turnstile-note hidden>Please complete bot verification.</p>
+              </div>
             </div>
           </div>
+          <div class="contact-form-panel__submit">
+            <div class="action-row contact-form-actions">
+              <button class="button primary contact-submit" type="submit" data-default-label="Send launch brief" data-loading-label="Routing brief…">
+                <span data-button-label>Send launch brief</span>
+                <span class="contact-submit__progress" aria-hidden="true">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </span>
+              </button>
+              <a class="button secondary" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer">Book a discovery call</a>
+            </div>
+            <p class="form-note contact-form-panel__fallback">If the brief blocks here, email <a class="text-link" href="mailto:hello@mrb.ink">hello@mrb.ink</a> and include your launch window.</p>
+            <p class="form-note contact-form-panel__status" data-form-status aria-live="polite">Replies within one business day.</p>
+          </div>
         </div>
-        <div class="action-row">
-          <button class="button primary" type="submit">Send message</button>
-          <a class="button secondary" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer">Book a discovery call</a>
+        <div class="contact-success-card" data-form-success hidden tabindex="-1" role="status" aria-live="polite">
+          <p class="eyebrow">Launch brief</p>
+          <h3>Brief received.</h3>
+          <p>We’ll reply within one business day with the next best step: discovery call, scope check, or product route.</p>
+          <div class="contact-success-card__meta">
+            <span class="contact-success-card__chip">Reply window: one business day.</span>
+          </div>
+          <div class="contact-success-card__actions">
+            <a class="button secondary" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer">Book a discovery call</a>
+            <a class="text-link" href="mailto:hello@mrb.ink">Add more detail by email</a>
+          </div>
         </div>
-        <p class="form-note">If the form hangs, email <a class="text-link" href="mailto:hello@mrb.ink">hello@mrb.ink</a>.</p>
-        <p class="form-note" data-form-status>Replies within one business day.</p>
       </form>
     </section>
 
@@ -216,38 +380,44 @@
   </main>
 
   <footer class="footer section-shell">
-    <div>
-      <a class="footer-brand" href="index.html" aria-label="MRB home">
-        <img src="assets/mrb-logo-white.png" alt="MRB" />
+    <div class="footer-intro">
+      <a class="brand footer-brand" href="index.html" aria-label="MRB.INK home">
+        <span class="brand-mark">
+          <img src="assets/mrb-logo-white.png" alt="MRB.INK" />
+        </span>
+        <span class="brand-lockup">
+          <span class="brand-wordmark">MRB.INK</span>
+          <span class="brand-text">Stockholm UEFN Studio</span>
+        </span>
       </a>
-      <p>Premium creator-focused game development studio for launch-ready playable worlds.</p>
+      <p class="footer-kicker">Premium creator launches for teams with a real date to hit.</p>
+      <p class="footer-copy">UEFN worlds, creator launch systems, and partner-ready production support built in Stockholm for content creators, brands, and collaborators with real budgets.</p>
+      <a class="mrb-btn mrb-btn--primary footer-cta" href="contact.html" data-analytics-label="Footer Book Discovery Call">Book a discovery call</a>
     </div>
     <nav class="footer-grid" aria-label="Footer navigation">
-      <div>
-        <h2>Studio</h2>
+      <div class="footer-section">
+        <p class="footer-heading">Studio</p>
         <a href="index.html" data-analytics-label="Home">Home</a>
         <a href="work.html" data-analytics-label="Work">Work</a>
         <a href="about.html" data-analytics-label="About">About</a>
         <a href="contact.html" data-analytics-label="Contact">Contact</a>
-        <a href="faq.html" data-analytics-label="FAQ">FAQ</a>
-        <a href="https://x.com/MRB_Main" target="_blank" rel="noreferrer" data-analytics-label="X / Twitter">X / Twitter</a>
       </div>
-      <div>
-        <h2>Services</h2>
-        <a href="services.html#creator-launches" data-analytics-label="Creator Partnerships">Creator partnerships</a>
+      <div class="footer-section">
+        <p class="footer-heading">Services</p>
+        <a href="services.html#creator-launches" data-analytics-label="Creator Launches">Creator launches</a>
         <a href="services.html#custom-coding" data-analytics-label="Custom Coding">Custom coding</a>
         <a href="services.html#game-systems" data-analytics-label="Game Systems">Game systems</a>
-        <a href="contact.html" data-analytics-label="Contact MRB">Contact MRB</a>
+        <a href="contact.html" data-analytics-label="Services Contact CTA">Book a discovery call</a>
       </div>
-      <div>
-        <h2>Shop</h2>
-        <a href="shop.html" data-analytics-label="All Products">All products</a>
-        <a href="shop.html#scripts" data-analytics-label="Scripts">Scripts</a>
-        <a href="shop.html#assets" data-analytics-label="Assets">Assets</a>
-        <a href="license.html" data-analytics-label="License Terms">License terms</a>
+      <div class="footer-section">
+        <p class="footer-heading">Channels</p>
+        <a href="shop.html" data-analytics-label="All Products">Shop</a>
+        <a href="faq.html" data-analytics-label="FAQ">FAQ</a>
+        <a href="mailto:hello@mrb.ink" data-analytics-label="Email Hello">hello@mrb.ink</a>
+        <a href="https://x.com/MRB_Main" target="_blank" rel="noreferrer" data-analytics-label="X / Twitter">X / Twitter</a>
       </div>
-      <div>
-        <h2>Legal</h2>
+      <div class="footer-section">
+        <p class="footer-heading">Legal</p>
         <a href="privacy.html" data-analytics-label="Privacy Policy">Privacy Policy</a>
         <a href="terms.html" data-analytics-label="Terms of Service">Terms of Service</a>
         <a href="refund-policy.html" data-analytics-label="Refund Policy">Refund Policy</a>

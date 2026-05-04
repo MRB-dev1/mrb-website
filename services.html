@@ -9,9 +9,10 @@
   <title>Services - MRB</title>
   <meta name="description" content="Custom game development services from MRB: creator launch builds, custom coding, game systems, prototypes, assets, polish, and optimization." />
   <link rel="icon" type="image/png" href="assets/mrb-browser-icon.png" />
-  <link rel="stylesheet" href="styles.css?v=20260503b" />
+  <link rel="stylesheet" href="styles.css?v=20260503d" />
   <script src="analytics-config.js?v=20260502a" defer></script>
   <script src="analytics.js?v=20260503a" defer></script>
+  <script src="script.js?v=20260503a" defer></script>
 </head>
 <body class="services-page">
   <header class="site-header">
@@ -29,14 +30,23 @@
   </header>
 
   <main>
-    <section class="page-hero section-shell narrow services-hero">
-      <p class="eyebrow">Custom development</p>
-      <h1>Custom UEFN development for <span class="accent-word">launches</span>, bespoke systems, and production support.</h1>
-      <p>MRB scopes the hook, builds the systems, prepares the handoff, and stays close through launch when a template is not enough.</p>
+    <section class="page-hero section-shell services-hero">
+      <div class="services-hero__simple" data-reveal="panel">
+        <p class="eyebrow">Custom development</p>
+        <h1>Custom UEFN builds<span class="services-hero__headline-line">for <span class="accent-word">creator launches</span>.</span></h1>
+        <p class="services-hero__lead">Bespoke systems, production support, and launch-ready handoff for projects that need more than a template.</p>
+      </div>
     </section>
 
     <section class="section section-shell services-capabilities">
-      <div class="grid-3 service-grid">
+      <div class="section-heading services-capabilities__heading" data-reveal="panel">
+        <div>
+          <p class="eyebrow">Service lanes</p>
+          <h2>Services for launches, systems, and support.</h2>
+        </div>
+        <p>Products are for speed. Services are for precision.</p>
+      </div>
+      <div class="grid-3 service-grid" data-reveal="panel">
         <article class="card" id="creator-launches">
           <span class="card-number">01</span>
           <div class="icon-title-row">
@@ -121,15 +131,16 @@
     </section>
 
     <section class="section subtle-band services-packages">
-      <div class="section-shell split">
-        <div class="sticky-note">
+      <div class="section-shell split services-packages__layout">
+        <div class="sticky-note" data-reveal="panel">
           <p class="eyebrow">Project packages</p>
           <h2><span class="accent-word">Scope</span> the work before the build gets expensive.</h2>
           <p>Use a package as a starting point, then refine the scope based on UEFN needs, deadline, assets, systems, and launch goals.</p>
-          <a class="button primary pulse-cta" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer" data-analytics-label="Services Book Discovery Call">Book a discovery call</a>
+          <a class="button primary services-cta" href="https://cal.com/robin-engelheart-mrb/45min?overlayCalendar=true" target="_blank" rel="noreferrer" data-analytics-label="Services Book Discovery Call">Book a discovery call</a>
+          <p>The first discovery call is zero commitment, no pressure, and usually takes 15-30 minutes.</p>
         </div>
 
-        <div class="list-panel package-panel">
+        <div class="list-panel package-panel" data-reveal="panel">
           <article class="package-card package-card--launch">
             <div class="icon-title-row icon-title-row--compact">
               <span class="icon-frame icon-frame--tight" aria-hidden="true">
@@ -188,7 +199,7 @@
     </section>
 
     <section class="section section-shell services-process">
-      <div class="section-heading">
+      <div class="section-heading services-process__heading" data-reveal="panel">
         <div>
           <p class="eyebrow">How work starts</p>
           <h2>A practical discovery flow for <span class="accent-word">serious</span> projects.</h2>
@@ -196,7 +207,14 @@
         <p>First call: audience, launch window, risk, and budget range. Then MRB locks the hook, platform fit, timeline, and production path.</p>
       </div>
 
-      <div class="process-list">
+      <ul class="services-process__brief" aria-label="First call covers" data-reveal="panel">
+        <li>Audience</li>
+        <li>Launch window</li>
+        <li>Risk</li>
+        <li>Budget range</li>
+      </ul>
+
+      <div class="process-list" data-reveal="panel">
         <article class="process-step process-step--discovery">
           <span class="process-step__marker" aria-hidden="true">
             <svg class="icon--s" viewBox="0 0 24 24" focusable="false" aria-hidden="true">
@@ -282,6 +300,48 @@
       </div>
     </section>
 
+    <section class="section section-shell services-readiness">
+      <div class="section-heading stack services-readiness__heading" data-reveal="panel">
+        <p class="eyebrow">Launch readiness check</p>
+        <h2>Before publish, MRB checks what the audience sees, what the creator can explain, and what the team can safely ship.</h2>
+        <p>The board below keeps the proof tied to creator launches, gameplay clarity, and delivery risk instead of vague production language.</p>
+      </div>
+
+      <div class="launch-readiness-map services-readiness__map" aria-labelledby="launch-readiness-title" data-reveal="panel">
+        <div class="launch-readiness-map__head">
+          <p class="launch-readiness-map__eyebrow">Launch readiness map</p>
+          <span class="launch-readiness-map__status">4 active checks</span>
+        </div>
+        <h2 id="launch-readiness-title">MRB production checks</h2>
+        <div class="launch-readiness-map__board">
+          <ol class="launch-readiness-map__nodes" aria-label="MRB production checks">
+            <li class="launch-readiness-map__node">
+              <span class="launch-readiness-map__chip">Check 01</span>
+              <h3>Audience Hook</h3>
+            </li>
+            <li class="launch-readiness-map__node">
+              <span class="launch-readiness-map__chip">Check 02</span>
+              <h3>Stream Readability</h3>
+            </li>
+            <li class="launch-readiness-map__node">
+              <span class="launch-readiness-map__chip">Check 03</span>
+              <h3>Gameplay Loop</h3>
+            </li>
+            <li class="launch-readiness-map__node">
+              <span class="launch-readiness-map__chip">Check 04</span>
+              <h3>Delivery Risk</h3>
+            </li>
+          </ol>
+          <ul class="launch-readiness-map__criteria" aria-label="Launch readiness criteria">
+            <li>Hook visible in first frame</li>
+            <li>Route readable while live</li>
+            <li>Scope matched to launch window</li>
+            <li>Handoff clear before publish</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
     <section class="section section-shell services-faq">
       <div class="section-heading stack">
         <p class="eyebrow">FAQ</p>
@@ -312,7 +372,7 @@
       </div>
     </section>
 
-    <section class="section section-shell final-cta services-final-cta">
+    <section class="section section-shell final-cta services-final-cta" data-reveal="panel">
       <p class="eyebrow">Ready to scope it?</p>
       <h2>Start with the audience and the launch <span class="accent-word">moment</span>.</h2>
       <p>Tell MRB what you want to build, who it is for, and when it needs to go live.</p>
