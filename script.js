@@ -263,6 +263,95 @@
 
   initMobileNav();
 
+  const initHeroTilt = () => {
+    if (!("matchMedia" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      return;
+    }
+
+    const stage = document.querySelector(".mrb-tilt-stage");
+
+    if (!(stage instanceof HTMLElement)) {
+      return;
+    }
+
+    const tiltEls = Array.from(stage.querySelectorAll("[data-tilt]"));
+
+    if (!tiltEls.length) {
+      return;
+    }
+
+    const states = tiltEls.map((el) => {
+      const isPanel = el.classList.contains("hero-panel");
+
+      return {
+        el,
+        currentX: 0,
+        currentY: 0,
+        maxX: isPanel ? 9 : 12,
+        maxY: isPanel ? 12 : 16,
+      };
+    });
+
+    const target = { x: 0, y: 0 };
+    let rect = null;
+    let raf = 0;
+
+    const tick = () => {
+      let stillMoving = false;
+      const lerp = 0.14;
+
+      states.forEach((state) => {
+        state.currentX += (target.x - state.currentX) * lerp;
+        state.currentY += (target.y - state.currentY) * lerp;
+        state.el.style.setProperty("--rx", `${(-state.currentY * state.maxX).toFixed(2)}deg`);
+        state.el.style.setProperty("--ry", `${(state.currentX * state.maxY).toFixed(2)}deg`);
+
+        if (Math.abs(target.x - state.currentX) > 0.0005 || Math.abs(target.y - state.currentY) > 0.0005) {
+          stillMoving = true;
+        }
+      });
+
+      raf = stillMoving ? window.requestAnimationFrame(tick) : 0;
+    };
+
+    const ensureLoop = () => {
+      if (!raf) {
+        raf = window.requestAnimationFrame(tick);
+      }
+    };
+
+    const refreshRect = () => {
+      rect = stage.getBoundingClientRect();
+    };
+
+    stage.addEventListener("pointerenter", refreshRect, { passive: true });
+    stage.addEventListener("pointermove", (event) => {
+      if (!rect) {
+        refreshRect();
+      }
+
+      if (!rect || !rect.width || !rect.height) {
+        return;
+      }
+
+      target.x = (event.clientX - rect.left) / rect.width - 0.5;
+      target.y = (event.clientY - rect.top) / rect.height - 0.5;
+      ensureLoop();
+    }, { passive: true });
+    stage.addEventListener("pointerleave", () => {
+      target.x = 0;
+      target.y = 0;
+      ensureLoop();
+    }, { passive: true });
+
+    window.addEventListener("scroll", () => {
+      rect = null;
+    }, { passive: true });
+    window.addEventListener("resize", () => {
+      rect = null;
+    });
+  };
+
   const initMrbHomeHero = () => {
     const hero = document.querySelector(".mrb-hero");
 
@@ -299,6 +388,7 @@
   };
 
   initMrbHomeHero();
+  initHeroTilt();
 
   const initFaqPage = () => {
     const faqPage = document.querySelector(".faq-page");
