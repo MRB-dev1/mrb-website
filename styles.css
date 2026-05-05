@@ -67,7 +67,6 @@
   --accent-blue-soft: rgba(61, 183, 255, 0.16);
   --accent-blue-glow: rgba(61, 183, 255, 0.28);
   --accent-blue-line: linear-gradient(90deg, rgba(61, 183, 255, 0), rgba(61, 183, 255, 0.92), rgba(61, 183, 255, 0));
-  --type-display: clamp(56px, 7.5vw, 88px);
   --type-h1: clamp(48px, 7vw, 80px);
   --type-h2: clamp(34px, 4vw, 52px);
   --type-h3: clamp(24px, 2.4vw, 32px);
@@ -269,10 +268,13 @@ button {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  width: min(calc(var(--max) + 64px), calc(100% - 32px));
-  max-width: calc(var(--max) + 64px);
+  /* Header chrome overhangs the section column by 16px total (8px each side).
+     Combined with padding-x: 8px, the brand lands at section-x at every
+     viewport. See note in CLAUDE.md / docs/conventions.md if reorganized. */
+  width: min(calc(var(--max) + 16px), calc(100% - var(--mrb-gutter) * 2 + 16px));
+  max-width: calc(var(--max) + 16px);
   margin: 12px auto 0;
-  padding: 18px 32px;
+  padding: 18px 8px;
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
   background:
@@ -5014,13 +5016,25 @@ button {
 }
 
 [data-reveal="left"],
-.timeline-item.left {
-  transform: translateX(-24px);
-}
-
+.timeline-item.left,
 [data-reveal="right"],
 .timeline-item.right {
-  transform: translateX(24px);
+  /* Mobile fallback: a vertical drop avoids bleeding past the 16px gutter
+     during the reveal transition (body has overflow-x: hidden, so an X
+     translate would be silently clipped on phones). */
+  transform: translateY(12px);
+}
+
+@media (min-width: 700px) {
+  [data-reveal="left"],
+  .timeline-item.left {
+    transform: translateX(-24px);
+  }
+
+  [data-reveal="right"],
+  .timeline-item.right {
+    transform: translateX(24px);
+  }
 }
 
 [data-reveal="scale"] {
@@ -5502,8 +5516,10 @@ button {
 
   .site-header {
     top: 8px;
-    width: calc(100% - 20px);
-    padding: 12px 12px 10px;
+    /* Section gutter at <=620px is 16px (calc(100% - 32px) / 2),
+       so header overhangs by 16 total → width = 100% - 16px, padding 8. */
+    width: calc(100% - 16px);
+    padding: 12px 8px 10px;
     border-radius: var(--radius-lg);
   }
 
@@ -8050,7 +8066,7 @@ ol {
 
 .site-header {
   gap: 20px 24px;
-  padding: 18px 24px;
+  padding: 18px 8px;
   border: 1px solid var(--divider-subtle);
   border-radius: var(--mrb-radius-xl);
   background:
@@ -8600,7 +8616,6 @@ ol {
   :root {
     --mrb-container-max: 1540px;
     --mrb-gutter: 32px;
-    --type-display: clamp(68px, 4.7vw, 116px);
     --type-h1: clamp(56px, 4.2vw, 92px);
     --type-h2: clamp(40px, 2.8vw, 64px);
     --type-h3: clamp(28px, 1.9vw, 38px);
@@ -8610,7 +8625,7 @@ ol {
 
   .site-header {
     gap: 24px 32px;
-    padding: 22px 30px;
+    padding: 22px 8px;
   }
 
   .brand {
@@ -8769,7 +8784,6 @@ ol {
   :root {
     --mrb-container-max: 2400px;
     --mrb-gutter: 40px;
-    --type-display: clamp(90px, 4.4vw, 168px);
     --type-h1: clamp(74px, 3.8vw, 136px);
     --type-h2: clamp(52px, 2.4vw, 82px);
     --type-h3: clamp(34px, 1.7vw, 48px);
@@ -8783,7 +8797,7 @@ ol {
 
   .site-header {
     gap: 28px 40px;
-    padding: 28px 38px;
+    padding: 28px 8px;
   }
 
   .brand {
@@ -9156,8 +9170,8 @@ ol {
   }
 
   .site-header {
-    width: calc(100% - 20px);
-    padding: 14px 14px 12px;
+    width: calc(100% - 16px);
+    padding: 14px 8px 12px;
   }
 
   .brand-mark {
