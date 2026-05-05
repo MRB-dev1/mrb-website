@@ -2,14 +2,9 @@ name = "mrb-website"
 pages_build_output_dir = "dist-cloudflare"
 compatibility_date = "2026-04-23"
 
-# Rate-limit storage for /api/contact. Create the namespace once with:
-#   wrangler kv:namespace create RATE_LIMIT_KV
-#   wrangler kv:namespace create RATE_LIMIT_KV --preview
-# then paste the returned IDs below. While the IDs are blank the contact
-# function falls back to allow-with-no-limit (and keeps logging) so the
-# form never breaks if the binding is missing — but production should
-# always have these filled in.
-[[kv_namespaces]]
-binding = "RATE_LIMIT_KV"
-id = ""
-preview_id = ""
+# Rate-limit storage for /api/contact is optional. When a KV namespace is
+# available, add it back with real IDs:
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT_KV"
+# id = "your-production-kv-id"
+# preview_id = "your-preview-kv-id"
