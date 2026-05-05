@@ -86,7 +86,8 @@
       return;
     }
 
-    const mobileNavQuery = window.matchMedia("(max-width: 980px)");
+    // Keep this in sync with the @media (max-width: 1100px) burger block in styles.css.
+    const mobileNavQuery = window.matchMedia("(max-width: 1100px)");
     const syncHandlers = [];
 
     headers.forEach((header, index) => {

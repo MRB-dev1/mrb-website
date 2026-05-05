@@ -1,3 +1,18 @@
+/* ─────────────────────────────────────────────────────────────────────────
+   Breakpoint convention — match these values in @media queries instead
+   of inventing new ones. CSS custom properties can't be used inside
+   @media, so this is doc-only; please grep before adding a new one.
+
+     640px   "sm"   small + large phones (section gutter shrinks to 16px)
+     1100px  "md"   tablet → desktop nav switch (burger threshold)
+     1180px  "lg"   --max threshold (container stops growing with viewport)
+     2200px  "xl"   ultra-wide rescale #1 (--mrb-container-max → 1540)
+     3200px  "2xl"  ultra-wide rescale #2 (--mrb-container-max → 2400)
+
+   Legacy breakpoints still in use elsewhere (520, 620, 720, 760, 780,
+   820, 860, 980, 1080, 1120, 1200) should migrate to the nearest token
+   above when their owner files are next refactored.
+   ───────────────────────────────────────────────────────────────────────── */
 :root {
   --mrb-ink-950: #07090d;
   --mrb-surface-900: #11161e;
@@ -5054,26 +5069,22 @@ button {
   filter: blur(0);
 }
 
-@media (max-width: 980px) {
-  html,
-  body {
-    overflow-x: hidden;
-  }
-
-  body {
-    background-attachment: scroll;
-  }
-
-  body::before,
-  body::after {
-    width: 100%;
-    max-width: 100%;
-  }
-
+/* Mobile nav (burger) — engaged at <=1100px so the awkward "nav wraps to a
+   second row" tablet band (981-1100) collapses straight into the burger.
+   Keep this breakpoint in sync with mobileNavQuery in script.js. */
+@media (max-width: 1100px) {
   .site-header {
     flex-wrap: wrap;
     gap: 12px 18px;
-    padding: 14px 18px;
+    padding: 14px 8px;
+  }
+
+  /* Pre-JS fallback: until script.js wraps the loose nav links into a
+     panel and inserts the burger toggle, hide the loose links so users
+     don't briefly see a full-width unwrapped nav before the burger renders. */
+  .site-header:not(.is-mobile-nav-ready) > .nav,
+  .site-header:not(.is-mobile-nav-ready) > .nav-cta {
+    display: none;
   }
 
   .nav {
@@ -5186,6 +5197,23 @@ button {
 
   .site-header[data-mobile-nav-open="true"] .nav-toggle__line:nth-child(3) {
     transform: translateY(-7px) rotate(-45deg);
+  }
+}
+
+@media (max-width: 980px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  body {
+    background-attachment: scroll;
+  }
+
+  body::before,
+  body::after {
+    width: 100%;
+    max-width: 100%;
   }
 
   h1,
@@ -9143,18 +9171,9 @@ ol {
 }
 
 @media (max-width: 1100px) {
-  .site-header {
-    flex-wrap: wrap;
-    gap: 14px 20px;
-    padding: 16px 18px;
-  }
-
-  .nav {
-    order: 3;
-    width: 100%;
-    padding-top: 8px;
-  }
-
+  /* .site-header / .nav stacking rules previously here were superseded by
+     the burger nav (see the dedicated @media (max-width: 1100px) block
+     near the [data-reveal] section). Keep only footer collapsing here. */
   .footer {
     grid-template-columns: 1fr;
   }
