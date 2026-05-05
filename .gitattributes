@@ -1,0 +1,20 @@
+# Normalize line endings so working copies on Windows and *nix produce identical diffs.
+* text=auto eol=lf
+
+# Binary assets — never touch.
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.gif   binary
+*.ico   binary
+*.webp  binary
+*.webm  binary
+*.mp4   binary
+*.mov   binary
+*.pdf   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.otf   binary
+*.eot   binary
+*.zip   binary

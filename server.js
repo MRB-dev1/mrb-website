@@ -62,21 +62,39 @@ const MIME_TYPES = {
   ".txt": "text/plain; charset=utf-8",
 };
 
-const sendJson = (res, status, payload) => {
+const ALLOWED_ORIGINS = new Set([
+  "https://mrb.ink",
+  "https://www.mrb.ink",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+]);
+
+const buildCorsHeaders = (req) => {
+  const origin = req.headers.origin || "";
+  const headers = {
+    "Access-Control-Allow-Headers": "Content-Type, Accept",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    Vary: "Origin",
+  };
+  if (ALLOWED_ORIGINS.has(origin)) {
+    headers["Access-Control-Allow-Origin"] = origin;
+  }
+  return headers;
+};
+
+const sendJson = (req, res, status, payload) => {
   res.writeHead(status, {
     "Content-Type": "application/json; charset=utf-8",
     "Cache-Control": "no-store",
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type, Accept",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    ...buildCorsHeaders(req),
   });
   res.end(JSON.stringify(payload));
 };
 
-const sendContactConfig = (res) => {
+const sendContactConfig = (req, res) => {
   const turnstile = getTurnstileConfig(process.env);
 
-  sendJson(res, 200, {
+  sendJson(req, res, 200, {
     ok: true,
     turnstile: {
       enabled: turnstile.enabled,
@@ -226,7 +244,7 @@ const handleContact = async (req, res) => {
     const fields = parseSubmission(rawBody, req.headers["content-type"] || "");
 
     if (fields.website) {
-      return sendJson(res, 200, { ok: true });
+      return sendJson(req, res, 200, { ok: true });
     }
 
     const name = String(fields.Name || "").trim();
@@ -236,18 +254,18 @@ const handleContact = async (req, res) => {
     const turnstile = getTurnstileConfig(process.env);
 
     if (!name || !isValidEmail(email) || !message) {
-      return sendJson(res, 400, { ok: false, message: "Missing required fields" });
+      return sendJson(req, res, 400, { ok: false, message: "Missing required fields" });
     }
 
     if (isBlockedName(name)) {
-      return sendJson(res, 403, {
+      return sendJson(req, res, 403, {
         ok: false,
         message: "This contact submission was blocked.",
       });
     }
 
     if (findDisposableEmailDomain(email)) {
-      return sendJson(res, 400, {
+      return sendJson(req, res, 400, {
         ok: false,
         message: "Temporary or disposable email addresses are not accepted. Use your real email instead.",
       });
@@ -256,7 +274,7 @@ const handleContact = async (req, res) => {
     const rateLimit = isRateLimited({ ip: requestIp, email });
     if (rateLimit.limited) {
       recordSubmissionAttempt({ ip: requestIp, email });
-      return sendJson(res, 429, {
+      return sendJson(req, res, 429, {
         ok: false,
         message: "Too many contact attempts from this connection. Please try again a bit later.",
       });
@@ -270,14 +288,14 @@ const handleContact = async (req, res) => {
         env: process.env,
       });
     } catch (error) {
-      return sendJson(res, 502, {
+      return sendJson(req, res, 502, {
         ok: false,
         message: "Could not verify the Cloudflare Turnstile check right now. Please try again.",
       });
     }
 
     if (turnstile.enabled && !turnstileResult.success) {
-      return sendJson(res, 400, {
+      return sendJson(req, res, 400, {
         ok: false,
         message: "Please complete the Cloudflare Turnstile check before sending.",
         errors: turnstileResult["error-codes"] || [],
@@ -310,14 +328,14 @@ const handleContact = async (req, res) => {
       discordResult = { sent: false, reason: error.message };
     }
 
-    sendJson(res, 200, {
+    sendJson(req, res, 200, {
       ok: true,
       id: submission.id,
       email: emailResult,
       discord: discordResult,
     });
   } catch (error) {
-    sendJson(res, 500, { ok: false, message: "Could not process inquiry" });
+    sendJson(req, res, 500, { ok: false, message: "Could not process inquiry" });
   }
 };
 
@@ -359,17 +377,13 @@ const server = http.createServer((req, res) => {
   const requestUrl = new URL(req.url, `http://${req.headers.host}`);
 
   if (requestUrl.pathname === "/api/contact" && req.method === "OPTIONS") {
-    res.writeHead(204, {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type, Accept",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    });
+    res.writeHead(204, buildCorsHeaders(req));
     res.end();
     return;
   }
 
   if (req.method === "GET" && requestUrl.pathname === "/api/contact") {
-    sendContactConfig(res);
+    sendContactConfig(req, res);
     return;
   }
 

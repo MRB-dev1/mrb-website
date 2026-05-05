@@ -1,34 +1,75 @@
 import disposableDomains from "../../data/disposable-email-domains.json";
 
-const json = (payload, status = 200) =>
-  new Response(JSON.stringify(payload), {
-    status,
-    headers: {
-      "Content-Type": "application/json; charset=utf-8",
-      "Cache-Control": "no-store",
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Headers": "Content-Type, Accept",
-      "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-    },
-  });
+const ALLOWED_ORIGINS = new Set([
+  "https://mrb.ink",
+  "https://www.mrb.ink",
+  "http://localhost:3000",
+  "http://127.0.0.1:3000",
+]);
 
 const SECURITY_FIELD_NAMES = new Set(["website", "cf-turnstile-response"]);
+const BODY_BYTE_LIMIT = 100_000;
+const ATTEMPT_WINDOW_MS = 10 * 60 * 1000;
+const HARD_RATE_LIMIT = 8;
+const RATE_LIMIT_KEY_PREFIX = "rl:";
+const DEFAULT_BLOCKED_NAME_PATTERNS = ["robertbic"];
+
 const disposableDomainSet = new Set(
   disposableDomains.map((domain) => String(domain).trim().toLowerCase()).filter(Boolean)
 );
 const DISPOSABLE_DOMAIN_HINT_PATTERN =
   /\b(10min|disposable|getnada|guerrillamail|maildrop|mailinator|sharklasers|tempmail|throwaway|trashmail|yopmail)\b/i;
-const ATTEMPT_WINDOW_MS = 10 * 60 * 1000;
-const HARD_RATE_LIMIT = 8;
-const attemptHistory = new Map();
+
+const buildCorsHeaders = (request) => {
+  const origin = request.headers.get("origin") || "";
+  const headers = {
+    "Access-Control-Allow-Headers": "Content-Type, Accept",
+    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+    Vary: "Origin",
+  };
+  if (ALLOWED_ORIGINS.has(origin)) {
+    headers["Access-Control-Allow-Origin"] = origin;
+  }
+  return headers;
+};
+
+const json = (request, payload, status = 200) =>
+  new Response(JSON.stringify(payload), {
+    status,
+    headers: {
+      "Content-Type": "application/json; charset=utf-8",
+      "Cache-Control": "no-store",
+      ...buildCorsHeaders(request),
+    },
+  });
 
 const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-const normalizeName = (name) => String(name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
-const isBlockedName = (name) => {
-  const rawName = String(name || "").trim();
-  const normalizedName = normalizeName(rawName);
 
-  return /robertbic/i.test(rawName) || /robertbic/i.test(normalizedName);
+const normalizeName = (name) => String(name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
+
+const buildBlockedNamePatterns = (env) => {
+  const raw = String(env.BLOCKED_NAME_PATTERNS || "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+  const sources = raw.length ? raw : DEFAULT_BLOCKED_NAME_PATTERNS;
+  return sources
+    .map((pattern) => {
+      try {
+        return new RegExp(pattern, "i");
+      } catch (error) {
+        return null;
+      }
+    })
+    .filter(Boolean);
+};
+
+const isBlockedName = (name, patterns) => {
+  const normalized = normalizeName(name);
+  if (!normalized) {
+    return false;
+  }
+  return patterns.some((pattern) => pattern.test(normalized));
 };
 
 const filterVisibleFields = (fields) =>
@@ -76,51 +117,77 @@ const getTurnstileConfig = (env) => {
   };
 };
 
-const pruneAttemptHistory = (nowMs = Date.now()) => {
-  attemptHistory.forEach((timestamps, key) => {
-    const recent = timestamps.filter((timestamp) => nowMs - timestamp <= ATTEMPT_WINDOW_MS);
-
-    if (recent.length) {
-      attemptHistory.set(key, recent);
-      return;
-    }
-
-    attemptHistory.delete(key);
-  });
-};
-
-const getAttemptCount = (key, nowMs = Date.now()) => {
-  if (!key) {
-    return 0;
+const readKvAttempts = async (kv, identity) => {
+  if (!kv || !identity) {
+    return [];
   }
 
-  pruneAttemptHistory(nowMs);
-  return attemptHistory.get(key)?.length || 0;
+  const raw = await kv.get(`${RATE_LIMIT_KEY_PREFIX}${identity}`);
+  if (!raw) {
+    return [];
+  }
+
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.filter((value) => Number.isFinite(value)) : [];
+  } catch (error) {
+    return [];
+  }
 };
 
-const recordSubmissionAttempt = ({ ip, email }, nowMs = Date.now()) => {
-  const keys = [
-    ip ? `ip:${String(ip).trim().toLowerCase()}` : "",
-    email ? `email:${String(email).trim().toLowerCase()}` : "",
-  ].filter(Boolean);
+const writeKvAttempts = (kv, identity, timestamps) => {
+  if (!kv || !identity) {
+    return Promise.resolve();
+  }
 
-  pruneAttemptHistory(nowMs);
-  keys.forEach((key) => {
-    const timestamps = attemptHistory.get(key) || [];
-    timestamps.push(nowMs);
-    attemptHistory.set(key, timestamps);
+  return kv.put(`${RATE_LIMIT_KEY_PREFIX}${identity}`, JSON.stringify(timestamps), {
+    expirationTtl: Math.ceil(ATTEMPT_WINDOW_MS / 1000),
   });
 };
 
-const isRateLimited = ({ ip, email }, nowMs = Date.now()) => {
-  const ipAttempts = getAttemptCount(ip ? `ip:${String(ip).trim().toLowerCase()}` : "", nowMs);
-  const emailAttempts = getAttemptCount(email ? `email:${String(email).trim().toLowerCase()}` : "", nowMs);
+const buildIdentityKeys = ({ ip, email }) => {
+  const keys = [];
+  const ipKey = ip ? `ip:${String(ip).trim().toLowerCase()}` : "";
+  const emailKey = email ? `email:${String(email).trim().toLowerCase()}` : "";
+  if (ipKey) keys.push(ipKey);
+  if (emailKey) keys.push(emailKey);
+  return keys;
+};
 
-  return {
-    limited: ipAttempts >= HARD_RATE_LIMIT || emailAttempts >= HARD_RATE_LIMIT,
-    ipAttempts,
-    emailAttempts,
-  };
+const checkRateLimit = async ({ kv, ip, email }, nowMs = Date.now()) => {
+  if (!kv) {
+    return { limited: false, snapshot: new Map(), kvAvailable: false };
+  }
+
+  const identities = buildIdentityKeys({ ip, email });
+  const cutoff = nowMs - ATTEMPT_WINDOW_MS;
+
+  const entries = await Promise.all(
+    identities.map(async (identity) => {
+      const raw = await readKvAttempts(kv, identity);
+      const recent = raw.filter((timestamp) => timestamp > cutoff);
+      return [identity, recent];
+    })
+  );
+
+  const snapshot = new Map(entries);
+  const limited = entries.some(([, recent]) => recent.length >= HARD_RATE_LIMIT);
+
+  return { limited, snapshot, kvAvailable: true };
+};
+
+const recordRateLimitAttempt = async ({ kv, ip, email, snapshot }, nowMs = Date.now()) => {
+  if (!kv) {
+    return;
+  }
+
+  const identities = buildIdentityKeys({ ip, email });
+  await Promise.all(
+    identities.map((identity) => {
+      const previous = snapshot.get(identity) || [];
+      return writeKvAttempts(kv, identity, [...previous, nowMs]);
+    })
+  );
 };
 
 const verifyTurnstileToken = async ({ token, remoteIp, env }) => {
@@ -163,15 +230,62 @@ const verifyTurnstileToken = async ({ token, remoteIp, env }) => {
   return response.json();
 };
 
+const readBoundedBody = async (request, maxBytes) => {
+  const contentLengthHeader = request.headers.get("content-length");
+  if (contentLengthHeader) {
+    const declared = Number(contentLengthHeader);
+    if (Number.isFinite(declared) && declared > maxBytes) {
+      const error = new Error("Body exceeds size limit");
+      error.code = "BODY_TOO_LARGE";
+      throw error;
+    }
+  }
+
+  const reader = request.body?.getReader();
+  if (!reader) {
+    return "";
+  }
+
+  const chunks = [];
+  let total = 0;
+
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) {
+      break;
+    }
+    total += value.byteLength;
+    if (total > maxBytes) {
+      try {
+        await reader.cancel();
+      } catch (error) {
+        // Ignore cancel errors — the limit response is what matters.
+      }
+      const error = new Error("Body exceeds size limit");
+      error.code = "BODY_TOO_LARGE";
+      throw error;
+    }
+    chunks.push(value);
+  }
+
+  const merged = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    merged.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return new TextDecoder("utf-8").decode(merged);
+};
+
 const parseFields = async (request) => {
+  const raw = await readBoundedBody(request, BODY_BYTE_LIMIT);
   const contentType = request.headers.get("content-type") || "";
 
   if (contentType.includes("application/json")) {
-    return request.json();
+    return JSON.parse(raw || "{}");
   }
 
-  const formData = await request.formData();
-  return Object.fromEntries(formData.entries());
+  return Object.fromEntries(new URLSearchParams(raw).entries());
 };
 
 const formatLines = (fields) => Object.entries(fields).map(([key, value]) => `${key}: ${value}`);
@@ -285,30 +399,37 @@ const sendDiscord = async (fields, env) => {
   return { sent: true };
 };
 
-export const onRequestOptions = async () => new Response(null, {
-  status: 204,
-  headers: {
-    "Access-Control-Allow-Origin": "*",
-    "Access-Control-Allow-Headers": "Content-Type, Accept",
-    "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
-  },
-});
+export const onRequestOptions = async ({ request }) =>
+  new Response(null, {
+    status: 204,
+    headers: buildCorsHeaders(request),
+  });
 
-export const onRequestGet = async ({ env }) =>
-  json({
+export const onRequestGet = async ({ request, env }) => {
+  const turnstile = getTurnstileConfig(env);
+  return json(request, {
     ok: true,
     turnstile: {
-      enabled: getTurnstileConfig(env).enabled,
-      siteKey: getTurnstileConfig(env).enabled ? getTurnstileConfig(env).siteKey : "",
+      enabled: turnstile.enabled,
+      siteKey: turnstile.enabled ? turnstile.siteKey : "",
     },
   });
+};
 
 export const onRequestPost = async ({ request, env }) => {
   try {
-    const fields = await parseFields(request);
+    let fields;
+    try {
+      fields = await parseFields(request);
+    } catch (error) {
+      if (error && error.code === "BODY_TOO_LARGE") {
+        return json(request, { ok: false, message: "Submission too large" }, 413);
+      }
+      return json(request, { ok: false, message: "Invalid request body" }, 400);
+    }
 
     if (fields.website) {
-      return json({ ok: true });
+      return json(request, { ok: true });
     }
 
     const name = String(fields.Name || "").trim();
@@ -316,13 +437,15 @@ export const onRequestPost = async ({ request, env }) => {
     const message = String(fields.Message || fields["Project summary"] || "").trim();
     const ip = request.headers.get("cf-connecting-ip") || request.headers.get("x-forwarded-for") || "";
     const turnstile = getTurnstileConfig(env);
+    const blockedPatterns = buildBlockedNamePatterns(env);
 
     if (!name || !isValidEmail(email) || !message) {
-      return json({ ok: false, message: "Missing required fields" }, 400);
+      return json(request, { ok: false, message: "Missing required fields" }, 400);
     }
 
-    if (isBlockedName(name)) {
+    if (isBlockedName(name, blockedPatterns)) {
       return json(
+        request,
         {
           ok: false,
           message: "This contact submission was blocked.",
@@ -333,6 +456,7 @@ export const onRequestPost = async ({ request, env }) => {
 
     if (findDisposableEmailDomain(email)) {
       return json(
+        request,
         {
           ok: false,
           message: "Temporary or disposable email addresses are not accepted. Use your real email instead.",
@@ -341,10 +465,16 @@ export const onRequestPost = async ({ request, env }) => {
       );
     }
 
-    const rateLimit = isRateLimited({ ip, email });
+    const rateLimit = await checkRateLimit({ kv: env.RATE_LIMIT_KV, ip, email });
     if (rateLimit.limited) {
-      recordSubmissionAttempt({ ip, email });
+      await recordRateLimitAttempt({
+        kv: env.RATE_LIMIT_KV,
+        ip,
+        email,
+        snapshot: rateLimit.snapshot,
+      });
       return json(
+        request,
         {
           ok: false,
           message: "Too many contact attempts from this connection. Please try again a bit later.",
@@ -362,6 +492,7 @@ export const onRequestPost = async ({ request, env }) => {
       });
     } catch (error) {
       return json(
+        request,
         {
           ok: false,
           message: "Could not verify the Cloudflare Turnstile check right now. Please try again.",
@@ -372,6 +503,7 @@ export const onRequestPost = async ({ request, env }) => {
 
     if (turnstile.enabled && !turnstileResult.success) {
       return json(
+        request,
         {
           ok: false,
           message: "Please complete the Cloudflare Turnstile check before sending.",
@@ -381,7 +513,12 @@ export const onRequestPost = async ({ request, env }) => {
       );
     }
 
-    recordSubmissionAttempt({ ip, email });
+    await recordRateLimitAttempt({
+      kv: env.RATE_LIMIT_KV,
+      ip,
+      email,
+      snapshot: rateLimit.snapshot,
+    });
 
     const results = await Promise.allSettled([sendEmail(fields, env), sendDiscord(fields, env)]);
     const emailResult =
@@ -393,12 +530,12 @@ export const onRequestPost = async ({ request, env }) => {
       throw new Error("No delivery method configured");
     }
 
-    return json({
+    return json(request, {
       ok: true,
       email: emailResult,
       discord: discordResult,
     });
   } catch (error) {
-    return json({ ok: false, message: "Could not process inquiry" }, 500);
+    return json(request, { ok: false, message: "Could not process inquiry" }, 500);
   }
 };

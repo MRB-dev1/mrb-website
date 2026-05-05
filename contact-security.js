@@ -12,7 +12,24 @@ const DISPOSABLE_DOMAIN_HINT_PATTERN =
 const ATTEMPT_WINDOW_MS = 10 * 60 * 1000;
 const HARD_RATE_LIMIT = 8;
 const attemptHistory = new Map();
-const blockedNamePatterns = [/robertbic/i];
+const DEFAULT_BLOCKED_NAME_PATTERNS = ["robertbic"];
+
+const buildBlockedNamePatterns = () => {
+  const raw = String(process.env.BLOCKED_NAME_PATTERNS || "")
+    .split(",")
+    .map((entry) => entry.trim())
+    .filter(Boolean);
+  const sources = raw.length ? raw : DEFAULT_BLOCKED_NAME_PATTERNS;
+  return sources
+    .map((pattern) => {
+      try {
+        return new RegExp(pattern, "i");
+      } catch (error) {
+        return null;
+      }
+    })
+    .filter(Boolean);
+};
 
 const normalizeEmailDomain = (email) => {
   const normalizedEmail = String(email || "").trim().toLowerCase();
@@ -82,10 +99,11 @@ const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
 const normalizeName = (name) => String(name || "").toLowerCase().replace(/[^a-z0-9]/g, "");
 
 const isBlockedName = (name) => {
-  const rawName = String(name || "").trim();
-  const normalizedName = normalizeName(rawName);
-
-  return blockedNamePatterns.some((pattern) => pattern.test(rawName) || pattern.test(normalizedName));
+  const normalized = normalizeName(name);
+  if (!normalized) {
+    return false;
+  }
+  return buildBlockedNamePatterns().some((pattern) => pattern.test(normalized));
 };
 
 const findDisposableEmailDomain = (email) => {

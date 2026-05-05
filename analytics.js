@@ -67,14 +67,6 @@
     return Number(numericValue.toFixed(4));
   };
 
-  const sanitizeErrorText = (value, maxLength = 150) =>
-    normalizeText(
-      String(value || "")
-        .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[redacted-email]")
-        .replace(/https?:\/\/[^\s)]+/gi, (match) => sanitizeUrl(match)),
-      maxLength
-    );
-
   const sanitizeUrl = (value) => {
     if (!value) {
       return "";
@@ -103,6 +95,14 @@
       return rawValue.split("#")[0].split("?")[0];
     }
   };
+
+  const sanitizeErrorText = (value, maxLength = 150) =>
+    normalizeText(
+      String(value || "")
+        .replace(/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/gi, "[redacted-email]")
+        .replace(/https?:\/\/[^\s)]+/gi, (match) => sanitizeUrl(match)),
+      maxLength
+    );
 
   const sanitizeParams = (params) => {
     const sanitizeValue = (key, value) => {
