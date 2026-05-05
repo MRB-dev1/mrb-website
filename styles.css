@@ -7762,13 +7762,18 @@ summary:focus-visible {
 }
 
 .cookie-banner {
+  /* Anchored to bottom-LEFT (not centered) so it never overlaps the
+     homepage .hero-panel — the floating "Creator launch readout" card
+     sits at the bottom-center of the viewport on desktop and was getting
+     covered by the previous bottom-center banner. Width is capped so the
+     banner stays out of the hero column on every viewport. */
   position: fixed;
-  left: 50%;
+  left: 24px;
   bottom: 24px;
   z-index: 90;
   display: grid;
   gap: 16px;
-  width: min(560px, calc(100vw - 32px));
+  width: min(420px, calc(100vw - 48px));
   padding: 20px 20px 18px;
   border: 1px solid var(--divider-subtle);
   border-radius: 22px;
@@ -7779,7 +7784,7 @@ summary:focus-visible {
     0 24px 60px rgba(0, 0, 0, 0.45),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
   opacity: 0;
-  transform: translate(-50%, 20px);
+  transform: translateY(20px);
   pointer-events: none;
   transition:
     opacity var(--motion-surface),
@@ -7792,7 +7797,7 @@ summary:focus-visible {
 
 .cookie-banner.is-open {
   opacity: 1;
-  transform: translate(-50%, 0);
+  transform: translateY(0);
   pointer-events: auto;
 }
 
