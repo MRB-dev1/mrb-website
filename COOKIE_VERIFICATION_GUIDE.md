@@ -25,7 +25,7 @@ Use this checklist when verifying the consent flow and consent-related analytics
 
 ## Manual verification steps
 
-1. Set `debug: true` in [analytics-config.js](/C:/Users/robin/Downloads/creator_studio_starter/analytics-config.js).
+1. Set `debug: true` in [analytics-config.js](./analytics-config.js).
 2. Start the site with `npm start`.
 3. Open a page in a fresh browser session and confirm the banner appears.
 4. With DevTools open, verify there are no GA requests before clicking any consent action.

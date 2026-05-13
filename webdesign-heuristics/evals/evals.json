@@ -1,0 +1,29 @@
+{
+  "skill_name": "webdesign-heuristics",
+  "evals": [
+    {
+      "id": 1,
+      "name": "review-pass-bad-css",
+      "prompt": "Hey can you do a design review on my portfolio css? It's the file I'm sharing — I feel like it looks kinda dated and harsh, my friend said the text is too dark and the cards look caged. Tell me what's wrong and fix it. Light theme only for now.",
+      "expected_output": "An audit that identifies multiple failure modes by name (pure black text, off-grid spacing, harsh card border, brand color used for error state, hardcoded gray for disabled, emoji icons, too-tight body line-height). A proposed table of changes (location → current → recommended → rule). After approval-style framing, the actual fixed CSS — with rgba opacity ladder for text, ~rgba(0,0,0,0.12) borders, multiples of 4 for spacing, modular type scale, semantic error/success colors, no emojis. CSS variables defined at :root.",
+      "files": ["fixtures/bad-styles.css"],
+      "assertions": []
+    },
+    {
+      "id": 2,
+      "name": "passive-build-pricing-card",
+      "prompt": "build me a clean pricing card component (just html + css) for my saas — should have the plan name, the price ($29/month), 5 feature bullets, and a CTA button. dark theme. no framework just plain css.",
+      "expected_output": "A single HTML+CSS component using a dark theme. Spacing values must be multiples of 4. The price ($29) must be the largest text element, dominating the plan name visually. CSS uses semantic token variables (or at minimum rgba opacity values for text — 0.87/0.60). No Unicode emojis as bullet markers — uses SVG, ::before pseudo elements with content, or proper icon font. Button has at least default + hover states, ideally also focus-visible and disabled. Body text not pure white. Card surface separated from background by a 4-6% lightness step.",
+      "files": [],
+      "assertions": []
+    },
+    {
+      "id": 3,
+      "name": "adaptive-add-dark-theme",
+      "prompt": "i wanna add dark mode support to my dashboard css. it currently only has light theme. can you do it properly — i don't want it to just be the inverted hexes, i want it to actually look right in dark. make sure both themes still work.",
+      "expected_output": "Updated CSS with a @media (prefers-color-scheme: dark) block (or a [data-theme='dark'] selector). Dark mode surfaces use 4-6% lightness deltas between page/card/elevated, NOT the same 2% used in light mode. Dark surface backgrounds get progressively lighter as elevation increases (not darker). Text uses rgba(255,255,255, ...) ladder — 0.87/0.60/0.38. Divider opacity comparable to light mode (~0.12 alpha but white instead of black). The light theme is preserved unchanged. Does NOT direct-invert hexes. Mentions or warns against using `opacity:` on parent containers.",
+      "files": ["fixtures/light-only.css"],
+      "assertions": []
+    }
+  ]
+}

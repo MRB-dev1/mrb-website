@@ -3,7 +3,7 @@
 ## Baseline audit before editing
 
 - Date: 2026-04-28
-- Workspace: `C:\Users\robin\Downloads\creator_studio_starter`
+- Workspace: `C:\Users\robin\Downloads\MRB_Studio_website(MRB.ink)`
 - Work-page source located: `work.html`
 - Shared styling located: `styles.css`
 - Primary asset directory located: `assets`

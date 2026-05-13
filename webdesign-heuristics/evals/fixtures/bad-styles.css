@@ -1,0 +1,84 @@
+/* portfolio.css — current site styles */
+
+body {
+  background: #FFFFFF;
+  color: #000000;
+  font-family: 'Inter', sans-serif;
+  font-size: 17px;
+  margin: 0;
+  padding: 21px;
+}
+
+h1 {
+  font-size: 47px;
+  line-height: 1.6;
+  letter-spacing: 0;
+  margin-bottom: 13px;
+}
+
+h2 {
+  font-size: 33px;
+  line-height: 1.5;
+  margin-bottom: 11px;
+}
+
+h3 {
+  font-size: 22px;
+  margin-bottom: 9px;
+}
+
+p {
+  font-size: 17px;
+  line-height: 1.2;
+  color: #888888;
+  margin-bottom: 17px;
+}
+
+.card {
+  background: #F5F5F5;
+  border: 1px solid #000000;
+  border-radius: 7px;
+  padding: 23px;
+  margin-bottom: 19px;
+}
+
+.card-meta {
+  font-size: 13px;
+  color: #BBBBBB;
+}
+
+.button-primary {
+  background: #4A6FFF;
+  color: #FFFFFF;
+  padding: 11px 19px;
+  border: none;
+  border-radius: 5px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.nav a {
+  color: #000000;
+  text-decoration: none;
+  margin-right: 17px;
+}
+
+.error-message {
+  color: #4A6FFF;  /* uses brand color for errors */
+  font-weight: 600;
+}
+
+.success-toast {
+  background: #4A6FFF;
+  color: white;
+  padding: 13px;
+}
+
+.disabled-text {
+  color: #DDDDDD;  /* "minimalist" disabled */
+}
+
+.icon-emoji {
+  font-size: 18px;
+}
+/* used like: <span class="icon-emoji">⚠️</span> for warnings */

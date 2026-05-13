@@ -1,6 +1,6 @@
 ## Overview
 
-MRB Creator Studio is a hand-authored static marketing site for a creator-focused UEFN/Fortnite studio. The live stack today is HTML + CSS + selective client-side animation JS, deployed through GitHub to Cloudflare Pages, with one backend path: `/api/contact` posting inquiries to Discord through a webhook-backed serverless handler.
+MRB Studio Website (mrb.ink) is a hand-authored static marketing site for a creator-focused UEFN/Fortnite studio. The live stack today is HTML + CSS + selective client-side animation JS, deployed through GitHub to Cloudflare Pages, with one backend path: `/api/contact` posting inquiries to Discord through a webhook-backed serverless handler.
 
 ## Current stack
 

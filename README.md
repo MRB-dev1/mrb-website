@@ -1,4 +1,4 @@
-# MRB Creator Studio Website
+# MRB Studio Website (mrb.ink)
 
 Static HTML/CSS/JS marketing site for a creator-focused UEFN/Fortnite studio, with a small inquiry backend for local Node development and Cloudflare Pages deployment.
 

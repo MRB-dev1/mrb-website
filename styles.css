@@ -9025,12 +9025,16 @@ ol {
   }
 
   .mrb-hero__proof {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
     gap: 8px;
     margin-top: 18px;
   }
 
   .mrb-hero__proof li {
     width: 100%;
+    max-width: none;
+    min-width: 0;
     justify-content: center;
     padding: 10px 14px;
     text-align: center;

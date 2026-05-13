@@ -1,10 +1,10 @@
 # Analytics
 
-This site uses the inline `gtag` integration in [analytics.js](/C:/Users/robin/Downloads/creator_studio_starter/analytics.js) with consent gating from the existing cookie banner flow. No analytics events are sent until the visitor accepts analytics cookies.
+This site uses the inline `gtag` integration in [analytics.js](../analytics.js) with consent gating from the existing cookie banner flow. No analytics events are sent until the visitor accepts analytics cookies.
 
 ## Configuration
 
-- Measurement ID lives in [analytics-config.js](/C:/Users/robin/Downloads/creator_studio_starter/analytics-config.js).
+- Measurement ID lives in [analytics-config.js](../analytics-config.js).
 - `send_page_view: true` is explicit in the GA4 config call.
 - `allow_google_signals` and `allow_ad_personalization_signals` stay disabled.
 - `ad_storage`, `ad_user_data`, and `ad_personalization` stay denied in the consent payload.
@@ -171,7 +171,7 @@ Current repo note:
 
 ## DebugView Verification
 
-1. Set `debug: true` in [analytics-config.js](/C:/Users/robin/Downloads/creator_studio_starter/analytics-config.js), or temporarily open the page with `?debug_ga=1`.
+1. Set `debug: true` in [analytics-config.js](../analytics-config.js), or temporarily open the page with `?debug_ga=1`.
 2. Enable the Google Analytics Debugger browser extension.
 3. Start the site with `npm start`.
 4. Open the local pages through `http://localhost:3000/`.
