@@ -1,5 +1,14 @@
 # CHANGES
 
+## Live Deploy Cache-Busting Fix - 2026-05-13
+
+- Confirmed the GitHub -> Cloudflare Pages production flow was working and that live homepage HTML content was updating.
+- Traced the missing mobile scaling on the live site to stale shared asset references rather than a failed publish: the page was still loading an older `styles.css?v=...` URL even though the repo and `dist-cloudflare/` already contained the correct CSS.
+- Bumped the shared asset query strings across the root HTML pages to `styles.css?v=20260513a` and `script.js?v=20260513a`.
+- Updated `_headers` so `/styles.css` and `/script.js` stay on `must-revalidate` instead of `immutable`, while leaving `/assets/*` on long-lived immutable caching.
+- Verified the live HTML, the exact live CSS payload, and the public mobile homepage layout after the push.
+- Files touched in this pass: `_headers`, root `*.html`, `README.md`, `docs/deployment.md`, `docs/gotchas.md`, `CHANGES.md`
+
 ## Contact Anti-Spam Hardening + Services Page Refresh - 2026-05-01
 
 - Added a lightweight anti-bot layer to the contact flow across `server.js`, `api/contact.js`, and `functions/api/contact.js`.

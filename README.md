@@ -82,6 +82,7 @@ Opening `contact.html` or `book.html` directly from disk is not a full backend t
 
 This repo is set up for Cloudflare Pages:
 
+- Production flow: push `main` to GitHub, then let Cloudflare Pages Git integration build from that branch.
 - Build command: `npm run build:cloudflare`
 - Build output directory: `dist-cloudflare`
 - Functions directory: `functions`
@@ -92,6 +93,8 @@ Manual deploy command:
 ```bash
 npm run deploy:cloudflare
 ```
+
+If live HTML text updates but layout or behavior changes do not, treat it as an asset-versioning problem before assuming the publish failed. This repo references `styles.css` and `script.js` with `?v=` query strings, so shared CSS/JS changes should be shipped with a bumped version string across the root HTML files plus a rebuilt `dist-cloudflare/` bundle.
 
 ## Current caveats
 

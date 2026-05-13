@@ -85,3 +85,26 @@ Repo-grounded rollback options are:
 - `/api/*` is `no-store`
 
 Because assets are immutable at the header layer, any asset replacement should be paired with an updated `?v=` query string in the HTML that references it.
+
+## Stale-live troubleshooting
+
+The most recent "it pushed to GitHub but not to live" incident on `2026-05-13` was not a failed Cloudflare publish. The GitHub -> Cloudflare Pages flow worked, and the live homepage text updated, but the page still referenced an older `styles.css?v=...` URL. That left the mobile scaling fix invisible on the public site because Cloudflare and browsers kept serving the older cached stylesheet.
+
+What fixed it:
+
+1. Confirmed `main` had the expected commit and that the live HTML had updated.
+2. Compared the live homepage asset URLs against the repo versions.
+3. Confirmed the repo and `dist-cloudflare/` already contained the right mobile CSS rules.
+4. Bumped the shared asset query strings across the root HTML files:
+   - `styles.css?v=20260513a`
+   - `script.js?v=20260513a`
+5. Kept `/styles.css` and `/script.js` on `must-revalidate` in `_headers` instead of `immutable`.
+6. Rebuilt `dist-cloudflare/`, pushed `main`, and then verified the live HTML and live CSS directly.
+
+Use this same checklist any time content appears live but styling or shared JS changes do not:
+
+1. Fetch the live HTML and inspect the `styles.css?v=` and `script.js?v=` values.
+2. Fetch that exact live asset URL and verify the expected selector or script change is present.
+3. If the repo has the fix but the live asset URL is old, bump the version query string across every root HTML file that references the shared asset.
+4. Rebuild `dist-cloudflare/`.
+5. Push `main` again and verify the live page is referencing the new asset version.
